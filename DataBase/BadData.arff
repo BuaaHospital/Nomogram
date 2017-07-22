@@ -1,0 +1,36 @@
+@relation ''
+
+@attribute ID numeric
+@attribute Name string
+@attribute Age numeric
+@attribute Sex numeric
+@attribute Eye numeric
+@attribute SE numeric
+@attribute UCVA numeric
+@attribute SD numeric
+@attribute CD numeric
+@attribute Axis numeric
+@attribute BCVA numeric
+@attribute CornealRadius numeric
+@attribute OpticalZone numeric
+@attribute K1 numeric
+@attribute K2 numeric
+@attribute Km numeric
+@attribute CCT numeric
+@attribute LeadEye numeric
+@attribute PredictNomogram numeric
+@attribute RST numeric
+@attribute Time numeric
+@attribute Humidity numeric
+@attribute Temperature numeric
+@attribute FirstEyeToTreat numeric
+@attribute Energy numeric
+@attribute OBL numeric
+@attribute Thickness numeric
+@attribute Position numeric
+@attribute RealNomogram numeric
+@attribute SDAfterOneDay
+@attribute SDAfterThreeMonths
+@attribute SDAfterSixMonths
+
+@data

@@ -1,0 +1,46 @@
+Folder PATH listing for volume zhutc
+Volume serial number is 7C00-5FED
+F:.
+©¦   Config.ini
+©¦   list.txt
+©¦   nomogram.exe
+©¦   
+©À©¤©¤©¤Database
+©¦       Confirmed.arff
+©¦       Trained.arff
+©¦       Unconfirmed.arff
+©¦       
+©À©¤©¤©¤Models
+©¦   ©À©¤©¤©¤Classify
+©¦   ©¦   ©À©¤©¤©¤History
+©¦   ©¦   ©¦       1.model
+©¦   ©¦   ©¦       
+©¦   ©¦   ©¸©¤©¤©¤Latest
+©¦   ©¦           2.model
+©¦   ©¦           
+©¦   ©¸©¤©¤©¤MultiPreception
+©¦       ©À©¤©¤©¤History
+©¦       ©¦   ©À©¤©¤©¤OD
+©¦       ©¦   ©¦       1.model
+©¦       ©¦   ©¦       
+©¦       ©¦   ©¸©¤©¤©¤OS
+©¦       ©¦           1.model
+©¦       ©¦           
+©¦       ©¸©¤©¤©¤Latest
+©¦           ©À©¤©¤©¤OD
+©¦           ©¦       2.model
+©¦           ©¦       
+©¦           ©¸©¤©¤©¤OS
+©¦                   2.model
+©¦                   
+©¸©¤©¤©¤Train
+    ©À©¤©¤©¤Classify
+    ©¦       Train.arff
+    ©¦       
+    ©¸©¤©¤©¤MultiPreception
+        ©À©¤©¤©¤OD
+        ©¦       Train.arff
+        ©¦       
+        ©¸©¤©¤©¤OS
+                Train.arff
+                
