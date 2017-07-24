@@ -343,7 +343,7 @@ public class PredictInterface {
 		AttributeData.add(K2Text.getText());
 		AttributeData.add(KmText.getText());
 		AttributeData.add(CCTText.getText());
-		AttributeData.add(EyeLabels[LeadEyeBox.getSelectedIndex()]);		
+		AttributeData.add(EyeLabels[LeadEyeBox.getSelectedIndex()]);	
 		return AttributeData;
 	}
 	
@@ -365,5 +365,9 @@ public class PredictInterface {
 	
 	public void setLogText(String text) {
 		LogArea.setText(LogArea.getText() + "\n" + text);
+	}
+	
+	public void addHistory(Attribute attribute) {
+		historyTabelModel.addHistoryItem(attribute);
 	}
 }

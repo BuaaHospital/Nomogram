@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 public class HistoryTabelModel extends AbstractTableModel{
 
 	private ArrayList<Attribute> HistoryData = new ArrayList();
-	String[] HistoryTableColomnName = {"病历号", "姓名", "年龄", "性别", "眼别", "等效球镜度", "术前裸眼视力", "球镜度", "柱镜度", "轴", "最佳矫正视力", "角膜半径", "光学区", "K1", "K2", "Km", "角膜中央厚度", "主导眼"};
+	String[] HistoryTableColomnName = {"病历号", "姓名", "年龄", "性别", "眼别", "等效球镜度", "术前裸眼视力", "球镜度", "柱镜度", "轴", "最佳矫正视力", "角膜半径", "光学区", "K1", "K2", "Km", "角膜中央厚度", "主导眼", "预测球镜调整值"};
 	
 	@Override
 	public int getRowCount() {

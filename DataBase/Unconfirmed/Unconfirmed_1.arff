@@ -29,8 +29,8 @@
 @attribute Thickness numeric
 @attribute Position numeric
 @attribute RealNomogram numeric
-@attribute SDAfterOneDay
-@attribute SDAfterThreeMonths
-@attribute SDAfterSixMonths
+@attribute SDAfterOneDay numeric
+@attribute SDAfterThreeMonths numeric
+@attribute SDAfterSixMonths numeric
 
 @data

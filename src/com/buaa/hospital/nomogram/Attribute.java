@@ -89,19 +89,19 @@ public class Attribute {
 		ArrayList<String> AttributeData = predictInterface.toArrayList();
 		ID = Double.parseDouble(AttributeData.get(0));
 		Name = AttributeData.get(1);
-		if (AttributeData.get(2).equals("Male")) {
+		Age = Double.parseDouble(AttributeData.get(2));
+		if (AttributeData.get(3).equals("Male")) {
 			Sex = SexEnum.Male;
 		}
 		else {
 			Sex = SexEnum.Female;
 		}
-		if (AttributeData.get(3).equals("OS")) {
+		if (AttributeData.get(4).equals("OS")) {
 			Eye = EyeEnum.OS;
 		}
 		else {
 			Eye = EyeEnum.OD;
 		}
-		Age = Double.parseDouble(AttributeData.get(4));
 		SE = Double.parseDouble(AttributeData.get(5));
 		UCVA = Double.parseDouble(AttributeData.get(6));
 		SD = Double.parseDouble(AttributeData.get(7));
@@ -172,13 +172,7 @@ public class Attribute {
 	}
 	
 	public Instance GenInstance() throws Exception {
-		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
-		String string = ID + ", " + Name + "," + Sex + "," + Eye + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," +K1+ "," + K2+ "," + Km+ "," + CCT+ "," + LeadEye+ "," + PredictNomogram+ "," + RST+ "," + Time+ "," + Humidity+ "," + Temperature+ "," + FirstEyeToTreat+ "," + Energy+ "," + OBL+ "," + Thickness+ "," + Position+ "," + RealNomogram+ "," + SDAfterOneDay+ "," + SDAfterThreeMonths+ "," + SDAfterSixMonths;
-		bWriter.write(Constant.ArffFileHead + string);
-		bWriter.flush();
-		bWriter.close();
-		DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
-		Instances structure = dataSource.getDataSet();
+		Instances structure = GenInstances();
 		return structure.instance(0);
 	}
 	
@@ -205,12 +199,8 @@ public class Attribute {
 	}
 	
 	public Instance GenMultiPreceptionInstance() throws Exception {
-		Instance instance = GenInstance();
-		int[] DeleteAttributeIndex = {31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 17, 4, 3, 1, 0};
-		for (int i = 0; i < DeleteAttributeIndex.length; i ++) {
-			instance.deleteAttributeAt(DeleteAttributeIndex[i]);
-		}
-		return instance;
+		Instances structure = GenMultiPreceptionInstances();
+		return structure.instance(0);
 	}
 	
 	public void setNomogram(double nomogram) {
@@ -225,10 +215,13 @@ public class Attribute {
 		ArrayList<String> AttributeArrayList = new ArrayList();
 		AttributeArrayList.add(Double.toString(ID));
 		AttributeArrayList.add(Name);
+		AttributeArrayList.add(Double.toString(Age));
 		AttributeArrayList.add(Sex.toString());
 		AttributeArrayList.add(Eye.toString());
-		AttributeArrayList.add(Double.toString(Age));
 		AttributeArrayList.add(Double.toString(SE));
+		AttributeArrayList.add(Double.toString(UCVA));
+		AttributeArrayList.add(Double.toString(SD));
+		AttributeArrayList.add(Double.toString(CD));
 		AttributeArrayList.add(Double.toString(Axis));
 		AttributeArrayList.add(Double.toString(BCVA));
 		AttributeArrayList.add(Double.toString(CornealRadius));
@@ -265,14 +258,37 @@ public class Attribute {
 	        e.printStackTrace();
 	    }
 	}
+	public Instances GenMultiPreceptionInstances() throws Exception {
+		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
+		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
+		bWriter.write(Constant.ArffFileHead + string);
+		bWriter.flush();
+		bWriter.close();
+		DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
+		Instances structure = dataSource.getDataSet();
+		int[] DeleteAttributeIndex = {31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 17, 4, 3, 1, 0};
+		for (int i = 0; i < DeleteAttributeIndex.length; i ++) {
+			structure.deleteAttributeAt(DeleteAttributeIndex[i]);
+		}
+		return structure;
+	}
+	
 	public Instances GenInstances() throws Exception {
 		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
-		String string = ID + ", " + Name + "," + Sex + "," + Eye + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," +K1+ "," + K2+ "," + Km+ "," + CCT+ "," + LeadEye+ "," + PredictNomogram+ "," + RST+ "," + Time+ "," + Humidity+ "," + Temperature+ "," + FirstEyeToTreat+ "," + Energy+ "," + OBL+ "," + Thickness+ "," + Position+ "," + RealNomogram+ "," + SDAfterOneDay+ "," + SDAfterThreeMonths+ "," + SDAfterSixMonths;
+		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 		bWriter.write(Constant.ArffFileHead + string);
 		bWriter.flush();
 		bWriter.close();
 		DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
 		Instances structure = dataSource.getDataSet();
 		return structure;
+	}
+	
+	public double getID() {
+		return ID;
+	}
+	
+	public String getName() {
+		return Name;
 	}
 }
