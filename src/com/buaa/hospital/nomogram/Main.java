@@ -25,6 +25,7 @@ import org.jvnet.substance.watermark.SubstanceBinaryWatermark;
 public class Main {
 
 	private JFrame frame;
+	private DataBase dataBase;
 
 	/**
 	 * Launch the application.
@@ -44,15 +45,18 @@ public class Main {
 
 	/**
 	 * Create the application.
+	 * @throws Exception 
 	 */
-	public Main() {
+	public Main() throws Exception {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws Exception 
 	 */
-	private void initialize() {
+	private void initialize() throws Exception {
+		dataBase = new DataBase();
 		int ScreenHeight=Toolkit.getDefaultToolkit().getScreenSize().height;
 		int ScreenWeight=Toolkit.getDefaultToolkit().getScreenSize().width;
 		frame = new JFrame();

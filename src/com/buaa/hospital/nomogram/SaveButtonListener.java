@@ -33,9 +33,15 @@ public class SaveButtonListener implements ActionListener {
 				//分类算法
 			}
 			attribute.setNomogram(Nomogram);
+			attribute.GenTime();
+			attribute.GenRST();
 			predictInterface.setLogText(">> 病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 使用" + predictInterface.getAlogrithmName() + "的预测球镜调整值为 " + Nomogram);
+			predictInterface.setLogText("正在检查数据库中是否有相同的病人信息...");
+			predictInterface.setLogText("病人信息和预测结果正在存入数据库...");
+			predictInterface.setLogText("保存完毕！");
 			predictInterface.addHistory(attribute);
 			predictInterface.RefreshHistoryTable();
+			
 		}
 	}
 	

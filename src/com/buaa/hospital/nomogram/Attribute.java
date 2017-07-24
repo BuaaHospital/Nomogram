@@ -258,6 +258,7 @@ public class Attribute {
 	        e.printStackTrace();
 	    }
 	}
+	
 	public Instances GenMultiPreceptionInstances() throws Exception {
 		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
 		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
@@ -282,6 +283,14 @@ public class Attribute {
 		DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
 		Instances structure = dataSource.getDataSet();
 		return structure;
+	}
+	
+	public void GenTime() {
+		Time = System.currentTimeMillis();
+	}
+	
+	public void GenRST() {
+		RST = 0;
 	}
 	
 	public double getID() {
