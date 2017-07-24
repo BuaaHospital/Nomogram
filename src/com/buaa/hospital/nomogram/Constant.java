@@ -2,8 +2,6 @@ package com.buaa.hospital.nomogram;
 
 public class Constant {
 	public static String RunPath = System.getProperty("user.dir");
-	public static String ArffFileHead = "@relation QueryResult-weka.filters.unsupervised.attribute.Remove-R1-weka.filters.unsupervised.attribute.Remove-R2-weka.filters.unsupervised.attribute.Remove-R2-weka.filters.unsupervised.attribute.Remove-R8-9-weka.filters.unsupervised.attribute.Remove-R18-21-weka.filters.unsupervised.attribute.Remove-R17-weka.filters.unsupervised.attribute.Remove-R14-weka.filters.unsupervised.attribute.Remove-R12-weka.filters.unsupervised.attribute.Remove-R10-11-weka.filters.unsupervised.attribute.Remove-R11-weka.filters.unsupervised.attribute.Remove-R10\n\n@attribute Age numeric\n@attribute SE numeric\n@attribute UCVApre numeric\n@attribute SD numeric\n@attribute CD numeric\n@attribute A numeric\n@attribute BCVA numeric\n@attribute nomogram numeric\n@attribute CornealRadius numeric\n@attribute Opticalzone numeric\n@attribute K1 numeric\n@attribute K2 numeric\n@attribute Km numeric\n@attribute CCT numeric\n\n@data\n";
-	public static String TempInstanceFilePath = RunPath + "\\Temp\\temp.arff";
 	public static String DataPath = RunPath + "\\Data";
 	public static String OSDataPath = DataPath + "\\OS.arff";
 	public static String ODDataPath = DataPath + "\\OD.arff";
@@ -13,6 +11,18 @@ public class Constant {
 	public static String TrainPath = RunPath + "\\Train";
 	public static String NewDataPath = RunPath + "\\NewData";
 	
-	
-	
+	public static boolean Debug = true;
+	public static String ArffFileHead = "@relation \'\'\n\n@attribute ID numeric\n@attribute Name string\n@attribute Age numeric\n@attribute Sex numeric\n@attribute Eye numeric\n@attribute SE numeric\n@attribute UCVA numeric\n@attribute SD numeric\n@attribute CD numeric\n@attribute Axis numeric\n@attribute BCVA numeric\n@attribute CornealRadius numeric\n@attribute OpticalZone numeric\n@attribute K1 numeric\n@attribute K2 numeric\n@attribute Km numeric\n@attribute CCT numeric\n@attribute LeadEye numeric\n@attribute PredictNomogram numeric\n@attribute RST numeric\n@attribute Time numeric\n@attribute Humidity numeric\n@attribute Temperature numeric\n@attribute FirstEyeToTreat numeric\n@attribute Energy numeric\n@attribute OBL numeric\n@attribute Thickness numeric\n@attribute Position numeric\n@attribute RealNomogram numeric\n@attribute SDAfterOneDay\n@attribute SDAfterThreeMonths\n@attribute SDAfterSixMonths\n\n@data\n";
+	public static String TempInstanceFilePath = RunPath + "\\Temp\\Temp.arff";
+	public static String ModelsPath = RunPath + "\\Models";
+	public static String ClassifyModelsPath = ModelsPath + "\\Classify";
+	public static String MultiPreceptionModelsPath = ModelsPath + "\\MultiPreception";
+	public static String LatestClassifyModelsPath = ClassifyModelsPath + "\\Latest";
+	public static String HistoryClassifyModelsPath = ClassifyModelsPath + "\\History";
+	public static String LatestMultiPreceptionModelsPath = MultiPreceptionModelsPath + "\\Latest";
+	public static String HistoryMultiPreceptionModelsPath = MultiPreceptionModelsPath + "\\History";
+	public static String LatestMultiPreceptionOSModelsPath = LatestMultiPreceptionModelsPath + "\\OS";
+	public static String LatestMultiPreceptionODModelsPath = LatestMultiPreceptionModelsPath + "\\OD";
+	public static String HistoryMultiPreceptionOSModelsPath = HistoryMultiPreceptionModelsPath + "\\OS";
+	public static String HistoryMultiPreceptionODModelsPath = HistoryMultiPreceptionModelsPath + "\\OD";
 }
