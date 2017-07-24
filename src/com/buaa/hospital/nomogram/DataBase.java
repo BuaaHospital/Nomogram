@@ -40,7 +40,7 @@ public class DataBase {
 		return structure;
 	}
 	
-	public Instances NextUnconfirmedData() throws Exception {
+	public Instances getNextUnconfirmedData() throws Exception {
 		if (UnconfirmedDataIndex < Constant.UnconfirmedDataMaxIndex) {
 			UnconfirmedDataIndex ++;
 			UnconfirmedData = getInstancesfromFile(Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff");
@@ -122,6 +122,55 @@ public class DataBase {
 	
 	public boolean isInDataBase(Instance instance) throws Exception {
 		Init();
+		for (; ;) {
+			if (isInInstances(UnconfirmedData, instance)) {
+				return true;
+			}
+			if (getNextUnconfirmedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			if (isInInstances(ConfirmedData, instance)) {
+				return true;
+			}
+			if (getNextConfirmedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			if (isInInstances(UntrainedData, instance)) {
+				return true;
+			}
+			if (getNextUntrainedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			if (isInInstances(TrainedData, instance)) {
+				return true;
+			}
+			if (getNextTrainedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			if (isInInstances(BadData, instance)) {
+				return true;
+			}
+			if (getNextBadData() == null) {
+				break;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isInInstances(Instances instances, Instance instance) {
+		for (int i = 0; i < instances.numInstances(); i ++) {
+			if (instances.instance(i).toString().equals(instance.toString())) {
+				return true;
+			}
+		}
 		return false;
 	}
 
