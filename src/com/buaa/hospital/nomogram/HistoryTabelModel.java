@@ -1,6 +1,7 @@
 package com.buaa.hospital.nomogram;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -33,7 +34,20 @@ public class HistoryTabelModel extends AbstractTableModel{
     }
 	
 	public void addHistoryItem(Attribute attribute) {
-		HistoryData.add(attribute);
+		if (!isExists(attribute)) {
+			HistoryData.add(attribute);
+		}
+	}
+	
+	public boolean isExists(Attribute attribute) {
+		Iterator<Attribute> iterator= HistoryData.iterator();
+		while (iterator.hasNext()) {
+			Attribute attr = iterator.next();
+			if (attr.toString().equals(attribute.toString())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

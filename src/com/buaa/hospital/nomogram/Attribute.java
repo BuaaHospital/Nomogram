@@ -208,7 +208,7 @@ public class Attribute {
 	}
 	
 	public String toString() {
-		return Name + " " + Age + " " + Sex + " " + Eye;
+		return ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 	}
 	
 	public ArrayList<String> toArrayList() {

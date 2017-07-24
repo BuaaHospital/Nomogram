@@ -27,6 +27,7 @@ public class PredictButtonListener implements ActionListener{
 					System.out.println("病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 的预测球镜调整值为 " + Nomogram);
 					predictInterface.setLogText(">> 病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 的预测球镜调整值为 " + Nomogram);
 					predictInterface.addHistory(attribute);
+					predictInterface.RefreshHistoryTable();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -291,9 +292,15 @@ public class PredictInterface {
 		frame.getContentPane().add(PredictButton);
 		PredictButton.addActionListener(new PredictButtonListener(this));
 		
+		JButton ClearButton = new JButton("清除");
+		ClearButton.setBounds(350, 600, 100, 30);
+		frame.getContentPane().add(ClearButton);
+		ClearButton.addActionListener(new ClearButtonListener(this));
+		
 		JButton SaveButton = new JButton("保存");
 		SaveButton.setBounds(500, 600, 100, 30);
 		frame.getContentPane().add(SaveButton);
+		SaveButton.addActionListener(new SaveButtonListener(this));
 		
 		SaveButton.addActionListener(new ActionListener() {
 			
@@ -307,6 +314,9 @@ public class PredictInterface {
 		
 		HistoryTable = new JTable(historyTabelModel);
 		HistoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(JLabel.CENTER);
+		HistoryTable.setDefaultRenderer(Object.class, tcr);
 		JScrollPane HistoryScrollPane = new JScrollPane(HistoryTable);
 		HistoryScrollPane.setBounds(700, 50, 600, 400);
 		frame.getContentPane().add(HistoryScrollPane);
@@ -316,6 +326,8 @@ public class PredictInterface {
 		JScrollPane LogScrollPane = new JScrollPane(LogArea);
 		LogScrollPane.setBounds(700, 500, 600, 100);
 		frame.getContentPane().add(LogScrollPane);
+		
+		
 		
 		
 	}
@@ -369,5 +381,34 @@ public class PredictInterface {
 	
 	public void addHistory(Attribute attribute) {
 		historyTabelModel.addHistoryItem(attribute);
+	}
+	
+	public void clear() {
+		AlogrithmBox.setSelectedIndex(0);
+		ModelBox.setSelectedIndex(0);
+		IDText.setText("");
+		NameText.setText("");
+		AgeText.setText("");
+		SexBox.setSelectedIndex(0);
+		EyeBox.setSelectedIndex(0);
+		SEText.setText("");
+		UCVAText.setText("");
+		SDText.setText("");
+		CDText.setText("");
+		AxisText.setText("");
+		BCVABox.setSelectedIndex(2);
+		CornealRadiusText.setText("");
+		OpticalZoneText.setText("");
+		K1Text.setText("");
+		K2Text.setText("");
+		KmText.setText("");
+		CCTText.setText("");
+		LeadEyeBox.setSelectedIndex(0);
+	}
+	
+	public void RefreshHistoryTable() {
+//		HistoryTable.validate();
+		HistoryTable.updateUI();
+//		HistoryTable.repaint();
 	}
 }

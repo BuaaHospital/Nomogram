@@ -45,4 +45,9 @@ public class Constant {
 	public static int TrainedDataMaxIndex = 1;
 	public static int BadDataMaxIndex = 1;
 	public static int TrainModelMaxIndex = 1;
+	public static String UnconfirmedDataName = "Unconfirmed";
+	public static String ConfirmedDataName = "Unconfirmed";
+	public static String UntrainedDataName = "Unconfirmed";
+	public static String TrainedDataName = "Unconfirmed";
+	public static String BadDataName = "Unconfirmed";
 }
