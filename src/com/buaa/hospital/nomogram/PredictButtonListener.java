@@ -16,18 +16,14 @@ public class PredictButtonListener implements ActionListener{
 		// TODO Auto-generated method stub
 		if (predictInterface.CheckData()) {
 			Attribute attribute = new Attribute(predictInterface);
+			double Nomogram = 0;
 			if (predictInterface.getAlogrithmNum() == 0) {
 				//综合算法
 			}
 			else if (predictInterface.getAlogrithmNum() == 1) {
 				//神经网络算法
 				try {
-					double Nomogram = attribute.PredictbyMultiPreception(predictInterface.getModelNum());
-					attribute.setNomogram(Nomogram);
-					System.out.println("病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 的预测球镜调整值为 " + Nomogram);
-					predictInterface.setLogText(">> 病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 的预测球镜调整值为 " + Nomogram);
-					predictInterface.addHistory(attribute);
-					predictInterface.RefreshHistoryTable();
+					Nomogram = attribute.PredictbyMultiPreception(predictInterface.getModelNum());	
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -36,6 +32,10 @@ public class PredictButtonListener implements ActionListener{
 			else {
 				//分类算法
 			}
+			attribute.setNomogram(Nomogram);
+			predictInterface.setLogText(">> 病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 使用  " + predictInterface.getAlogrithmName() + " 的预测球镜调整值为 " + Nomogram);
+			predictInterface.addHistory(attribute);
+			predictInterface.RefreshHistoryTable();
 		}
 	}
 
