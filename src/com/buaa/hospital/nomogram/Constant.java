@@ -51,4 +51,12 @@ public class Constant {
 	public static String TrainedDataName = "Trained";
 	public static String BadDataName = "BadData";
 	public static int MaxInstanceItem = 10000;
+	
+	public void writeConfigure(String FilePath) {
+		
+	}
+	
+	public void readConfigure(String FilePath) {
+		
+	}
 }

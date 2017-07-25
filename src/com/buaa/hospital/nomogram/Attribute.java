@@ -198,8 +198,25 @@ public class Attribute {
 		return multilayer.Predict(curModelPath, instance);
 	}
 	
+	public double PredictbyClassifier(int ModelIndex) throws Exception {
+		String curModelPath = "";
+		Instance instance = this.GenClassifierInstance();
+		if (ModelIndex == 0) {
+			curModelPath = Constant.LatestClassifyModelsPath;
+		}
+		else {
+			curModelPath = Constant.HistoryClassifyModelsPath;
+		}
+		return Classifier.predict(curModelPath, instance);
+	}
+	
 	public Instance GenMultiPreceptionInstance() throws Exception {
 		Instances structure = GenMultiPreceptionInstances();
+		return structure.instance(0);
+	}
+	
+	public Instance GenClassifierInstance() throws Exception {
+		Instances structure = GenClassifierInstances();
 		return structure.instance(0);
 	}
 	
@@ -260,6 +277,21 @@ public class Attribute {
 	}
 	
 	public Instances GenMultiPreceptionInstances() throws Exception {
+		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
+		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
+		bWriter.write(Constant.ArffFileHead + string);
+		bWriter.flush();
+		bWriter.close();
+		DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
+		Instances structure = dataSource.getDataSet();
+		int[] DeleteAttributeIndex = {31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 17, 4, 3, 1, 0};
+		for (int i = 0; i < DeleteAttributeIndex.length; i ++) {
+			structure.deleteAttributeAt(DeleteAttributeIndex[i]);
+		}
+		return structure;
+	}
+	
+	public Instances GenClassifierInstances() throws Exception {
 		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
 		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 		bWriter.write(Constant.ArffFileHead + string);

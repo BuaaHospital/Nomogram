@@ -4,7 +4,7 @@ import weka.classifiers.meta.Bagging;
 import weka.core.Instance;
 import weka.core.SerializationHelper;
 
-public class Classfier {
+public class Classifier {
 	private static Bagging baggingClassifier;
 	public static void buildClassfier(){
 		

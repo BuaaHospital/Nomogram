@@ -31,6 +31,12 @@ public class PredictButtonListener implements ActionListener{
 			}
 			else {
 				//分类算法
+				try {
+					Nomogram = attribute.PredictbyClassifier(predictInterface.getModelNum());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			attribute.setNomogram(Nomogram);
 			predictInterface.setLogText(">> 病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 使用  " + predictInterface.getAlogrithmName() + " 的预测球镜调整值为 " + Nomogram);
