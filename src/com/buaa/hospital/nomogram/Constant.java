@@ -50,4 +50,5 @@ public class Constant {
 	public static String UntrainedDataName = "Untrained";
 	public static String TrainedDataName = "Trained";
 	public static String BadDataName = "BadData";
+	public static int MaxInstanceItem = 10000;
 }

@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import contrib.com.blogofbug.swing.SwingBugUtilities;
+import weka.clusterers.forOPTICSAndDBScan.Databases.Database;
 import weka.core.Check;
 
 import javax.swing.JLabel;
@@ -29,6 +30,7 @@ import javax.swing.JTextArea;
 
 public class PredictInterface {
 
+	private DataBase dataBase;
 	private JFrame frame;
 	private JComboBox AlogrithmBox;
 	private JComboBox ModelBox;
@@ -69,7 +71,8 @@ public class PredictInterface {
 	/**
 	 * Create the application.
 	 */
-	public PredictInterface() {
+	public PredictInterface(DataBase dataBase) {
+		this.dataBase = dataBase;
 		initialize();
 	}
 
@@ -410,5 +413,9 @@ public class PredictInterface {
 //		HistoryTable.validate();
 		HistoryTable.updateUI();
 //		HistoryTable.repaint();
+	}
+	
+	public DataBase getDataBase() {
+		return dataBase;
 	}
 }

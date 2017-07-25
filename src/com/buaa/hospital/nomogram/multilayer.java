@@ -264,8 +264,14 @@ public class multilayer {
 	}
 	
 	public static Instances loaddata(String filepath) throws Exception {
-		DataSource train_data = new DataSource(filepath);
-		Instances structure = train_data.getDataSet();
+//		DataSource train_data = new DataSource(filepath);
+//		Instances structure = train_data.getDataSet();
+//		return structure;
+		FileReader fileReader = new FileReader(filepath);
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		Instances structure = new Instances(bufferedReader);
+		bufferedReader.close();
+		fileReader.close();
 		return structure;
 	}
 	

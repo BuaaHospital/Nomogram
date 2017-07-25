@@ -1,7 +1,17 @@
 package com.buaa.hospital.nomogram;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.converters.ArffSaver;
 import weka.core.converters.ConverterUtils.DataSource;
 
 public class DataBase {
@@ -23,27 +33,22 @@ public class DataBase {
 	
 	public void Init() throws Exception {
 		UnconfirmedDataIndex = 1;
-		UnconfirmedData = getInstancesfromFile(Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff");
+		UnconfirmedData = multilayer.loaddata(Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff");
 		ConfirmedDataIndex = 1;
-		ConfirmedData = getInstancesfromFile(Constant.ConfirmedDataPath + "\\" + Constant.ConfirmedDataName + "_" + ConfirmedDataIndex + ".arff");
+		ConfirmedData = multilayer.loaddata(Constant.ConfirmedDataPath + "\\" + Constant.ConfirmedDataName + "_" + ConfirmedDataIndex + ".arff");
 		UntrainedDataIndex = 1;
-		UntrainedData = getInstancesfromFile(Constant.UntrainedDataPath + "\\" + Constant.UntrainedDataName + "_" + UntrainedDataIndex + ".arff");
+		UntrainedData = multilayer.loaddata(Constant.UntrainedDataPath + "\\" + Constant.UntrainedDataName + "_" + UntrainedDataIndex + ".arff");
 		UntrainedDataIndex = 1;
-		TrainedData = getInstancesfromFile(Constant.TrainedDataPath + "\\" + Constant.TrainedDataName + "_" + TrainedDataIndex + ".arff");
+		TrainedData = multilayer.loaddata(Constant.TrainedDataPath + "\\" + Constant.TrainedDataName + "_" + TrainedDataIndex + ".arff");
 		BadDataIndex = 1;
-		BadData = getInstancesfromFile(Constant.BadDataPath + "\\" + Constant.BadDataName + "_" + BadDataIndex + ".arff");
+		BadData = multilayer.loaddata(Constant.BadDataPath + "\\" + Constant.BadDataName + "_" + BadDataIndex + ".arff");
 	}
 	
-	public Instances getInstancesfromFile(String filepath) throws Exception {
-		DataSource dataSource = new DataSource(filepath);
-		Instances structure = dataSource.getDataSet();
-		return structure;
-	}
 	
 	public Instances getNextUnconfirmedData() throws Exception {
 		if (UnconfirmedDataIndex < Constant.UnconfirmedDataMaxIndex) {
 			UnconfirmedDataIndex ++;
-			UnconfirmedData = getInstancesfromFile(Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff");
+			UnconfirmedData = multilayer.loaddata(Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff");
 			return UnconfirmedData;
 		}
 		else {
@@ -55,7 +60,7 @@ public class DataBase {
 	public Instances getNextConfirmedData() throws Exception {
 		if (ConfirmedDataIndex < Constant.ConfirmedDataMaxIndex) {
 			ConfirmedDataIndex ++;
-			ConfirmedData = getInstancesfromFile(Constant.ConfirmedDataPath + "\\" + Constant.ConfirmedDataName + "_" + ConfirmedDataIndex + ".arff");
+			ConfirmedData = multilayer.loaddata(Constant.ConfirmedDataPath + "\\" + Constant.ConfirmedDataName + "_" + ConfirmedDataIndex + ".arff");
 			return ConfirmedData;
 		}
 		else {
@@ -67,7 +72,7 @@ public class DataBase {
 	public Instances getNextUntrainedData() throws Exception {
 		if (UntrainedDataIndex < Constant.UntrainedDataMaxIndex) {
 			UntrainedDataIndex ++;
-			UntrainedData = getInstancesfromFile(Constant.UntrainedDataPath + "\\" + Constant.UntrainedDataName + "_" + UntrainedDataIndex + ".arff");
+			UntrainedData = multilayer.loaddata(Constant.UntrainedDataPath + "\\" + Constant.UntrainedDataName + "_" + UntrainedDataIndex + ".arff");
 			return UntrainedData;
 		}
 		else {
@@ -79,7 +84,7 @@ public class DataBase {
 	public Instances getNextTrainedData() throws Exception {
 		if (TrainedDataIndex < Constant.TrainedDataMaxIndex) {
 			TrainedDataIndex ++;
-			TrainedData = getInstancesfromFile(Constant.TrainedDataPath + "\\" + Constant.TrainedDataName + "_" + TrainedDataIndex + ".arff");
+			TrainedData = multilayer.loaddata(Constant.TrainedDataPath + "\\" + Constant.TrainedDataName + "_" + TrainedDataIndex + ".arff");
 			return TrainedData;
 		}
 		else {
@@ -91,7 +96,7 @@ public class DataBase {
 	public Instances getNextBadData() throws Exception {
 		if (BadDataIndex < Constant.BadDataMaxIndex) {
 			BadDataIndex ++;
-			BadData = getInstancesfromFile(Constant.BadDataPath + "\\" + Constant.BadDataName + "_" + BadDataIndex + ".arff");
+			BadData = multilayer.loaddata(Constant.BadDataPath + "\\" + Constant.BadDataName + "_" + BadDataIndex + ".arff");
 			return BadData;
 		}
 		else {
@@ -167,11 +172,71 @@ public class DataBase {
 	
 	public boolean isInInstances(Instances instances, Instance instance) {
 		for (int i = 0; i < instances.numInstances(); i ++) {
-			if (instances.instance(i).toString().equals(instance.toString())) {
+			if (SplitInstance(instances.instance(i)).equals(SplitInstance(instance))) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public String SplitInstance(Instance instance) {
+		String[] strings = instance.toString().split(",");
+		String string = "";
+		for (int i = 0; i < 19; i ++) {
+			string += strings[i];
+		}
+		return string;
+	}
+	
+	public void addToUnconfirmedData(Instance instance) throws Exception {
+		Init();
+		for (; ;) {
+			System.out.println(UnconfirmedData.toString());
+			if (UnconfirmedData.numInstances() < Constant.MaxInstanceItem) {
+				Instance newInstance = new Instance(32);
+				System.out.println(instance);
+				UnconfirmedData.add(newInstance);
+				for (int i = 0; i < UnconfirmedData.numAttributes(); i ++) {
+					if (i != 1) {
+						UnconfirmedData.lastInstance().setValue(i, instance.value(i));
+					}
+					else {
+						UnconfirmedData.lastInstance().setValue(i, instance.stringValue(i));
+					}
+				}
+				System.out.println(UnconfirmedData.toString());
+				break;
+			}
+			else {
+				if (getNextUnconfirmedData() == null) {
+					Constant.UnconfirmedDataMaxIndex ++;
+					UnconfirmedDataIndex = Constant.UnconfirmedDataMaxIndex;
+					BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff", false)));
+					bWriter.write(Constant.ArffFileHead);
+					bWriter.flush();
+					bWriter.close();
+					DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
+					UnconfirmedData = dataSource.getDataSet();
+					UnconfirmedData.add(instance);
+					break;
+				}
+			}
+		}
+		System.out.println(UnconfirmedData.toString());
+		saveArff(UnconfirmedData, Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff");
+	}
+	
+	public static void saveArff(Instances instances, String FileName) throws IOException {
+		ArffSaver saver = new ArffSaver();  
+        saver.setInstances(instances);
+        File file = new File(FileName);
+        System.out.println(file.getAbsolutePath());
+        saver.setFile(file);  
+        saver.writeBatch();
+//		BufferedWriter writer = new BufferedWriter(new FileWriter(FileName));  
+//		writer.write(instances.toString());  
+//		writer.flush();  
+//		writer.close();
 	}
 
 }
