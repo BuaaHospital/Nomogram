@@ -299,7 +299,7 @@ public class Attribute {
 		bWriter.close();
 		DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
 		Instances structure = dataSource.getDataSet();
-		int[] DeleteAttributeIndex = {31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 17, 4, 3, 1, 0};
+		int[] DeleteAttributeIndex = {32, 31, 30, 29, 28, 27, 26, 24, 23, 22, 21, 18, 17, 15, 10, 6,5, 1, 0};
 		for (int i = 0; i < DeleteAttributeIndex.length; i ++) {
 			structure.deleteAttributeAt(DeleteAttributeIndex[i]);
 		}
