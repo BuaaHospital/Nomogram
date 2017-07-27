@@ -29,9 +29,11 @@
 @attribute Thickness numeric
 @attribute Position numeric
 @attribute RealNomogram numeric
+@attribute RealNomogramLabel {0,0.05,0.1,0.15,0.2,0.25,0.3}
 @attribute SDAfterOneDay numeric
 @attribute SDAfterThreeMonths numeric
 @attribute SDAfterSixMonths numeric
 
 @data
-
+1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0.05,0,1501094011492.999936,0,0,0,0,0,0,0,0,0,0,0,0
+1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,2,0,0.05,0,1501094127695.000064,0,0,0,0,0,0,0,0,0,0,0,0

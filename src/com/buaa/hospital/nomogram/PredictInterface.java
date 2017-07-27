@@ -351,7 +351,12 @@ public class PredictInterface {
 		AttributeData.add(SDText.getText());
 		AttributeData.add(CDText.getText());
 		AttributeData.add(AxisText.getText());
-		AttributeData.add(BCVALabels[BCVABox.getSelectedIndex()]);
+		if (BCVABox.getSelectedIndex() == -1) {
+			AttributeData.add((String)BCVABox.getSelectedItem());
+		}
+		else {
+			AttributeData.add(BCVALabels[BCVABox.getSelectedIndex()]);
+		}
 		AttributeData.add(CornealRadiusText.getText());
 		AttributeData.add(OpticalZoneText.getText());
 		AttributeData.add(K1Text.getText());

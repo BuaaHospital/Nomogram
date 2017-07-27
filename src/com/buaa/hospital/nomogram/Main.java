@@ -76,10 +76,10 @@ public class Main {
 		JMenuItem Export = new JMenuItem("导出...");
 		FileMenu.add(Export);
 		
-		JMenu InputMenu = new JMenu("信息录入");
-		menuBar.add(InputMenu);
+		JMenu EditMenu = new JMenu("编辑");
+		menuBar.add(EditMenu);
 		
-		JMenuItem PreInput = new JMenuItem("术前信息录入与预测");
+		JMenuItem PreInput = new JMenuItem("信息录入与预测");
 		PreInput.addActionListener(new ActionListener() {
 			
 			@Override
@@ -89,10 +89,19 @@ public class Main {
 				predictInterface.startRun();
 			}
 		});
-		InputMenu.add(PreInput);
+		EditMenu.add(PreInput);
 		
-		JMenuItem AfterInput = new JMenuItem("术后信息录入与修改");
-		InputMenu.add(AfterInput);
+		JMenuItem AfterInput = new JMenuItem("信息查询与修改");
+		AfterInput.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				QueryInterface queryInterface = new QueryInterface(dataBase);
+				queryInterface.startRun();
+			}
+		});
+		EditMenu.add(AfterInput);
 		
 		addSkin();
 	}

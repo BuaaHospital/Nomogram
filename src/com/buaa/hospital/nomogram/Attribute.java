@@ -76,6 +76,7 @@ public class Attribute {
 	private double Thickness;
 	private double Position;
 	private double RealNomogram;
+	private String RealNomogramLabel;
 	private double SDAfterOneDay;
 	private double SDAfterThreeMonths;
 	private double SDAfterSixMonths;
@@ -131,6 +132,7 @@ public class Attribute {
 		Thickness = 0;
 		Position = 0;
 		RealNomogram = 0;
+		RealNomogramLabel = "0";
 		SDAfterOneDay = 0;
 		SDAfterThreeMonths = 0;
 		SDAfterSixMonths = 0;
@@ -166,6 +168,7 @@ public class Attribute {
 		Thickness = 0;
 		Position = 0;
 		RealNomogram = 0;
+		RealNomogramLabel = "0";
 		SDAfterOneDay = 0;
 		SDAfterThreeMonths = 0;
 		SDAfterSixMonths = 0;
@@ -207,7 +210,7 @@ public class Attribute {
 		else {
 			curModelPath = Constant.HistoryClassifyModelsPath;
 		}
-		return Classifier.predict(curModelPath, instance);
+		return Classifier.predictByModelFile(curModelPath, instance);
 	}
 	
 	public Instance GenMultiPreceptionInstance() throws Exception {
@@ -220,12 +223,12 @@ public class Attribute {
 		return structure.instance(0);
 	}
 	
-	public void setNomogram(double nomogram) {
+	public void setPredictNomogram(double nomogram) {
 		this.PredictNomogram = nomogram;
 	}
 	
 	public String toString() {
-		return ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
+		return ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 	}
 	
 	public ArrayList<String> toArrayList() {
@@ -278,37 +281,39 @@ public class Attribute {
 	
 	public Instances GenMultiPreceptionInstances() throws Exception {
 		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
-		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
+		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 		bWriter.write(Constant.ArffFileHead + string);
 		bWriter.flush();
 		bWriter.close();
 		DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
 		Instances structure = dataSource.getDataSet();
-		int[] DeleteAttributeIndex = {31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 17, 4, 3, 1, 0};
+		int[] DeleteAttributeIndex = {32, 31, 30, 29, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 4, 3, 1, 0};
 		for (int i = 0; i < DeleteAttributeIndex.length; i ++) {
 			structure.deleteAttributeAt(DeleteAttributeIndex[i]);
 		}
+//		System.out.println(structure.numClasses());
 		return structure;
 	}
 	
 	public Instances GenClassifierInstances() throws Exception {
 		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
-		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
+		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 		bWriter.write(Constant.ArffFileHead + string);
 		bWriter.flush();
 		bWriter.close();
 		DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
 		Instances structure = dataSource.getDataSet();
-		int[] DeleteAttributeIndex = {32, 31, 30, 29, 28, 27, 26, 24, 23, 22, 21, 18, 17, 15, 10, 6,5, 1, 0};
+		int[] DeleteAttributeIndex = {32, 31, 30, 28, 27, 26, 25, 24, 23, 22, 21, 20, 18, 17, 16, 15, 10, 6, 5, 1, 0};
 		for (int i = 0; i < DeleteAttributeIndex.length; i ++) {
 			structure.deleteAttributeAt(DeleteAttributeIndex[i]);
 		}
+		structure.setClassIndex(structure.numAttributes()-1);
 		return structure;
 	}
 	
 	public Instances GenInstances() throws Exception {
 		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
-		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
+		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 		bWriter.write(Constant.ArffFileHead + string);
 		bWriter.flush();
 		bWriter.close();
@@ -322,7 +327,7 @@ public class Attribute {
 	}
 	
 	public void GenRST() {
-		RST = 0;
+		RST = 300;
 	}
 	
 	public double getID() {

@@ -193,7 +193,7 @@ public class DataBase {
 		for (; ;) {
 			System.out.println(UnconfirmedData.toString());
 			if (UnconfirmedData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(32);
+				Instance newInstance = new Instance(33);
 				System.out.println(instance);
 				UnconfirmedData.add(newInstance);
 				for (int i = 0; i < UnconfirmedData.numAttributes(); i ++) {

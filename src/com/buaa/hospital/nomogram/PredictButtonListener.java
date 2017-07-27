@@ -17,6 +17,8 @@ public class PredictButtonListener implements ActionListener{
 		if (predictInterface.CheckData()) {
 			Attribute attribute = new Attribute(predictInterface);
 			double Nomogram = 0;
+			attribute.GenTime();
+			attribute.GenRST();
 			if (predictInterface.getAlogrithmNum() == 0) {
 				//综合算法
 			}
@@ -38,7 +40,7 @@ public class PredictButtonListener implements ActionListener{
 					e1.printStackTrace();
 				}
 			}
-			attribute.setNomogram(Nomogram);
+			attribute.setPredictNomogram(Nomogram);
 			predictInterface.setLogText(">> 病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 使用  " + predictInterface.getAlogrithmName() + " 的预测球镜调整值为 " + Nomogram);
 			predictInterface.addHistory(attribute);
 			predictInterface.RefreshHistoryTable();
