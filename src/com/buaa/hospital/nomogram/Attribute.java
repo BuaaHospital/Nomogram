@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.WorkbenchLayoutSettingsTransfer;
+import org.w3c.dom.Attr;
 
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.Instance;
@@ -136,6 +137,62 @@ public class Attribute {
 		SDAfterOneDay = 0;
 		SDAfterThreeMonths = 0;
 		SDAfterSixMonths = 0;
+	}
+	
+	public Attribute(Instance instance) {
+		ID = Double.parseDouble(instance.stringValue(0));
+		Name = instance.stringValue(1);
+		Age = Double.parseDouble(instance.stringValue(2));
+		if (instance.stringValue(3).equals("0")) {
+			Sex = SexEnum.Male;
+		}
+		else {
+			Sex = SexEnum.Female;
+		}
+		if (instance.stringValue(4).equals("0")) {
+			Eye = EyeEnum.OS;
+		}
+		else {
+			Eye = EyeEnum.OD;
+		}
+		SE = Double.parseDouble(instance.stringValue(5));
+		UCVA = Double.parseDouble(instance.stringValue(6));
+		SD = Double.parseDouble(instance.stringValue(7));
+		CD = Double.parseDouble(instance.stringValue(8));
+		Axis = Double.parseDouble(instance.stringValue(9));
+		BCVA = Double.parseDouble(instance.stringValue(10));
+		CornealRadius = Double.parseDouble(instance.stringValue(11));
+		OpticalZone = Double.parseDouble(instance.stringValue(12));
+		K1 = Double.parseDouble(instance.stringValue(13));
+		K2 = Double.parseDouble(instance.stringValue(14));
+		Km = Double.parseDouble(instance.stringValue(15));
+		CCT = Double.parseDouble(instance.stringValue(16));
+		if (instance.stringValue(17).equals("0")) {
+			LeadEye = EyeEnum.OS;
+		}
+		else {
+			LeadEye = EyeEnum.OD;
+		}
+		PredictNomogram = Double.parseDouble(instance.stringValue(18));
+		RST = Double.parseDouble(instance.stringValue(19));
+		Time = Double.parseDouble(instance.stringValue(20));
+		Humidity = Double.parseDouble(instance.stringValue(21));
+		Temperature = Double.parseDouble(instance.stringValue(22));
+		if (instance.stringValue(23).equals("0")) {
+			FirstEyeToTreat = EyeEnum.OS;
+		}
+		else {
+			FirstEyeToTreat = EyeEnum.OD;
+		}
+		Energy = Double.parseDouble(instance.stringValue(24));
+		OBL = Double.parseDouble(instance.stringValue(25));
+		Thickness = Double.parseDouble(instance.stringValue(26));
+		Position = Double.parseDouble(instance.stringValue(27));
+		RealNomogram = Double.parseDouble(instance.stringValue(28));
+		RealNomogramLabel = instance.stringValue(29);
+		SDAfterOneDay = Double.parseDouble(instance.stringValue(30));
+		SDAfterThreeMonths = Double.parseDouble(instance.stringValue(31));
+		SDAfterSixMonths = Double.parseDouble(instance.stringValue(32));
 	}
 	
 	public void init() {

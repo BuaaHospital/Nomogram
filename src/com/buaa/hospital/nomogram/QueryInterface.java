@@ -2,13 +2,32 @@ package com.buaa.hospital.nomogram;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
 
+import javax.swing.Action;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.Button;
+import javax.swing.JButton;
 
 public class QueryInterface {
 
 	private JFrame frame;
 	private DataBase dataBase;
+	private JTextField IDText;
+	private JLabel NameLabel;
+	private JTextField NameText;
+	private JLabel DateLabel;
+	private QueryTabelModel queryTabelModel = new QueryTabelModel();
+	private JTable QueryTable;
 
 	/**
 	 * Launch the application.
@@ -34,6 +53,86 @@ public class QueryInterface {
 		frame = new JFrame();
 		frame.setBounds(0, 0, ScreenWeight, ScreenHeight-40);
 		frame.getContentPane().setLayout(null);
+		
+		JLabel IDLabel = new JLabel("病历号");
+		IDLabel.setBounds(300, 100, 100, 30);
+		IDLabel.setHorizontalAlignment(JLabel.CENTER);
+		frame.getContentPane().add(IDLabel);
+		
+		IDText = new JTextField();
+		IDText.setBounds(400, 100, 100, 30);
+		frame.getContentPane().add(IDText);
+		IDText.setColumns(10);
+		IDText.setEditable(false);
+		IDText.setEnabled(false);
+		
+		NameLabel = new JLabel("姓名");
+		NameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		NameLabel.setBounds(600, 100, 100, 30);
+		frame.getContentPane().add(NameLabel);
+		
+		NameText = new JTextField();
+		NameText.setColumns(10);
+		NameText.setBounds(700, 100, 100, 30);
+		frame.getContentPane().add(NameText);
+		NameText.setEditable(false);
+		NameText.setEnabled(false);
+		
+		DateLabel = new JLabel("日期");
+		DateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		DateLabel.setBounds(900, 100, 100, 30);
+		frame.getContentPane().add(DateLabel);
+		
+		DateChooser dateChooser = new DateChooser("yyyy-MM-dd");
+		dateChooser.setBounds(1000, 100, 100, 30);
+		frame.getContentPane().add(dateChooser);
+		dateChooser.setEnabled(false);
+		
+		JPanel IDPanel = new JPanel();
+		IDPanel.setBounds(300, 50, 200, 30);
+		frame.getContentPane().add(IDPanel);
+		
+		JRadioButton IDRadioButton = new JRadioButton("");
+		IDPanel.add(IDRadioButton);
+		RadioButtonAction IDRadioButtonAction = new RadioButtonAction(0, IDRadioButton, IDText);
+		IDRadioButton.setAction(IDRadioButtonAction);
+		IDRadioButton.setEnabled(true);
+		
+		JPanel NamePanel = new JPanel();
+		NamePanel.setBounds(600, 50, 200, 30);
+		frame.getContentPane().add(NamePanel);
+		
+		JRadioButton NameRadioButton = new JRadioButton("");
+		NamePanel.add(NameRadioButton);
+		RadioButtonAction NameRadioButtonAction = new RadioButtonAction(0, NameRadioButton, NameText);
+		NameRadioButton.setAction(NameRadioButtonAction);
+		NameRadioButton.setEnabled(true);
+		
+		JPanel DatePanel = new JPanel();
+		DatePanel.setBounds(900, 50, 200, 30);
+		frame.getContentPane().add(DatePanel);
+		
+		JRadioButton DateRadioButton = new JRadioButton("");
+		DatePanel.add(DateRadioButton);
+		RadioButtonAction DateRadioButtonAction = new RadioButtonAction(1, DateRadioButton, dateChooser);
+		DateRadioButton.setAction(DateRadioButtonAction);
+		DateRadioButton.setEnabled(true);
+		
+		QueryTable = new JTable(queryTabelModel);
+		QueryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(JLabel.CENTER);
+		QueryTable.setDefaultRenderer(Object.class, tcr);
+		JScrollPane QueryScrollPane = new JScrollPane(QueryTable);
+		QueryScrollPane.setBounds(300, 200, 800, 400);
+		frame.getContentPane().add(QueryScrollPane);
+		
+		JButton QueryButton = new JButton("查询");
+		QueryButton.setBounds(500, 150, 100, 30);
+		frame.getContentPane().add(QueryButton);
+		
+		JButton ClearButton = new JButton("清空");
+		ClearButton.setBounds(800, 150, 100, 30);
+		frame.getContentPane().add(ClearButton);
 	}
-
 }
