@@ -46,7 +46,7 @@ public class PredictInterface {
 	private JTextField AxisText;
 	private JComboBox BCVABox;
 	private JTextField CornealRadiusText;
-	private JTextField OpticalZoneText;
+	private JComboBox OpticalZoneBox;
 	private JTextField K1Text;
 	private JTextField K2Text;
 	private JTextField KmText;
@@ -60,6 +60,7 @@ public class PredictInterface {
 	private String[] SexLabels = {"Male", "Female"};
 	private String[] EyeLabels = {"OS", "OD"};
 	private String[] BCVALabels = {"0.8", "0.9", "1.0", "1.1", "1.2", "1.3", "1.4", "1.5"};
+	private String[] OpticalZoneLabels = {"6.0", "6.1", "6.2", "6.3", "6.4", "6.5", "6.6", "6.7", "6.8", "6.9", "7.0"};
 
 	/**
 	 * Launch the application.
@@ -235,10 +236,11 @@ public class PredictInterface {
 		OpticalZoneLabel.setBounds(100, 400, 100, 30);
 		frame.getContentPane().add(OpticalZoneLabel);
 		
-		OpticalZoneText = new JTextField();
-		OpticalZoneText.setColumns(10);
-		OpticalZoneText.setBounds(200, 400, 100, 30);
-		frame.getContentPane().add(OpticalZoneText);
+		OpticalZoneBox = new JComboBox(OpticalZoneLabels);
+		OpticalZoneBox.setSelectedIndex(6);
+		OpticalZoneBox.setEditable(true);
+		OpticalZoneBox.setBounds(200, 400, 100, 30);
+		frame.getContentPane().add(OpticalZoneBox);
 		
 		JLabel K1Label = new JLabel("K1");
 		K1Label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -333,6 +335,8 @@ public class PredictInterface {
 		
 		
 		
+		
+		
 	}
 	
 	public boolean CheckData() {
@@ -358,7 +362,12 @@ public class PredictInterface {
 			AttributeData.add(BCVALabels[BCVABox.getSelectedIndex()]);
 		}
 		AttributeData.add(CornealRadiusText.getText());
-		AttributeData.add(OpticalZoneText.getText());
+		if (OpticalZoneBox.getSelectedIndex() == -1) {
+			AttributeData.add((String)OpticalZoneBox.getSelectedItem());
+		}
+		else {
+			AttributeData.add(OpticalZoneLabels[OpticalZoneBox.getSelectedIndex()]);
+		}
 		AttributeData.add(K1Text.getText());
 		AttributeData.add(K2Text.getText());
 		AttributeData.add(KmText.getText());
@@ -406,7 +415,7 @@ public class PredictInterface {
 		AxisText.setText("");
 		BCVABox.setSelectedIndex(2);
 		CornealRadiusText.setText("");
-		OpticalZoneText.setText("");
+		OpticalZoneBox.setSelectedIndex(6);
 		K1Text.setText("");
 		K2Text.setText("");
 		KmText.setText("");

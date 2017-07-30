@@ -132,7 +132,7 @@ public class Attribute {
 		OBL = 0;
 		Thickness = 0;
 		Position = 0;
-		RealNomogram = 0;
+		RealNomogram = -1;
 		RealNomogramLabel = "0";
 		SDAfterOneDay = 0;
 		SDAfterThreeMonths = 0;
@@ -224,7 +224,7 @@ public class Attribute {
 		OBL = 0;
 		Thickness = 0;
 		Position = 0;
-		RealNomogram = 0;
+		RealNomogram = -1;
 		RealNomogramLabel = "0";
 		SDAfterOneDay = 0;
 		SDAfterThreeMonths = 0;
@@ -285,7 +285,7 @@ public class Attribute {
 	}
 	
 	public String toString() {
-		return ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
+		return ID + "," + Name + "," + Age + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 	}
 	
 	public ArrayList<String> toArrayList() {
@@ -338,7 +338,7 @@ public class Attribute {
 	
 	public Instances GenMultiPreceptionInstances() throws Exception {
 		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
-		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
+		String string = ID + "," + Name + "," + Age + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 		bWriter.write(Constant.ArffFileHead + string);
 		bWriter.flush();
 		bWriter.close();
@@ -354,7 +354,7 @@ public class Attribute {
 	
 	public Instances GenClassifierInstances() throws Exception {
 		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
-		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
+		String string = ID + "," + Name + "," + Age + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 		bWriter.write(Constant.ArffFileHead + string);
 		bWriter.flush();
 		bWriter.close();
@@ -370,7 +370,7 @@ public class Attribute {
 	
 	public Instances GenInstances() throws Exception {
 		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
-		String string = ID + "," + Name + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + Age + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
+		String string = ID + "," + Name + "," + Age + "," + (Sex == SexEnum.Male? 0: 1) + "," + (Eye == EyeEnum.OS? 0: 1) + "," + SE + "," + UCVA + "," + SD + "," + CD + "," + Axis + "," + BCVA + "," + CornealRadius + "," + OpticalZone + "," + K1 + "," + K2 + "," + Km + "," + CCT + "," + (LeadEye == EyeEnum.OS? 0: 1) + "," + PredictNomogram + "," + RST + "," + Time + "," + Humidity + "," + Temperature + "," + (FirstEyeToTreat == EyeEnum.OS? 0: 1) + "," + Energy + "," + OBL + "," + Thickness + "," + Position + "," + RealNomogram + "," + RealNomogramLabel + "," + SDAfterOneDay + "," + SDAfterThreeMonths + "," + SDAfterSixMonths;
 		bWriter.write(Constant.ArffFileHead + string);
 		bWriter.flush();
 		bWriter.close();

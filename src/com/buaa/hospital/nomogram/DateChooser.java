@@ -42,14 +42,14 @@ import javax.swing.event.AncestorListener;
  */  
 public class DateChooser extends JPanel{  
       
-   private static final long serialVersionUID = 4529266044762990227L;  
+	private static final long serialVersionUID = 4529266044762990227L;  
   
     private Date initDate;  
     private Calendar now=Calendar.getInstance();  
     private Calendar select;  
     private JPanel monthPanel;//月历  
-   private JP1 jp1;//四块面板,组成  
-   private JP2 jp2;  
+    private JP1 jp1;//四块面板,组成  
+    private JP2 jp2;  
     private JP3 jp3;  
     private JP4 jp4;  
     private Font font=new Font("宋体",Font.PLAIN,12);  
@@ -181,7 +181,7 @@ public class DateChooser extends JPanel{
     }  
     //提交日期  
     private void commit(){  
-        System.out.println("选中的日期是："+sdf.format(select.getTime()));  
+//        System.out.println("选中的日期是："+sdf.format(select.getTime()));  
         showDate.setText(sdf.format(select.getTime()));  
         hidePanel();  
     }  

@@ -182,9 +182,10 @@ public class DataBase {
 	public String SplitInstance(Instance instance) {
 		String[] strings = instance.toString().split(",");
 		String string = "";
-		for (int i = 0; i < 19; i ++) {
-			string += strings[i];
-		}
+//		for (int i = 0; i < 19; i ++) {
+//			string += strings[i];
+//		}
+		string = strings[0] + strings[4];
 		return string;
 	}
 	
