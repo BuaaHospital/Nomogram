@@ -347,22 +347,22 @@ public class PredictInterface {
         int idMinlen=5;
         String temp=IDText.getText();
         if(temp.isEmpty()){
-        	setLogText("ID不能为空！");
+        	setLogText("病历号不能为空！");
         	flag=false;
         }
         else if(temp.length()<idMinlen||temp.length()>idMaxlen){
-        	setLogText("ID太长或太短！");
+        	setLogText("病历号太长或太短！");
         	flag=false;
         }
         else{
 	        try{
 	        	int idNum=Integer.parseInt(temp);
 	        	if(idNum<0){
-	        		setLogText("ID不能为负数！");
+	        		setLogText("病历号不能为负数！");
 	        		flag=false;
 	        	}
 	        }catch(Exception e){
-	        		setLogText("ID格式不正确！");
+	        		setLogText("病历号格式不正确！");
 	        		flag=false;
 	        }
 	    }
@@ -372,11 +372,11 @@ public class PredictInterface {
 	    int nameMinlen=4;
 	    temp=NameText.getText();
 	    if(temp.isEmpty()){
-	    	setLogText("名字不能为空！");
+	    	setLogText("姓名不能为空！");
 	    	flag=false;
 	    }
 	    else if(temp.length()<nameMinlen||temp.length()>nameMaxlen){
-	    	setLogText("名字太长或太短！");
+	    	setLogText("姓名太长或太短！");
 	    	flag=false;
 	    }
 	    else{
@@ -386,7 +386,7 @@ public class PredictInterface {
 	    		c=temp.charAt(i);
 	    		if(!Character.isLetter(c)){
 	    			flag=false;
-	    			setLogText("名字中出现非字母！");
+	    			setLogText("姓名中出现非字母！");
 	    			break;
 	    		}
 	    	}
@@ -420,18 +420,18 @@ public class PredictInterface {
 	    int SEMaxlen=4;
 	    temp=SEText.getText();
 	    if(temp.isEmpty()){
-	    	setLogText("SE不能为空！");
+	    	setLogText("等效球镜度不能为空！");
 	    	flag=false;
 	    }
 	    else if(temp.length()>SEMaxlen){
-	    	setLogText("SE字段太长！");
+	    	setLogText("等效球镜度字段太长！");
 	    	flag=false;
 	    }
 	    else{
 	    	try{
 	    		double SENum=Double.parseDouble(temp);
 	    	}catch(Exception e){
-	    		setLogText("SE必须为数字！");
+	    		setLogText("等效球镜度必须为数字！");
 	    		flag=false;
 	    	}
 	    }
@@ -440,22 +440,22 @@ public class PredictInterface {
 	    int UCVAMaxlen=4;
 	    temp=UCVAText.getText();
 	    if(temp.isEmpty()){
-	    	setLogText("UCVA不能为空！");
+	    	setLogText("术前裸眼视力不能为空！");
 	    	flag=false;
 	    }
 	    else if(temp.length()>UCVAMaxlen){
-	    	setLogText("UCVA字段太长！");
+	    	setLogText("术前裸眼视力字段太长！");
 	    	flag=false;
 	    }
 	    else{
 	    	try{
 	    		double UCVANum=Double.parseDouble(temp);
 	    		if(UCVANum<0){
-	    			setLogText("UCVA不能小于0！");
+	    			setLogText("术前裸眼视力不能小于0！");
 	    			flag=false;
 	    		}
 	    	} catch(Exception e){
-	    		setLogText("UCVA必须为数字！");
+	    		setLogText("术前裸眼视力必须为数字！");
 	    		flag=false;
 	    	}
 	    }
@@ -464,18 +464,18 @@ public class PredictInterface {
 	    int SDMaxlen=5;
 	    temp=SDText.getText();
 	    if(temp.isEmpty()){
-	    	setLogText("SD字段不能为空！");
+	    	setLogText("球镜度字段不能为空！");
 	    	flag=false;
 	    }
 	    else if(temp.length()>SDMaxlen){
-	    	setLogText("SD字段太长！");
+	    	setLogText("球镜度字段太长！");
 	    	flag=false;
 	    }
 	    else{
 	    	try{
 	    		double SDNum=Double.parseDouble(temp);
 	    	}catch(Exception e){
-	    		setLogText("SD必须为数字！");
+	    		setLogText("球镜度必须为数字！");
 	    		flag=false;
 	    	}
 	    }
@@ -484,18 +484,18 @@ public class PredictInterface {
 	    int CDMaxlen=5;
 	    temp=CDText.getText();
 	    if(temp.isEmpty()){
-	    	setLogText("CD字段不能为空！");
+	    	setLogText("柱镜度字段不能为空！");
 	    	flag=false;
 	    }
 	    else if(temp.length()>CDMaxlen){
-	    	setLogText("CD字段太长！");
+	    	setLogText("柱镜度字段太长！");
 	    	flag=false;
 	    }
 	    else{
 	    	try{
 	    		double CDNum=Double.parseDouble(temp);
 	    	}catch(Exception e){
-	    		setLogText("CD字段必须为数字！");
+	    		setLogText("柱镜度字段必须为数字！");
 	    	}
 	    }
 
@@ -503,22 +503,22 @@ public class PredictInterface {
 	    int AxisMaxlen=6;
 	    temp=AxisText.getText();
 	    if(temp.isEmpty()){
-	    	setLogText("Axis字段不能为空！");
+	    	setLogText("轴字段不能为空！");
 	    	flag=false;
 	    }
 	    else if(temp.length()>AxisMaxlen){
-	    	setLogText("Axis字段太长！");
+	    	setLogText("轴字段太长！");
 	    	flag=false;
 	    }
 	    else{
 	    	try{
 	    		double AxisNum=Double.parseDouble(temp);
 	    		if(AxisNum>200||AxisNum<0){
-	    			setLogText("Axis不能为负数或不能超过200！");
+	    			setLogText("轴不能为负数或不能超过200！");
 	    			flag=false;
 	    		}
 	    	}catch(Exception e){
-	    		setLogText("Axis必须为数字！");
+	    		setLogText("轴必须为数字！");
 	    		flag=false;
 	    	}
 	    }
@@ -527,22 +527,22 @@ public class PredictInterface {
 	    int CRMaxlen=4;
 	    temp=CornealRadiusText.getText();
 	    if(temp.isEmpty()){
-	    	setLogText("CornealRadius不能为空！");
+	    	setLogText("角膜半径不能为空！");
 	    	flag=false;
 	    }
 	    else if(temp.length()>CRMaxlen){
-	    	setLogText("CornealRadius字段太长！");
+	    	setLogText("角膜半径字段太长！");
 	    	flag=false;
 	    }
 	    else{
 	    	try{
 	    		double CRNum=Double.parseDouble(temp);
 	    		if(CRNum<=0){
-	    			setLogText("CornealRadius不能小于等于0！");
+	    			setLogText("角膜半径不能小于等于0！");
 	    			flag=false;
 	    		}
 	    	}catch(Exception e){
-	    		setLogText("CornealRadius必须为数字！");
+	    		setLogText("角膜半径必须为数字！");
 	    		flag=false;
 	    	}
 	    }
@@ -552,18 +552,18 @@ public class PredictInterface {
 	    if (OpticalZoneBox.getSelectedIndex() == -1) {
 	    	temp = (String)(OpticalZoneBox.getSelectedItem());
 	    	if(temp.isEmpty()){
-		    	setLogText("OpticalZone不能为空！");
+		    	setLogText("光学区不能为空！");
 		    	flag=false;
 		    }
 		    else if(temp.length()>OZMaxlen){
-		    	setLogText("OpticalZone字段太长！");
+		    	setLogText("光学区字段太长！");
 		    	flag=false;
 		    }
 		    else{
 		    	try{
 		    		double OZNum=Double.parseDouble(temp);
 		    	}catch(Exception e){
-		    		setLogText("OpticalZone必须为数字！");
+		    		setLogText("光学区必须为数字！");
 		    	}
 		    }
 	    }
@@ -648,22 +648,22 @@ public class PredictInterface {
 	    int CCTLen=3;
 	    temp=CCTText.getText();
 	    if(temp.isEmpty()){
-	    	setLogText("CCT字段不能为空！");
+	    	setLogText("角膜中央厚度字段不能为空！");
 	    	flag=false;
 	    }
 	    else if(temp.length()!=CCTLen){
-	    	setLogText("CCT字段长度必须为3！");
+	    	setLogText("角膜中央厚度字段长度必须为3！");
 	    	flag=false;
 	    }
 	    else{
 	    	try{
 		    	int CCTNum=Integer.parseInt(temp);
 		    	if(CCTNum<=0){
-		    		setLogText("CCT的值必须大于0！");
+		    		setLogText("角膜中央厚度的值必须大于0！");
 		    		flag=false;
 		    	}
 		    }catch(Exception e){
-		    	setLogText("CCT必须为数字！");
+		    	setLogText("角膜中央厚度必须为数字！");
 		    	flag=false;
 		    }
 	    }
