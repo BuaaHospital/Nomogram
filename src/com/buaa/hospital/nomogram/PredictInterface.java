@@ -340,7 +340,334 @@ public class PredictInterface {
 	}
 	
 	public boolean CheckData() {
-		return true;
+        boolean flag=true;
+
+        //ID check
+        int idMaxlen=8;
+        int idMinlen=5;
+        String temp=IDText.getText();
+        if(temp.isEmpty()){
+        	setLogText("ID不能为空！");
+        	flag=false;
+        }
+        else if(temp.length()<idMinlen||temp.length()>idMaxlen){
+        	setLogText("ID太长或太短！");
+        	flag=false;
+        }
+        else{
+	        try{
+	        	int idNum=Integer.parseInt(temp);
+	        	if(idNum<0){
+	        		setLogText("ID不能为负数！");
+	        		flag=false;
+	        	}
+	        }catch(Exception e){
+	        		setLogText("ID格式不正确！");
+	        		flag=false;
+	        }
+	    }
+
+	    //name check
+	    int nameMaxlen=128;
+	    int nameMinlen=4;
+	    temp=NameText.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("名字不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()<nameMinlen||temp.length()>nameMaxlen){
+	    	setLogText("名字太长或太短！");
+	    	flag=false;
+	    }
+	    else{
+	    	int strLen=temp.length();
+	    	char c;
+	    	for(int i=0;i<strLen;i++){
+	    		c=temp.charAt(i);
+	    		if(!Character.isLetter(c)){
+	    			flag=false;
+	    			setLogText("名字中出现非字母！");
+	    			break;
+	    		}
+	    	}
+	    }
+
+	    //age check
+	    int ageMaxlen=100;
+	    temp=AgeText.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("年龄不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()>ageMaxlen){
+	    	setLogText("年龄字段太长！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+	    		int ageNum=Integer.parseInt(temp);
+	    		if(ageNum<=0){
+	    			setLogText("年龄必须大于0！");
+	    			flag=false;
+	    		}
+	    	}catch(Exception e){
+	    		setLogText("年龄必须为整数！");
+	    		flag=false;
+	    	}
+	    }
+
+	    //SE check
+	    int SEMaxlen=4;
+	    temp=SEText.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("SE不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()>SEMaxlen){
+	    	setLogText("SE字段太长！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+	    		double SENum=Double.parseDouble(temp);
+	    	}catch(Exception e){
+	    		setLogText("SE必须为数字！");
+	    		flag=false;
+	    	}
+	    }
+
+	    //UCVA check
+	    int UCVAMaxlen=4;
+	    temp=UCVAText.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("UCVA不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()>UCVAMaxlen){
+	    	setLogText("UCVA字段太长！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+	    		double UCVANum=Double.parseDouble(temp);
+	    		if(UCVANum<0){
+	    			setLogText("UCVA不能小于0！");
+	    			flag=false;
+	    		}
+	    	} catch(Exception e){
+	    		setLogText("UCVA必须为数字！");
+	    		flag=false;
+	    	}
+	    }
+
+	    //SD check
+	    int SDMaxlen=5;
+	    temp=SDText.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("SD字段不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()>SDMaxlen){
+	    	setLogText("SD字段太长！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+	    		double SDNum=Double.parseDouble(temp);
+	    	}catch(Exception e){
+	    		setLogText("SD必须为数字！");
+	    		flag=false;
+	    	}
+	    }
+
+	    //CD check
+	    int CDMaxlen=5;
+	    temp=CDText.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("CD字段不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()>CDMaxlen){
+	    	setLogText("CD字段太长！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+	    		double CDNum=Double.parseDouble(temp);
+	    	}catch(Exception e){
+	    		setLogText("CD字段必须为数字！");
+	    	}
+	    }
+
+	    //Axis check
+	    int AxisMaxlen=6;
+	    temp=AxisText.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("Axis字段不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()>AxisMaxlen){
+	    	setLogText("Axis字段太长！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+	    		double AxisNum=Double.parseDouble(temp);
+	    		if(AxisNum>200||AxisNum<0){
+	    			setLogText("Axis不能为负数或不能超过200！");
+	    			flag=false;
+	    		}
+	    	}catch(Exception e){
+	    		setLogText("Axis必须为数字！");
+	    		flag=false;
+	    	}
+	    }
+
+	    //CornealRadius check
+	    int CRMaxlen=4;
+	    temp=CornealRadiusText.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("CornealRadius不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()>CRMaxlen){
+	    	setLogText("CornealRadius字段太长！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+	    		double CRNum=Double.parseDouble(temp);
+	    		if(CRNum<=0){
+	    			setLogText("CornealRadius不能小于等于0！");
+	    			flag=false;
+	    		}
+	    	}catch(Exception e){
+	    		setLogText("CornealRadius必须为数字！");
+	    		flag=false;
+	    	}
+	    }
+
+	    //OpticalZone check
+	    int OZMaxlen=3;
+	    if (OpticalZoneBox.getSelectedIndex() == -1) {
+	    	temp = (String)(OpticalZoneBox.getSelectedItem());
+	    	if(temp.isEmpty()){
+		    	setLogText("OpticalZone不能为空！");
+		    	flag=false;
+		    }
+		    else if(temp.length()>OZMaxlen){
+		    	setLogText("OpticalZone字段太长！");
+		    	flag=false;
+		    }
+		    else{
+		    	try{
+		    		double OZNum=Double.parseDouble(temp);
+		    	}catch(Exception e){
+		    		setLogText("OpticalZone必须为数字！");
+		    	}
+		    }
+	    }
+	    
+
+	    //K1 check
+	    int K1Minlen=2;
+	    int K1Maxlen=4;
+	    temp=K1Text.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("K1字段不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()<K1Minlen||temp.length()>K1Maxlen){
+	    	setLogText("K1字段太长或太短！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+	    		double K1Num=Double.parseDouble(temp);
+	    		if(K1Num<=0){
+	    			setLogText("K1的值不能小于等于0！");
+	    			flag=false;
+	    		}
+	    	}catch(Exception e){
+	    		setLogText("K1必须为数字！");
+	    		flag=false;
+	    	}
+	    }
+
+	    //K2 check
+	    int K2Minlen=2;
+	    int K2Maxlen=4;
+	    temp=K2Text.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("K2字段不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()<K2Minlen||temp.length()>K2Maxlen){
+	    	setLogText("K2字段太长或太短！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+	    		double K2Num=Double.parseDouble(temp);
+	    		if(K2Num<=0){
+	    			setLogText("K2的值不能小于等于0！");
+	    			flag=false;
+	    		}
+	    	}catch(Exception e){
+	    		setLogText("K2必须为数字！");
+	    		flag=false;
+	    	}
+	    }
+
+	    //Km check
+	    int KmMinlen=2;
+	    int KmMaxlen=4;
+	    temp=KmText.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("Km字段不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()<KmMinlen||temp.length()>KmMaxlen){
+	    	setLogText("Km字段太长或太短！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+	    		double KmNum=Double.parseDouble(temp);
+	    		if(KmNum<=0){
+	    			setLogText("Km的值不能小于等于0！");
+	    			flag=false;
+	    		}
+	    	}catch(Exception e){
+	    		setLogText("Km必须为数字！");
+	    		flag=false;
+	    	}
+	    }
+
+	    //CCT check
+	    int CCTLen=3;
+	    temp=CCTText.getText();
+	    if(temp.isEmpty()){
+	    	setLogText("CCT字段不能为空！");
+	    	flag=false;
+	    }
+	    else if(temp.length()!=CCTLen){
+	    	setLogText("CCT字段长度必须为3！");
+	    	flag=false;
+	    }
+	    else{
+	    	try{
+		    	int CCTNum=Integer.parseInt(temp);
+		    	if(CCTNum<=0){
+		    		setLogText("CCT的值必须大于0！");
+		    		flag=false;
+		    	}
+		    }catch(Exception e){
+		    	setLogText("CCT必须为数字！");
+		    	flag=false;
+		    }
+	    }
+		return flag;
 	}
 	
 	public ArrayList<String> toArrayList() {
@@ -393,7 +720,7 @@ public class PredictInterface {
 	}
 	
 	public void setLogText(String text) {
-		LogArea.setText(LogArea.getText() + "\n" + text);
+		LogArea.setText(LogArea.getText() + "\n>> " + text);
 	}
 	
 	public void addHistory(Attribute attribute) {

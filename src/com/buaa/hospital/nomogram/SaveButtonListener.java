@@ -34,18 +34,18 @@ public class SaveButtonListener implements ActionListener {
 				attribute.GenTime();
 				attribute.GenRST();
 				Instance instance = attribute.GenInstance();
-				predictInterface.setLogText(">> 病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 使用" + predictInterface.getAlogrithmName() + "的预测球镜调整值为 " + Nomogram);
+				predictInterface.setLogText("病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 使用" + predictInterface.getAlogrithmName() + "的预测球镜调整值为 " + Nomogram);
 				predictInterface.addHistory(attribute);
 				predictInterface.RefreshHistoryTable();
-				predictInterface.setLogText(">> 正在检查数据库中是否有相同的病人信息...");
+				predictInterface.setLogText("正在检查数据库中是否有相同的病人信息...");
 				if (!predictInterface.getDataBase().isInDataBase(instance)) {
-					predictInterface.setLogText(">> 病人信息和预测结果正在存入数据库...");
+					predictInterface.setLogText("病人信息和预测结果正在存入数据库...");
 					predictInterface.getDataBase().addToUnconfirmedData(instance);
-					predictInterface.setLogText(">> 存储成功！");
+					predictInterface.setLogText("存储成功！");
 					
 				}
 				else {
-					predictInterface.setLogText(">> 数据库中已存在该病人信息，请不要重复录入！");		
+					predictInterface.setLogText("数据库中已存在该病人信息，请不要重复录入！");		
 				}
 			}
 		} catch (Exception e1) {
