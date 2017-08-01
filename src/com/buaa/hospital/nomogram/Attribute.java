@@ -11,7 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -124,7 +126,7 @@ public class Attribute {
 		}
 		PredictNomogram = 0;
 		RST = 0;
-		Time = 0;
+		Time = System.currentTimeMillis();
 		Humidity = 0;
 		Temperature = 0;
 		FirstEyeToTreat = EyeEnum.OS;
@@ -140,59 +142,59 @@ public class Attribute {
 	}
 	
 	public Attribute(Instance instance) {
-		ID = Double.parseDouble(instance.stringValue(0));
+		ID = instance.value(0);
 		Name = instance.stringValue(1);
-		Age = Double.parseDouble(instance.stringValue(2));
-		if (instance.stringValue(3).equals("0")) {
+		Age = instance.value(2);
+		if (instance.value(3) == 0) {
 			Sex = SexEnum.Male;
 		}
 		else {
 			Sex = SexEnum.Female;
 		}
-		if (instance.stringValue(4).equals("0")) {
+		if (instance.value(4) == 0) {
 			Eye = EyeEnum.OS;
 		}
 		else {
 			Eye = EyeEnum.OD;
 		}
-		SE = Double.parseDouble(instance.stringValue(5));
-		UCVA = Double.parseDouble(instance.stringValue(6));
-		SD = Double.parseDouble(instance.stringValue(7));
-		CD = Double.parseDouble(instance.stringValue(8));
-		Axis = Double.parseDouble(instance.stringValue(9));
-		BCVA = Double.parseDouble(instance.stringValue(10));
-		CornealRadius = Double.parseDouble(instance.stringValue(11));
-		OpticalZone = Double.parseDouble(instance.stringValue(12));
-		K1 = Double.parseDouble(instance.stringValue(13));
-		K2 = Double.parseDouble(instance.stringValue(14));
-		Km = Double.parseDouble(instance.stringValue(15));
-		CCT = Double.parseDouble(instance.stringValue(16));
-		if (instance.stringValue(17).equals("0")) {
+		SE = instance.value(5);
+		UCVA = instance.value(6);
+		SD = instance.value(7);
+		CD = instance.value(8);
+		Axis = instance.value(9);
+		BCVA = instance.value(10);
+		CornealRadius = instance.value(11);
+		OpticalZone = instance.value(12);
+		K1 = instance.value(13);
+		K2 = instance.value(14);
+		Km = instance.value(15);
+		CCT = instance.value(16);
+		if (instance.value(17) == 0) {
 			LeadEye = EyeEnum.OS;
 		}
 		else {
 			LeadEye = EyeEnum.OD;
 		}
-		PredictNomogram = Double.parseDouble(instance.stringValue(18));
-		RST = Double.parseDouble(instance.stringValue(19));
-		Time = Double.parseDouble(instance.stringValue(20));
-		Humidity = Double.parseDouble(instance.stringValue(21));
-		Temperature = Double.parseDouble(instance.stringValue(22));
-		if (instance.stringValue(23).equals("0")) {
+		PredictNomogram = instance.value(18);
+		RST = instance.value(19);
+		Time = instance.value(20);
+		Humidity = instance.value(21);
+		Temperature = instance.value(22);
+		if (instance.value(23) == 0) {
 			FirstEyeToTreat = EyeEnum.OS;
 		}
 		else {
 			FirstEyeToTreat = EyeEnum.OD;
 		}
-		Energy = Double.parseDouble(instance.stringValue(24));
-		OBL = Double.parseDouble(instance.stringValue(25));
-		Thickness = Double.parseDouble(instance.stringValue(26));
-		Position = Double.parseDouble(instance.stringValue(27));
-		RealNomogram = Double.parseDouble(instance.stringValue(28));
+		Energy = instance.value(24);
+		OBL = instance.value(25);
+		Thickness = instance.value(26);
+		Position = instance.value(27);
+		RealNomogram = instance.value(28);
 		RealNomogramLabel = instance.stringValue(29);
-		SDAfterOneDay = Double.parseDouble(instance.stringValue(30));
-		SDAfterThreeMonths = Double.parseDouble(instance.stringValue(31));
-		SDAfterSixMonths = Double.parseDouble(instance.stringValue(32));
+		SDAfterOneDay = instance.value(30);
+		SDAfterThreeMonths = instance.value(31);
+		SDAfterSixMonths = instance.value(32);
 	}
 	
 	public void init() {
@@ -216,7 +218,7 @@ public class Attribute {
 		LeadEye = EyeEnum.OS;
 		PredictNomogram = 0;
 		RST = 0;
-		Time = 0;
+		Time = System.currentTimeMillis();
 		Humidity = 0;
 		Temperature = 0;
 		FirstEyeToTreat = EyeEnum.OS;
@@ -310,7 +312,9 @@ public class Attribute {
 		AttributeArrayList.add(LeadEye.toString());
 		AttributeArrayList.add(Double.toString(PredictNomogram));
 		AttributeArrayList.add(Double.toString(RST));
-		AttributeArrayList.add(Double.toString(Time));
+		Date date = new Date((long)Time);
+		DateFormat df = DateFormat.getDateTimeInstance();
+		AttributeArrayList.add(df.format(date));
 		AttributeArrayList.add(Double.toString(Humidity));
 		AttributeArrayList.add(Double.toString(Temperature));
 		AttributeArrayList.add(FirstEyeToTreat.toString());

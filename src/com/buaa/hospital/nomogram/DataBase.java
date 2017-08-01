@@ -8,6 +8,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import weka.core.Instance;
 import weka.core.Instances;
@@ -33,22 +37,22 @@ public class DataBase {
 	
 	public void Init() throws Exception {
 		UnconfirmedDataIndex = 1;
-		UnconfirmedData = multilayer.loaddata(Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff");
+		UnconfirmedData = multilayer.loaddata(getCurrentUnconfirmedDataPath());
 		ConfirmedDataIndex = 1;
-		ConfirmedData = multilayer.loaddata(Constant.ConfirmedDataPath + "\\" + Constant.ConfirmedDataName + "_" + ConfirmedDataIndex + ".arff");
+		ConfirmedData = multilayer.loaddata(getCurrentConfirmedDataPath());
 		UntrainedDataIndex = 1;
-		UntrainedData = multilayer.loaddata(Constant.UntrainedDataPath + "\\" + Constant.UntrainedDataName + "_" + UntrainedDataIndex + ".arff");
+		UntrainedData = multilayer.loaddata(getCurrentUntrainedDataPath());
 		UntrainedDataIndex = 1;
-		TrainedData = multilayer.loaddata(Constant.TrainedDataPath + "\\" + Constant.TrainedDataName + "_" + TrainedDataIndex + ".arff");
+		TrainedData = multilayer.loaddata(getCurrentTrainedDataPath());
 		BadDataIndex = 1;
-		BadData = multilayer.loaddata(Constant.BadDataPath + "\\" + Constant.BadDataName + "_" + BadDataIndex + ".arff");
+		BadData = multilayer.loaddata(getCurrentBadDataPath());
 	}
 	
 	
 	public Instances getNextUnconfirmedData() throws Exception {
 		if (UnconfirmedDataIndex < Constant.UnconfirmedDataMaxIndex) {
 			UnconfirmedDataIndex ++;
-			UnconfirmedData = multilayer.loaddata(Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff");
+			UnconfirmedData = multilayer.loaddata(getCurrentUnconfirmedDataPath());
 			return UnconfirmedData;
 		}
 		else {
@@ -60,7 +64,7 @@ public class DataBase {
 	public Instances getNextConfirmedData() throws Exception {
 		if (ConfirmedDataIndex < Constant.ConfirmedDataMaxIndex) {
 			ConfirmedDataIndex ++;
-			ConfirmedData = multilayer.loaddata(Constant.ConfirmedDataPath + "\\" + Constant.ConfirmedDataName + "_" + ConfirmedDataIndex + ".arff");
+			ConfirmedData = multilayer.loaddata(getCurrentConfirmedDataPath());
 			return ConfirmedData;
 		}
 		else {
@@ -72,7 +76,7 @@ public class DataBase {
 	public Instances getNextUntrainedData() throws Exception {
 		if (UntrainedDataIndex < Constant.UntrainedDataMaxIndex) {
 			UntrainedDataIndex ++;
-			UntrainedData = multilayer.loaddata(Constant.UntrainedDataPath + "\\" + Constant.UntrainedDataName + "_" + UntrainedDataIndex + ".arff");
+			UntrainedData = multilayer.loaddata(getCurrentUntrainedDataPath());
 			return UntrainedData;
 		}
 		else {
@@ -84,7 +88,7 @@ public class DataBase {
 	public Instances getNextTrainedData() throws Exception {
 		if (TrainedDataIndex < Constant.TrainedDataMaxIndex) {
 			TrainedDataIndex ++;
-			TrainedData = multilayer.loaddata(Constant.TrainedDataPath + "\\" + Constant.TrainedDataName + "_" + TrainedDataIndex + ".arff");
+			TrainedData = multilayer.loaddata(getCurrentTrainedDataPath());
 			return TrainedData;
 		}
 		else {
@@ -96,7 +100,7 @@ public class DataBase {
 	public Instances getNextBadData() throws Exception {
 		if (BadDataIndex < Constant.BadDataMaxIndex) {
 			BadDataIndex ++;
-			BadData = multilayer.loaddata(Constant.BadDataPath + "\\" + Constant.BadDataName + "_" + BadDataIndex + ".arff");
+			BadData = multilayer.loaddata(getCurrentBadDataPath());
 			return BadData;
 		}
 		else {
@@ -212,7 +216,7 @@ public class DataBase {
 				if (getNextUnconfirmedData() == null) {
 					Constant.UnconfirmedDataMaxIndex ++;
 					UnconfirmedDataIndex = Constant.UnconfirmedDataMaxIndex;
-					BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff", false)));
+					BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getCurrentUnconfirmedDataPath(), false)));
 					bWriter.write(Constant.ArffFileHead);
 					bWriter.flush();
 					bWriter.close();
@@ -224,7 +228,7 @@ public class DataBase {
 			}
 		}
 		System.out.println(UnconfirmedData.toString());
-		saveArff(UnconfirmedData, Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff");
+		saveArff(UnconfirmedData, getCurrentUnconfirmedDataPath());
 	}
 	
 	public static void saveArff(Instances instances, String FileName) throws IOException {
@@ -238,6 +242,171 @@ public class DataBase {
 //		writer.write(instances.toString());  
 //		writer.flush();  
 //		writer.close();
+	}
+	
+	public ArrayList<QueryResult> QuerybyID(String ID) throws Exception {
+		ArrayList<QueryResult> queryResults = new ArrayList();
+		Init();
+		for (; ;) {
+			queryResults.addAll(QuerybyIDfromInstances(UnconfirmedData, ID, getCurrentUnconfirmedDataPath()));
+			if (getNextUnconfirmedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyIDfromInstances(ConfirmedData, ID, getCurrentConfirmedDataPath()));
+			if (getNextConfirmedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyIDfromInstances(UntrainedData, ID, getCurrentUntrainedDataPath()));
+			if (getNextUntrainedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyIDfromInstances(TrainedData, ID, getCurrentTrainedDataPath()));
+			if (getNextTrainedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyIDfromInstances(BadData, ID, getCurrentBadDataPath()));
+			if (getNextBadData() == null) {
+				break;
+			}
+		}
+		return queryResults;
+	}
+	
+	public ArrayList<QueryResult> QuerybyName(String Name) throws Exception {
+		ArrayList<QueryResult> queryResults = new ArrayList();
+		Init();
+		for (; ;) {
+			queryResults.addAll(QuerybyNamefromInstances(UnconfirmedData, Name, getCurrentUnconfirmedDataPath()));
+			if (getNextUnconfirmedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyNamefromInstances(ConfirmedData, Name, getCurrentConfirmedDataPath()));
+			if (getNextConfirmedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyNamefromInstances(UntrainedData, Name, getCurrentUntrainedDataPath()));
+			if (getNextUntrainedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyNamefromInstances(UnconfirmedData, Name, getCurrentTrainedDataPath()));
+			if (getNextTrainedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyNamefromInstances(UnconfirmedData, Name, getCurrentBadDataPath()));
+			if (getNextBadData() == null) {
+				break;
+			}
+		}
+		return queryResults;
+	}
+	
+	public ArrayList<QueryResult> QuerybyDate(Date date) throws Exception {
+		ArrayList<QueryResult> queryResults = new ArrayList();
+		Init();
+		for (; ;) {
+			queryResults.addAll(QuerybyDatefromInstances(UnconfirmedData, date, getCurrentUnconfirmedDataPath()));
+			if (getNextUnconfirmedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyDatefromInstances(ConfirmedData, date, getCurrentConfirmedDataPath()));
+			if (getNextConfirmedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyDatefromInstances(UntrainedData, date, getCurrentUntrainedDataPath()));
+			if (getNextUntrainedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyDatefromInstances(UnconfirmedData, date, getCurrentTrainedDataPath()));
+			if (getNextTrainedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			queryResults.addAll(QuerybyDatefromInstances(UnconfirmedData, date, getCurrentBadDataPath()));
+			if (getNextBadData() == null) {
+				break;
+			}
+		}
+		return queryResults;
+	}
+	
+	
+	
+	public ArrayList<QueryResult> QuerybyIDfromInstances(Instances instances, String ID, String FilePath) {
+		ArrayList<QueryResult> queryResults = new ArrayList();
+		for (int i = 0; i < instances.numInstances(); i ++) {
+			if (instances.instance(i).value(0) == Double.parseDouble(ID)) {
+				QueryResult queryResult = new QueryResult(instances, instances.instance(i), FilePath);
+				queryResults.add(queryResult);
+			}
+		}
+		return queryResults;
+	}
+	
+	public ArrayList<QueryResult> QuerybyNamefromInstances(Instances instances, String Name, String FilePath) {
+		ArrayList<QueryResult> queryResults = new ArrayList();
+		for (int i = 0; i < instances.numInstances(); i ++) {
+			if (instances.instance(i).stringValue(1).equals(Name)) {
+				QueryResult queryResult = new QueryResult(instances, instances.instance(i), FilePath);
+				queryResults.add(queryResult);
+			}
+		}
+		return queryResults;
+	}
+	
+	public ArrayList<QueryResult> QuerybyDatefromInstances(Instances instances, Date date, String FilePath) {
+		ArrayList<QueryResult> queryResults = new ArrayList();
+		for (int i = 0; i < instances.numInstances(); i ++) {
+			DateFormat df = DateFormat.getDateInstance();
+			Date tempDate = new Date((long)(instances.instance(i).value(20)));
+			if (df.format(tempDate).equals(df.format(date))) {
+				QueryResult queryResult = new QueryResult(instances, instances.instance(i), FilePath);
+				queryResults.add(queryResult);
+			}
+		}
+		return queryResults;
+	}
+	
+	public String getCurrentUnconfirmedDataPath() {
+		return Constant.UnconfirmedDataPath + "\\" + Constant.UnconfirmedDataName + "_" + UnconfirmedDataIndex + ".arff";
+	}
+	
+	public String getCurrentConfirmedDataPath() {
+		return Constant.ConfirmedDataPath + "\\" + Constant.ConfirmedDataName + "_" + ConfirmedDataIndex + ".arff";
+	}
+	
+	public String getCurrentUntrainedDataPath() {
+		return Constant.UntrainedDataPath + "\\" + Constant.UntrainedDataName + "_" + UntrainedDataIndex + ".arff";
+	}
+	
+	public String getCurrentTrainedDataPath() {
+		return Constant.TrainedDataPath + "\\" + Constant.TrainedDataName + "_" + TrainedDataIndex + ".arff";
+	}
+	
+	public String getCurrentBadDataPath() {
+		return Constant.BadDataPath + "\\" + Constant.BadDataName + "_" + BadDataIndex + ".arff";
 	}
 
 }

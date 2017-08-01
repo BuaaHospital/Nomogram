@@ -4,28 +4,40 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.EventObject;
 
 import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.CellEditorListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Button;
+import java.awt.Component;
+
 import javax.swing.JButton;
 
 public class QueryInterface {
 
 	private JFrame frame;
 	private DataBase dataBase;
+	private JLabel IDLabel;
+	private JRadioButton IDRadioButton;
 	private JTextField IDText;
 	private JLabel NameLabel;
+	private JRadioButton NameRadioButton;
 	private JTextField NameText;
 	private JLabel DateLabel;
+	private JRadioButton DateRadioButton;
+	private DateChooser dateChooser;
 	private QueryTabelModel queryTabelModel = new QueryTabelModel();
 	private JTable QueryTable;
 
@@ -40,8 +52,8 @@ public class QueryInterface {
 	 * Create the application.
 	 */
 	public QueryInterface(DataBase dataBase) {
-		initialize();
 		this.dataBase = dataBase;
+		initialize();
 	}
 
 	/**
@@ -54,7 +66,7 @@ public class QueryInterface {
 		frame.setBounds(0, 0, ScreenWeight, ScreenHeight-40);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel IDLabel = new JLabel("病历号");
+		IDLabel = new JLabel("病历号");
 		IDLabel.setBounds(300, 100, 100, 30);
 		IDLabel.setHorizontalAlignment(JLabel.CENTER);
 		frame.getContentPane().add(IDLabel);
@@ -83,7 +95,7 @@ public class QueryInterface {
 		DateLabel.setBounds(900, 100, 100, 30);
 		frame.getContentPane().add(DateLabel);
 		
-		DateChooser dateChooser = new DateChooser("yyyy-MM-dd");
+		dateChooser = new DateChooser("yyyy-MM-dd");
 		dateChooser.setBounds(1000, 100, 100, 30);
 		frame.getContentPane().add(dateChooser);
 		dateChooser.setEnabled(false);
@@ -92,7 +104,7 @@ public class QueryInterface {
 		IDPanel.setBounds(300, 50, 200, 30);
 		frame.getContentPane().add(IDPanel);
 		
-		JRadioButton IDRadioButton = new JRadioButton("");
+		IDRadioButton = new JRadioButton("");
 		IDPanel.add(IDRadioButton);
 		RadioButtonAction IDRadioButtonAction = new RadioButtonAction(0, IDRadioButton, IDText);
 		IDRadioButton.setAction(IDRadioButtonAction);
@@ -102,7 +114,7 @@ public class QueryInterface {
 		NamePanel.setBounds(600, 50, 200, 30);
 		frame.getContentPane().add(NamePanel);
 		
-		JRadioButton NameRadioButton = new JRadioButton("");
+		NameRadioButton = new JRadioButton("");
 		NamePanel.add(NameRadioButton);
 		RadioButtonAction NameRadioButtonAction = new RadioButtonAction(0, NameRadioButton, NameText);
 		NameRadioButton.setAction(NameRadioButtonAction);
@@ -112,7 +124,7 @@ public class QueryInterface {
 		DatePanel.setBounds(900, 50, 200, 30);
 		frame.getContentPane().add(DatePanel);
 		
-		JRadioButton DateRadioButton = new JRadioButton("");
+		DateRadioButton = new JRadioButton("");
 		DatePanel.add(DateRadioButton);
 		RadioButtonAction DateRadioButtonAction = new RadioButtonAction(1, DateRadioButton, dateChooser);
 		DateRadioButton.setAction(DateRadioButtonAction);
@@ -120,6 +132,56 @@ public class QueryInterface {
 		
 		QueryTable = new JTable(queryTabelModel);
 		QueryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
+		QueryTable.getColumnModel().getColumn(0).setCellEditor(new TableCellEditor() {
+			
+			@Override
+			public boolean stopCellEditing() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public boolean shouldSelectCell(EventObject anEvent) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public void removeCellEditorListener(CellEditorListener l) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public boolean isCellEditable(EventObject anEvent) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public Object getCellEditorValue() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public void cancelCellEditing() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void addCellEditorListener(CellEditorListener l) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 		tcr.setHorizontalAlignment(JLabel.CENTER);
 		QueryTable.setDefaultRenderer(Object.class, tcr);
@@ -130,9 +192,73 @@ public class QueryInterface {
 		JButton QueryButton = new JButton("查询");
 		QueryButton.setBounds(500, 150, 100, 30);
 		frame.getContentPane().add(QueryButton);
+		QueryButton.addActionListener(new QueryButtonListener(dataBase, this));
 		
 		JButton ClearButton = new JButton("清空");
 		ClearButton.setBounds(800, 150, 100, 30);
 		frame.getContentPane().add(ClearButton);
+	}
+	
+	public boolean isIdSelected() {
+		if (IDRadioButton.isSelected()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public String getIDText() {
+		return IDText.getText();
+	}
+	
+	public boolean isNameSelected() {
+		if (NameRadioButton.isSelected()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public String getNameText() {
+		return NameText.getText();
+	}
+	
+	public boolean isDateSelected() {
+		if (DateRadioButton.isSelected()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public Date getDate() {
+		return dateChooser.getDate();
+	}
+	
+	public boolean checkData() {
+		return true;
+	}
+	
+	public void setQueryResult(ArrayList<QueryResult> queryResults) {
+		queryTabelModel.setQueryResult(queryResults);
+	}
+	
+	public void reset() {
+		IDRadioButton.setSelected(false);
+		IDText.setEditable(false);
+		IDText.setText("");
+		NameRadioButton.setSelected(false);
+		NameText.setEditable(false);
+		NameText.setText("");
+		DateRadioButton.setSelected(false);
+		dateChooser.setEnabled(false);
+		dateChooser.setSelectedNow();
+	}
+	
+	public void RefreshQueryTable() {
+		QueryTable.updateUI();
 	}
 }

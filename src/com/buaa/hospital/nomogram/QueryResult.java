@@ -20,5 +20,18 @@ public class QueryResult {
 	public Attribute getAttribute() {
 		return attribute;
 	}
+	
+	public Instance getInstance() {
+		return instance;
+	}
+	
+	public boolean equals(QueryResult queryResult) {
+		if (instance.toString().equals(queryResult.getInstance().toString())) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 }
