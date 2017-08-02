@@ -21,6 +21,12 @@ public class PredictButtonListener implements ActionListener{
 			attribute.GenRST();
 			if (predictInterface.getAlogrithmNum() == 0) {
 				//综合算法
+				try {
+					Nomogram = attribute.PredictbyMultiPreception(predictInterface.getModelNum());	
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			else if (predictInterface.getAlogrithmNum() == 1) {
 				//神经网络算法

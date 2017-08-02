@@ -302,13 +302,13 @@ public class DataBase {
 			}
 		}
 		for (; ;) {
-			queryResults.addAll(QuerybyNamefromInstances(UnconfirmedData, Name, getCurrentTrainedDataPath()));
+			queryResults.addAll(QuerybyNamefromInstances(TrainedData, Name, getCurrentTrainedDataPath()));
 			if (getNextTrainedData() == null) {
 				break;
 			}
 		}
 		for (; ;) {
-			queryResults.addAll(QuerybyNamefromInstances(UnconfirmedData, Name, getCurrentBadDataPath()));
+			queryResults.addAll(QuerybyNamefromInstances(BadData, Name, getCurrentBadDataPath()));
 			if (getNextBadData() == null) {
 				break;
 			}
@@ -338,13 +338,13 @@ public class DataBase {
 			}
 		}
 		for (; ;) {
-			queryResults.addAll(QuerybyDatefromInstances(UnconfirmedData, date, getCurrentTrainedDataPath()));
+			queryResults.addAll(QuerybyDatefromInstances(TrainedData, date, getCurrentTrainedDataPath()));
 			if (getNextTrainedData() == null) {
 				break;
 			}
 		}
 		for (; ;) {
-			queryResults.addAll(QuerybyDatefromInstances(UnconfirmedData, date, getCurrentBadDataPath()));
+			queryResults.addAll(QuerybyDatefromInstances(BadData, date, getCurrentBadDataPath()));
 			if (getNextBadData() == null) {
 				break;
 			}
@@ -358,7 +358,7 @@ public class DataBase {
 		ArrayList<QueryResult> queryResults = new ArrayList();
 		for (int i = 0; i < instances.numInstances(); i ++) {
 			if (instances.instance(i).value(0) == Double.parseDouble(ID)) {
-				QueryResult queryResult = new QueryResult(instances, instances.instance(i), FilePath);
+				QueryResult queryResult = new QueryResult(instances, instances.instance(i), FilePath, i);
 				queryResults.add(queryResult);
 			}
 		}
@@ -369,7 +369,7 @@ public class DataBase {
 		ArrayList<QueryResult> queryResults = new ArrayList();
 		for (int i = 0; i < instances.numInstances(); i ++) {
 			if (instances.instance(i).stringValue(1).equals(Name)) {
-				QueryResult queryResult = new QueryResult(instances, instances.instance(i), FilePath);
+				QueryResult queryResult = new QueryResult(instances, instances.instance(i), FilePath, i);
 				queryResults.add(queryResult);
 			}
 		}
@@ -382,7 +382,7 @@ public class DataBase {
 			DateFormat df = DateFormat.getDateInstance();
 			Date tempDate = new Date((long)(instances.instance(i).value(20)));
 			if (df.format(tempDate).equals(df.format(date))) {
-				QueryResult queryResult = new QueryResult(instances, instances.instance(i), FilePath);
+				QueryResult queryResult = new QueryResult(instances, instances.instance(i), FilePath, i);
 				queryResults.add(queryResult);
 			}
 		}

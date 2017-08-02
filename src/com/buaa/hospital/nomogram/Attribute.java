@@ -292,9 +292,9 @@ public class Attribute {
 	
 	public ArrayList<String> toArrayList() {
 		ArrayList<String> AttributeArrayList = new ArrayList();
-		AttributeArrayList.add(Double.toString(ID));
+		AttributeArrayList.add(Long.toString((long)ID));
 		AttributeArrayList.add(Name);
-		AttributeArrayList.add(Double.toString(Age));
+		AttributeArrayList.add(Long.toString((long)Age));
 		AttributeArrayList.add(Sex.toString());
 		AttributeArrayList.add(Eye.toString());
 		AttributeArrayList.add(Double.toString(SE));

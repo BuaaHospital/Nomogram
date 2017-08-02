@@ -3,6 +3,8 @@ package com.buaa.hospital.nomogram;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
@@ -132,62 +134,13 @@ public class QueryInterface {
 		
 		QueryTable = new JTable(queryTabelModel);
 		QueryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
-		QueryTable.getColumnModel().getColumn(0).setCellEditor(new TableCellEditor() {
-			
-			@Override
-			public boolean stopCellEditing() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public boolean shouldSelectCell(EventObject anEvent) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public void removeCellEditorListener(CellEditorListener l) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public boolean isCellEditable(EventObject anEvent) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public Object getCellEditorValue() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public void cancelCellEditing() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void addCellEditorListener(CellEditorListener l) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		});
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 		tcr.setHorizontalAlignment(JLabel.CENTER);
 		QueryTable.setDefaultRenderer(Object.class, tcr);
 		JScrollPane QueryScrollPane = new JScrollPane(QueryTable);
 		QueryScrollPane.setBounds(300, 200, 800, 400);
 		frame.getContentPane().add(QueryScrollPane);
+		QueryTable.addMouseListener(new QueryTableMouseListener(this));
 		
 		JButton QueryButton = new JButton("查询");
 		QueryButton.setBounds(500, 150, 100, 30);
@@ -260,5 +213,9 @@ public class QueryInterface {
 	
 	public void RefreshQueryTable() {
 		QueryTable.updateUI();
+	}
+	
+	public JTable getQueryTable() {
+		return QueryTable;
 	}
 }
