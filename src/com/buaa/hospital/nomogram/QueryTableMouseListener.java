@@ -1,6 +1,6 @@
 package com.buaa.hospital.nomogram;
 
-import java.awt.AWTError;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 

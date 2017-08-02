@@ -364,7 +364,7 @@ public class Attribute {
 		bWriter.close();
 		DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
 		Instances structure = dataSource.getDataSet();
-		int[] DeleteAttributeIndex = {32, 31, 30, 28, 27, 26, 25, 24, 23, 22, 21, 20, 18, 17, 16, 15, 10, 6, 5, 1, 0};
+		int[] DeleteAttributeIndex = {32, 31, 30, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 10, 6, 5, 1, 0};
 		for (int i = 0; i < DeleteAttributeIndex.length; i ++) {
 			structure.deleteAttributeAt(DeleteAttributeIndex[i]);
 		}
@@ -388,7 +388,7 @@ public class Attribute {
 	}
 	
 	public void GenRST() {
-		RST = 300;
+		RST = 0;
 	}
 	
 	public double getID() {

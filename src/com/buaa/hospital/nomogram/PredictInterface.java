@@ -8,6 +8,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -19,10 +21,15 @@ import weka.clusterers.forOPTICSAndDBScan.Databases.Database;
 import weka.core.Check;
 
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -307,15 +314,6 @@ public class PredictInterface {
 		frame.getContentPane().add(SaveButton);
 		SaveButton.addActionListener(new SaveButtonListener(this));
 		
-		SaveButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
 		
 		HistoryTable = new JTable(historyTabelModel);
 		HistoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
@@ -330,13 +328,8 @@ public class PredictInterface {
 		LogArea.setEditable(false);
 		JScrollPane LogScrollPane = new JScrollPane(LogArea);
 		LogScrollPane.setBounds(700, 500, 600, 100);
+		LogArea.addMouseListener(new LogAreamouseRightClickListener());
 		frame.getContentPane().add(LogScrollPane);
-		
-		
-		
-		
-		
-		
 	}
 	
 	public boolean CheckData() {
@@ -758,5 +751,58 @@ public class PredictInterface {
 	
 	public DataBase getDataBase() {
 		return dataBase;
+	}
+	
+	public JTextArea getLogArea() {
+		return LogArea;
+	}
+	
+	public class LogAreamouseRightClickListener implements MouseListener {
+		private JPopupMenu jPopupMenu;
+		private JMenuItem clearMenuItem;
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			jPopupMenu = new JPopupMenu();
+			clearMenuItem = new JMenuItem("清除");
+			jPopupMenu.add(clearMenuItem);
+			clearMenuItem.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					LogArea.setText("");
+				}
+			});
+			if (e.getButton() == MouseEvent.BUTTON3) {
+				jPopupMenu.show(LogArea, e.getX(), e.getY());
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }

@@ -16,7 +16,7 @@ public class Classifier {
 			throw new Exception("Path empty or instance null");
 		}
 		baggingClassifier = (Bagging)SerializationHelper.read(modelPath);  //get serialized classifier from a model path
-		return (double)(baggingClassifier.classifyInstance(instance))/20;  //get result
+		return ((double)(baggingClassifier.classifyInstance(instance)))/20;  //get result
 	}
 	
 	public static double predictByModelFile(String FilePath, Instance instance) throws Exception {
