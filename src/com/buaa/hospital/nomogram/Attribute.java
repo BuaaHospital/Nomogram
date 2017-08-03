@@ -141,6 +141,63 @@ public class Attribute {
 		SDAfterSixMonths = Constant.InitDataNum;
 	}
 	
+	public Attribute(ModifyInterface modifyInterface) {
+		ArrayList<String> AttributeData = modifyInterface.toArrayList();
+		ID = Double.parseDouble(AttributeData.get(0));
+		Name = AttributeData.get(1);
+		Age = Double.parseDouble(AttributeData.get(2));
+		if (AttributeData.get(3).equals("Male")) {
+			Sex = SexEnum.Male;
+		}
+		else {
+			Sex = SexEnum.Female;
+		}
+		if (AttributeData.get(4).equals("OS")) {
+			Eye = EyeEnum.OS;
+		}
+		else {
+			Eye = EyeEnum.OD;
+		}
+		SE = Double.parseDouble(AttributeData.get(5));
+		UCVA = Double.parseDouble(AttributeData.get(6));
+		SD = Double.parseDouble(AttributeData.get(7));
+		CD = Double.parseDouble(AttributeData.get(8));
+		Axis = Double.parseDouble(AttributeData.get(9));
+		BCVA = Double.parseDouble(AttributeData.get(10));
+		CornealRadius = Double.parseDouble(AttributeData.get(11));
+		OpticalZone = Double.parseDouble(AttributeData.get(12));
+		K1 = Double.parseDouble(AttributeData.get(13));
+		K2 = Double.parseDouble(AttributeData.get(14));
+		Km = Double.parseDouble(AttributeData.get(15));
+		CCT = Double.parseDouble(AttributeData.get(16));
+		if (AttributeData.get(17).equals("OS")) {
+			LeadEye = EyeEnum.OS;
+		}
+		else {
+			LeadEye = EyeEnum.OD;
+		}
+		PredictNomogram = Double.parseDouble(AttributeData.get(18));
+		RST = Double.parseDouble(AttributeData.get(19));
+		Time = Double.parseDouble(AttributeData.get(20));
+		Humidity = Double.parseDouble(AttributeData.get(21));
+		Temperature = Double.parseDouble(AttributeData.get(22));
+		if (AttributeData.get(23).equals("OS")) {
+			FirstEyeToTreat = EyeEnum.OS;
+		}
+		else {
+			FirstEyeToTreat = EyeEnum.OD;
+		}
+		Energy = Double.parseDouble(AttributeData.get(24));
+		OBL = Double.parseDouble(AttributeData.get(25));
+		Thickness = Double.parseDouble(AttributeData.get(26));
+		Position = Double.parseDouble(AttributeData.get(27));
+		RealNomogram = Double.parseDouble(AttributeData.get(28));
+		RealNomogramLabel = AttributeData.get(28);
+		SDAfterOneDay = Double.parseDouble(AttributeData.get(29));
+		SDAfterThreeMonths = Double.parseDouble(AttributeData.get(30));
+		SDAfterSixMonths = Double.parseDouble(AttributeData.get(31));
+	}
+	
 	public Attribute(Instance instance) {
 		ID = instance.value(0);
 		Name = instance.stringValue(1);

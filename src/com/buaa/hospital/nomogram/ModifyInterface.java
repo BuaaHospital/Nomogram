@@ -291,9 +291,9 @@ public class ModifyInterface {
 		ResetButton.setBounds(200, 600, 100, 30);
 		frame.getContentPane().add(ResetButton);
 		
-		JButton ClearButton = new JButton("清除");
-		ClearButton.setBounds(350, 600, 100, 30);
-		frame.getContentPane().add(ClearButton);
+		JButton DeleteButton = new JButton("删除");
+		DeleteButton.setBounds(350, 600, 100, 30);
+		frame.getContentPane().add(DeleteButton);
 		
 		JButton SaveButton = new JButton("保存");
 		SaveButton.setBounds(500, 600, 100, 30);
@@ -560,5 +560,95 @@ public class ModifyInterface {
 		else {
 			SDAfterSixMonthsText.setText(OriginData.get(31));
 		}
+	}
+	
+	public ArrayList<String> toArrayList() {
+		ArrayList<String> AttributeData = new ArrayList();
+		AttributeData.add(IDText.getText());
+		AttributeData.add(NameText.getText());
+		AttributeData.add(AgeText.getText());
+		AttributeData.add(SexLabels[SexBox.getSelectedIndex()]);
+		AttributeData.add(EyeLabels[EyeBox.getSelectedIndex()]);
+		AttributeData.add(SEText.getText());
+		AttributeData.add(UCVAText.getText());
+		AttributeData.add(SDText.getText());
+		AttributeData.add(CDText.getText());
+		AttributeData.add(AxisText.getText());
+		if (BCVABox.getSelectedIndex() == -1) {
+			AttributeData.add((String)BCVABox.getSelectedItem());
+		}
+		else {
+			AttributeData.add(BCVALabels[BCVABox.getSelectedIndex()]);
+		}
+		AttributeData.add(CornealRadiusText.getText());
+		if (OpticalZoneBox.getSelectedIndex() == -1) {
+			AttributeData.add((String)OpticalZoneBox.getSelectedItem());
+		}
+		else {
+			AttributeData.add(OpticalZoneLabels[OpticalZoneBox.getSelectedIndex()]);
+		}
+		AttributeData.add(K1Text.getText());
+		AttributeData.add(K2Text.getText());
+		AttributeData.add(KmText.getText());
+		AttributeData.add(CCTText.getText());
+		AttributeData.add(EyeLabels[LeadEyeBox.getSelectedIndex()]);
+		AttributeData.add(OriginData.get(18));
+		if (RSTText.getText().equals(Double.toString(Constant.InitDataNum))) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(RSTText.getText());
+		}
+		AttributeData.add(OriginData.get(20));
+		if (HumidityText.getText().equals(Double.toString(Constant.InitDataNum))) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(HumidityText.getText());
+		}
+		if (TemperatureText.getText().equals(Double.toString(Constant.InitDataNum))) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(TemperatureText.getText());
+		}
+		AttributeData.add(EyeLabels[FirstEyeBox.getSelectedIndex()]);
+		AttributeData.add((String)EnergyBox.getSelectedItem());
+		if (OBLBox.getSelectedIndex() == 0) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(Integer.toString(OBLBox.getSelectedIndex() - 1));
+		}
+		AttributeData.add((String)ThicknessBox.getSelectedItem());
+		AttributeData.add((String)PositionBox.getSelectedItem());
+		if (RealNomogramBox.getSelectedIndex() == 0) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else if (RealNomogramBox.getSelectedIndex() == 1) {
+			AttributeData.add(OriginData.get(18));
+		}
+		else {
+			AttributeData.add((String)RealNomogramBox.getSelectedItem());
+		}
+		if (SDAfterOneDayText.getText().equals(Double.toString(Constant.InitDataNum))) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(SDAfterOneDayText.getText());
+		}
+		if (SDAfterThreeMonthsText.getText().equals(Double.toString(Constant.InitDataNum))) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(SDAfterThreeMonthsText.getText());
+		}
+		if (SDAfterSixMonthsText.getText().equals(Double.toString(Constant.InitDataNum))) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(SDAfterSixMonthsText.getText());
+		}
+		return AttributeData;
 	}
 }

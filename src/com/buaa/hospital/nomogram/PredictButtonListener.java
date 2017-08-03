@@ -18,7 +18,6 @@ public class PredictButtonListener implements ActionListener{
 			Attribute attribute = new Attribute(predictInterface);
 			double Nomogram = 0;
 			attribute.GenTime();
-			attribute.GenRST();
 			if (predictInterface.getAlogrithmNum() == 0) {
 				//综合算法
 				try {

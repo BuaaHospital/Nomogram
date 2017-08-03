@@ -150,6 +150,7 @@ public class QueryInterface {
 		JButton ClearButton = new JButton("清空");
 		ClearButton.setBounds(800, 150, 100, 30);
 		frame.getContentPane().add(ClearButton);
+		ClearButton.addActionListener(new QueryClearButtonListener(this));
 	}
 	
 	public boolean isIdSelected() {
@@ -209,6 +210,8 @@ public class QueryInterface {
 		DateRadioButton.setSelected(false);
 		dateChooser.setEnabled(false);
 		dateChooser.setSelectedNow();
+		queryTabelModel.clearQueryResult();
+		RefreshQueryTable();
 	}
 	
 	public void RefreshQueryTable() {

@@ -408,5 +408,13 @@ public class DataBase {
 	public String getCurrentBadDataPath() {
 		return Constant.BadDataPath + "\\" + Constant.BadDataName + "_" + BadDataIndex + ".arff";
 	}
+	
+	public void deleteInstance(QueryResult queryResult) {
+		
+	}
+	
+	public void modifyInstance(QueryResult queryResult) {
+		
+	}
 
 }

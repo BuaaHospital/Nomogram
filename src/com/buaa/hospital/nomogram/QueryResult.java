@@ -60,5 +60,9 @@ public class QueryResult {
 	public int getIndex() {
 		return index;
 	}
+	
+	public DataType getDataType() {
+		return dataType;
+	}
 
 }
