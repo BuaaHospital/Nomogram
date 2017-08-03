@@ -53,5 +53,9 @@ public class QueryTabelModel extends AbstractTableModel{
 	public QueryResult getQueryResultAt(int i) {
 		return QueryResult.get(i);
 	}
+	
+	public void removeQueryResultAt(int i) {
+		QueryResult.remove(i);
+	}
 
 }

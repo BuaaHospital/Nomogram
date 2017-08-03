@@ -220,7 +220,7 @@ public class DataBase {
 					bWriter.write(Constant.ArffFileHead);
 					bWriter.flush();
 					bWriter.close();
-					DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
+					DataSource dataSource = new DataSource(getCurrentUnconfirmedDataPath());
 					UnconfirmedData = dataSource.getDataSet();
 					UnconfirmedData.add(instance);
 					break;
@@ -229,6 +229,158 @@ public class DataBase {
 		}
 		System.out.println(UnconfirmedData.toString());
 		saveArff(UnconfirmedData, getCurrentUnconfirmedDataPath());
+	}
+	
+	public void addToConfirmedData(Instance instance) throws Exception {
+		Init();
+		for (; ;) {
+			System.out.println(ConfirmedData.toString());
+			if (ConfirmedData.numInstances() < Constant.MaxInstanceItem) {
+				Instance newInstance = new Instance(33);
+				System.out.println(instance);
+				ConfirmedData.add(newInstance);
+				for (int i = 0; i < ConfirmedData.numAttributes(); i ++) {
+					if (i != 1) {
+						ConfirmedData.lastInstance().setValue(i, instance.value(i));
+					}
+					else {
+						ConfirmedData.lastInstance().setValue(i, instance.stringValue(i));
+					}
+				}
+				System.out.println(ConfirmedData.toString());
+				break;
+			}
+			else {
+				if (getNextConfirmedData() == null) {
+					Constant.ConfirmedDataMaxIndex ++;
+					ConfirmedDataIndex = Constant.ConfirmedDataMaxIndex;
+					BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getCurrentConfirmedDataPath(), false)));
+					bWriter.write(Constant.ArffFileHead);
+					bWriter.flush();
+					bWriter.close();
+					DataSource dataSource = new DataSource(getCurrentConfirmedDataPath());
+					ConfirmedData = dataSource.getDataSet();
+					ConfirmedData.add(instance);
+					break;
+				}
+			}
+		}
+		System.out.println(ConfirmedData.toString());
+		saveArff(ConfirmedData, getCurrentConfirmedDataPath());
+	}
+	
+	public void addToUntrainedData(Instance instance) throws Exception {
+		Init();
+		for (; ;) {
+			System.out.println(UntrainedData.toString());
+			if (UntrainedData.numInstances() < Constant.MaxInstanceItem) {
+				Instance newInstance = new Instance(33);
+				System.out.println(instance);
+				UntrainedData.add(newInstance);
+				for (int i = 0; i < UntrainedData.numAttributes(); i ++) {
+					if (i != 1) {
+						UntrainedData.lastInstance().setValue(i, instance.value(i));
+					}
+					else {
+						UntrainedData.lastInstance().setValue(i, instance.stringValue(i));
+					}
+				}
+				System.out.println(UntrainedData.toString());
+				break;
+			}
+			else {
+				if (getNextUntrainedData() == null) {
+					Constant.UntrainedDataMaxIndex ++;
+					UntrainedDataIndex = Constant.UntrainedDataMaxIndex;
+					BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getCurrentUntrainedDataPath(), false)));
+					bWriter.write(Constant.ArffFileHead);
+					bWriter.flush();
+					bWriter.close();
+					DataSource dataSource = new DataSource(getCurrentUntrainedDataPath());
+					UntrainedData = dataSource.getDataSet();
+					UntrainedData.add(instance);
+					break;
+				}
+			}
+		}
+		System.out.println(UntrainedData.toString());
+		saveArff(UntrainedData, getCurrentUntrainedDataPath());
+	}
+	
+	public void addToTrainedData(Instance instance) throws Exception {
+		Init();
+		for (; ;) {
+			System.out.println(TrainedData.toString());
+			if (TrainedData.numInstances() < Constant.MaxInstanceItem) {
+				Instance newInstance = new Instance(33);
+				System.out.println(instance);
+				TrainedData.add(newInstance);
+				for (int i = 0; i < TrainedData.numAttributes(); i ++) {
+					if (i != 1) {
+						TrainedData.lastInstance().setValue(i, instance.value(i));
+					}
+					else {
+						TrainedData.lastInstance().setValue(i, instance.stringValue(i));
+					}
+				}
+				System.out.println(TrainedData.toString());
+				break;
+			}
+			else {
+				if (getNextTrainedData() == null) {
+					Constant.TrainedDataMaxIndex ++;
+					TrainedDataIndex = Constant.TrainedDataMaxIndex;
+					BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getCurrentTrainedDataPath(), false)));
+					bWriter.write(Constant.ArffFileHead);
+					bWriter.flush();
+					bWriter.close();
+					DataSource dataSource = new DataSource(getCurrentTrainedDataPath());
+					TrainedData = dataSource.getDataSet();
+					TrainedData.add(instance);
+					break;
+				}
+			}
+		}
+		System.out.println(TrainedData.toString());
+		saveArff(TrainedData, getCurrentTrainedDataPath());
+	}
+	
+	public void addToBadData(Instance instance) throws Exception {
+		Init();
+		for (; ;) {
+			System.out.println(BadData.toString());
+			if (BadData.numInstances() < Constant.MaxInstanceItem) {
+				Instance newInstance = new Instance(33);
+				System.out.println(instance);
+				BadData.add(newInstance);
+				for (int i = 0; i < BadData.numAttributes(); i ++) {
+					if (i != 1) {
+						BadData.lastInstance().setValue(i, instance.value(i));
+					}
+					else {
+						BadData.lastInstance().setValue(i, instance.stringValue(i));
+					}
+				}
+				System.out.println(BadData.toString());
+				break;
+			}
+			else {
+				if (getNextBadData() == null) {
+					Constant.BadDataMaxIndex ++;
+					BadDataIndex = Constant.BadDataMaxIndex;
+					BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getCurrentBadDataPath(), false)));
+					bWriter.write(Constant.ArffFileHead);
+					bWriter.flush();
+					bWriter.close();
+					DataSource dataSource = new DataSource(getCurrentBadDataPath());
+					BadData = dataSource.getDataSet();
+					BadData.add(instance);
+					break;
+				}
+			}
+		}
+		System.out.println(BadData.toString());
+		saveArff(BadData, getCurrentBadDataPath());
 	}
 	
 	public static void saveArff(Instances instances, String FileName) throws IOException {
@@ -409,12 +561,34 @@ public class DataBase {
 		return Constant.BadDataPath + "\\" + Constant.BadDataName + "_" + BadDataIndex + ".arff";
 	}
 	
-	public void deleteInstance(QueryResult queryResult) {
-		
+	public void deleteInstance(QueryResult queryResult) throws IOException {
+		Instances instances = queryResult.getInstances();
+		instances.delete(queryResult.getIndex());
+		saveArff(instances, queryResult.getFilePath());
 	}
 	
-	public void modifyInstance(QueryResult queryResult) {
-		
+	public void modifyInstance(QueryResult queryResult) throws Exception {
+		if (queryResult.isTypeChanged()) {
+			deleteInstance(queryResult);
+			if (queryResult.getDataType() == DataType.Unconfirmed) {
+				addToUnconfirmedData(queryResult.getInstance());
+			}
+			else if (queryResult.getDataType() == DataType.Confirmed) {
+				addToConfirmedData(queryResult.getInstance());
+			}
+			else if (queryResult.getDataType() == DataType.Untrained) {
+				addToUntrainedData(queryResult.getInstance());
+			}
+			else if (queryResult.getDataType() == DataType.Trained) {
+				addToTrainedData(queryResult.getInstance());
+			}
+			else {
+				addToBadData(queryResult.getInstance());
+			}
+		}
+		else {
+			saveArff(queryResult.getInstances(), queryResult.getFilePath());
+		}
 	}
 
 }

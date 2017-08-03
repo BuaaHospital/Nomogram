@@ -577,6 +577,6 @@ public class DateChooser extends JPanel{
     } 
     
     public void setSelectedNow() {
-    	select = Calendar.getInstance();
+    	
     }
 }  

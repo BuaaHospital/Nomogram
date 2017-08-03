@@ -40,12 +40,20 @@ public class QueryResult {
 		
 	}
 	
+	public Instances getInstances() {
+		return instances;
+	}
+	
 	public Attribute getAttribute() {
 		return attribute;
 	}
 	
 	public Instance getInstance() {
 		return instance;
+	}
+	
+	public String getFilePath() {
+		return FilePath;
 	}
 	
 	public boolean equals(QueryResult queryResult) {
@@ -63,6 +71,16 @@ public class QueryResult {
 	
 	public DataType getDataType() {
 		return dataType;
+	}
+	
+	public boolean isTypeChanged() {
+		File file = new File(FilePath);
+		if (file.getName().split(" ")[0].equals(dataType.toString())) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 }
