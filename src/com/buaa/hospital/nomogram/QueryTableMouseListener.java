@@ -1,6 +1,8 @@
 package com.buaa.hospital.nomogram;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -37,6 +39,23 @@ public class QueryTableMouseListener implements MouseListener{
 				queryInterface.getQueryTable().setRowSelectionInterval(focusedRowIndex, focusedRowIndex);
 				queryInterface.getQueryTable().setColumnSelectionInterval(focusedColomnIndex, focusedColomnIndex);
 				jPopupMenu.show(queryInterface.getQueryTable(), e.getX(), e.getY());
+				editMenuItem.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						ModifyInterface modifyInterface = new ModifyInterface(QueryTableMouseListener.this.queryInterface.getDataBase(), queryInterface.getQueryTabelModel().getQueryResultAt(focusedRowIndex));
+						modifyInterface.startRun();
+					}
+				});
+				delMenuItem.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 			}
 		}
 	}

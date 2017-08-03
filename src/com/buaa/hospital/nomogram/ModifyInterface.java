@@ -2,6 +2,7 @@ package com.buaa.hospital.nomogram;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +23,8 @@ public class ModifyInterface {
 
 	private JFrame frame;
 	private DataBase dataBase;
+	private QueryResult queryResult;
+	private ArrayList<String> OriginData;
 	private JComboBox AlogrithmBox;
 	private JComboBox ModelBox;
 	private JTextField IDText;
@@ -54,16 +57,16 @@ public class ModifyInterface {
 	private JTextField SDAfterThreeMonthsText;
 	private JTextField SDAfterSixMonthsText;
 	private JTextArea LogArea;
-	private String[] AlgorithmLabels = {"综合算法", "神经网络算法", "分类算法"};
-	private String[] ModelLabels = {"最近的模型"};
 	private String[] SexLabels = {"Male", "Female"};
 	private String[] EyeLabels = {"OS", "OD"};
 	private String[] BCVALabels = {"0.8", "0.9", "1.0", "1.1", "1.2", "1.3", "1.4", "1.5"};
 	private String[] OpticalZoneLabels = {"6.0", "6.1", "6.2", "6.3", "6.4", "6.5", "6.6", "6.7", "6.8", "6.9", "7.0"};
+	private String[] RealNomogramLabels = {"未确定", "与预测值相同"};
 	private String[] EnergyLabels = {"25", "26", "27", "28", "29", "30", "31", "32", "33"};
 	private String[] OBLLabels = {"是", "否"};
 	private String[] ThicknessLabels = {"110", "120", "130", "140", "150", "160"};
 	private String[] PositionLabels = {"90", "95", "100", "105", "110", "115", "120", "125", "130", "135", "140", "145", "150", "155", "160", "165", "170", "175", "180"};
+	
 	
  	
 
@@ -77,9 +80,12 @@ public class ModifyInterface {
 	/**
 	 * Create the application.
 	 */
-	public ModifyInterface(DataBase dataBase) {
+	public ModifyInterface(DataBase dataBase, QueryResult queryResult) {
 		this.dataBase = dataBase;
+		this.queryResult = queryResult;
+		OriginData = (ArrayList<String>)queryResult.getAttribute().toArrayList().clone();
 		initialize();
+		DataInit();
 	}
 
 	/**
@@ -102,6 +108,7 @@ public class ModifyInterface {
 		frame.getContentPane().add(IDText);
 		IDText.setColumns(10);		
 		
+		
 		JLabel NameLabel = new JLabel("姓名");
 		NameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		NameLabel.setBounds(400, 100, 100, 30);
@@ -112,6 +119,7 @@ public class ModifyInterface {
 		frame.getContentPane().add(NameText);
 		NameText.setColumns(10);
 		
+		
 		JLabel AgeLabel = new JLabel("年龄");
 		AgeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		AgeLabel.setBounds(100, 150, 100, 30);
@@ -121,6 +129,7 @@ public class ModifyInterface {
 		AgeText.setBounds(200, 150, 100, 30);
 		frame.getContentPane().add(AgeText);
 		AgeText.setColumns(10);
+		
 		
 		JLabel SexLabel = new JLabel("性别");
 		SexLabel.setBounds(400, 150, 100, 30);
@@ -277,6 +286,10 @@ public class ModifyInterface {
 		LeadEyeBox.setBounds(500, 500, 100, 30);
 		frame.getContentPane().add(LeadEyeBox);
 		
+		JButton ResetButton = new JButton("还原");
+		ResetButton.setBounds(200, 600, 100, 30);
+		frame.getContentPane().add(ResetButton);
+		
 		JButton ClearButton = new JButton("清除");
 		ClearButton.setBounds(350, 600, 100, 30);
 		frame.getContentPane().add(ClearButton);
@@ -292,117 +305,128 @@ public class ModifyInterface {
 		PreLabel.setBounds(350, 50, 100, 30);
 		frame.getContentPane().add(PreLabel);
 		
+		JLabel RealNomogramLabel = new JLabel("实际球镜调整值");
+		RealNomogramLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		RealNomogramLabel.setBounds(750, 100, 100, 30);
+		frame.getContentPane().add(RealNomogramLabel);
+		
+		JComboBox RealNomogramBox = new JComboBox(RealNomogramLabels);
+		RealNomogramBox.setEditable(true);
+		RealNomogramBox.setSelectedIndex(0);
+		RealNomogramBox.setBounds(850, 100, 100, 30);
+		frame.getContentPane().add(RealNomogramBox);
+		
 		JLabel RSTLabel = new JLabel("残余基质厚度");
 		RSTLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		RSTLabel.setBounds(750, 100, 100, 30);
+		RSTLabel.setBounds(1050, 100, 100, 30);
 		frame.getContentPane().add(RSTLabel);
 		
 		RSTText = new JTextField();
 		RSTText.setColumns(10);
-		RSTText.setBounds(850, 100, 100, 30);
+		RSTText.setBounds(1150, 100, 100, 30);
 		frame.getContentPane().add(RSTText);
 		
 		JLabel HumidityLabel = new JLabel("湿度");
 		HumidityLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		HumidityLabel.setBounds(1050, 100, 100, 30);
+		HumidityLabel.setBounds(750, 150, 100, 30);
 		frame.getContentPane().add(HumidityLabel);
 		
 		HumidityText = new JTextField();
 		HumidityText.setColumns(10);
-		HumidityText.setBounds(1150, 100, 100, 30);
+		HumidityText.setBounds(850, 150, 100, 30);
 		frame.getContentPane().add(HumidityText);
 		
 		JLabel TemperatureLabel = new JLabel("温度");
 		TemperatureLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		TemperatureLabel.setBounds(750, 150, 100, 30);
+		TemperatureLabel.setBounds(1050, 150, 100, 30);
 		frame.getContentPane().add(TemperatureLabel);
 		
 		TemperatureText = new JTextField();
 		TemperatureText.setColumns(10);
-		TemperatureText.setBounds(850, 150, 100, 30);
+		TemperatureText.setBounds(1150, 150, 100, 30);
 		frame.getContentPane().add(TemperatureText);
 		
 		JLabel FirstEyeLabel = new JLabel("First Eye");
 		FirstEyeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		FirstEyeLabel.setBounds(1050, 150, 100, 30);
+		FirstEyeLabel.setBounds(750, 200, 100, 30);
 		frame.getContentPane().add(FirstEyeLabel);
 		
 		FirstEyeBox = new JComboBox(EyeLabels);
 		FirstEyeBox.setEditable(false);
-		FirstEyeBox.setBounds(1150, 150, 100, 30);
+		FirstEyeBox.setBounds(850, 200, 100, 30);
 		frame.getContentPane().add(FirstEyeBox);
 		
 		JLabel EnergyLabel = new JLabel("能量");
 		EnergyLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		EnergyLabel.setBounds(750, 200, 100, 30);
+		EnergyLabel.setBounds(1050, 200, 100, 30);
 		frame.getContentPane().add(EnergyLabel);
 		
 		EnergyBox = new JComboBox(EnergyLabels);
 		EnergyBox.setSelectedIndex(2);
 		EnergyBox.setEditable(true);
-		EnergyBox.setBounds(850, 200, 100, 30);
+		EnergyBox.setBounds(1150, 200, 100, 30);
 		frame.getContentPane().add(EnergyBox);
 		
 		JLabel OBLLabel = new JLabel("是否出现OBL");
 		OBLLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		OBLLabel.setBounds(1050, 200, 100, 30);
+		OBLLabel.setBounds(750, 250, 100, 30);
 		frame.getContentPane().add(OBLLabel);	
 		
 		OBLBox = new JComboBox(OBLLabels);
 		OBLBox.setEditable(false);
-		OBLBox.setBounds(1150, 200, 100, 30);
+		OBLBox.setBounds(850, 250, 100, 30);
 		frame.getContentPane().add(OBLBox);
 		
 		JLabel ThicknessLabel = new JLabel("角膜帽厚度");
 		ThicknessLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		ThicknessLabel.setBounds(750, 250, 100, 30);
+		ThicknessLabel.setBounds(1050, 250, 100, 30);
 		frame.getContentPane().add(ThicknessLabel);
 		
 		ThicknessBox = new JComboBox(ThicknessLabels);
 		ThicknessBox.setSelectedIndex(1);
 		ThicknessBox.setEditable(true);
-		ThicknessBox.setBounds(850, 250, 100, 30);
+		ThicknessBox.setBounds(1150, 250, 100, 30);
 		frame.getContentPane().add(ThicknessBox);
 		
 		JLabel PositionLabel = new JLabel("切口位置");
 		PositionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		PositionLabel.setBounds(1050, 250, 100, 30);
+		PositionLabel.setBounds(750, 300, 100, 30);
 		frame.getContentPane().add(PositionLabel);
 				
 		PositionBox = new JComboBox(PositionLabels);
 		PositionBox.setSelectedIndex(0);
 		PositionBox.setEditable(true);
-		PositionBox.setBounds(1150, 250, 100, 30);
+		PositionBox.setBounds(850, 300, 100, 30);
 		frame.getContentPane().add(PositionBox);
 		
 		JLabel SDAfterOneDayLabel = new JLabel("术后一天验光度");
 		SDAfterOneDayLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		SDAfterOneDayLabel.setBounds(750, 300, 100, 30);
+		SDAfterOneDayLabel.setBounds(1050, 300, 100, 30);
 		frame.getContentPane().add(SDAfterOneDayLabel);
 		
 		SDAfterOneDayText = new JTextField();
 		SDAfterOneDayText.setColumns(10);
-		SDAfterOneDayText.setBounds(850, 300, 100, 30);
+		SDAfterOneDayText.setBounds(1150, 300, 100, 30);
 		frame.getContentPane().add(SDAfterOneDayText);
 		
 		JLabel SDAfterThreeMonthsLabel = new JLabel("术后三月验光度");
 		SDAfterThreeMonthsLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		SDAfterThreeMonthsLabel.setBounds(1050, 300, 100, 30);
+		SDAfterThreeMonthsLabel.setBounds(750, 350, 100, 30);
 		frame.getContentPane().add(SDAfterThreeMonthsLabel);
 		
 		SDAfterThreeMonthsText = new JTextField();
 		SDAfterThreeMonthsText.setColumns(10);
-		SDAfterThreeMonthsText.setBounds(1150, 300, 100, 30);
+		SDAfterThreeMonthsText.setBounds(850, 350, 100, 30);
 		frame.getContentPane().add(SDAfterThreeMonthsText);
 		
-		JLabel SDAfterSixMonthsLabel = new JLabel("术后一天验光度");
+		JLabel SDAfterSixMonthsLabel = new JLabel("术后六月验光度");
 		SDAfterSixMonthsLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		SDAfterSixMonthsLabel.setBounds(750, 350, 100, 30);
+		SDAfterSixMonthsLabel.setBounds(1050, 350, 100, 30);
 		frame.getContentPane().add(SDAfterSixMonthsLabel);
 		
 		SDAfterSixMonthsText = new JTextField();
 		SDAfterSixMonthsText.setColumns(10);
-		SDAfterSixMonthsText.setBounds(850, 350, 100, 30);
+		SDAfterSixMonthsText.setBounds(1150, 350, 100, 30);
 		frame.getContentPane().add(SDAfterSixMonthsText);
 		
 		JLabel AfterLabel = new JLabel("术后参数");
@@ -418,5 +442,41 @@ public class ModifyInterface {
 		LogScrollPane.setBounds(700, 400, 600, 200);
 //		LogArea.addMouseListener(new LogAreamouseRightClickListener());
 		frame.getContentPane().add(LogScrollPane);
+		
+		
+		
+		
+		
+		
+	}
+	
+	private void DataInit() {
+		IDText.setText(OriginData.get(0));
+		NameText.setText(OriginData.get(1));
+		AgeText.setText(OriginData.get(2));
+		if (OriginData.get(3).equals("0")) {
+			SexBox.setSelectedIndex(0);
+		}
+		else {
+			SexBox.setSelectedIndex(1);
+		}
+		if (OriginData.get(4).equals("0")) {
+			EyeBox.setSelectedIndex(0);
+		}
+		else {
+			EyeBox.setSelectedIndex(1);
+		}
+		SEText.setText(OriginData.get(5));
+		UCVAText.setText(OriginData.get(6));
+		SDText.setText(OriginData.get(7));
+		CDText.setText(OriginData.get(8));
+		AxisText.setText(OriginData.get(9));
+		BCVABox.setSelectedItem(OriginData.get(10));
+		CornealRadiusText.setText(OriginData.get(11));
+		OpticalZoneBox.setSelectedItem(OriginData.get(12));
+		K1Text.setText(OriginData.get(13));
+		K2Text.setText(OriginData.get(14));
+		KmText.setText(OriginData.get(15));
+		CCTText.setText(OriginData.get(16));
 	}
 }

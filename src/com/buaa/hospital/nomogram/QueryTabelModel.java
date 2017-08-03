@@ -44,5 +44,9 @@ public class QueryTabelModel extends AbstractTableModel{
 	public void clearQueryResult() {
 		this.QueryResult = new ArrayList();
 	}
+	
+	public QueryResult getQueryResultAt(int i) {
+		return QueryResult.get(i);
+	}
 
 }

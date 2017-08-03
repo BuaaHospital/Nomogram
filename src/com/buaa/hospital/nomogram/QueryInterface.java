@@ -218,4 +218,12 @@ public class QueryInterface {
 	public JTable getQueryTable() {
 		return QueryTable;
 	}
+	
+	public DataBase getDataBase() {
+		return dataBase;
+	}
+	
+	public QueryTabelModel getQueryTabelModel() {
+		return queryTabelModel;
+	}
 }
