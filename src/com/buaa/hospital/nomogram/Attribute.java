@@ -125,20 +125,20 @@ public class Attribute {
 			LeadEye = EyeEnum.OD;
 		}
 		PredictNomogram = 0;
-		RST = 0;
+		RST = Constant.InitDataNum;
 		Time = System.currentTimeMillis();
-		Humidity = 0;
-		Temperature = 0;
+		Humidity = Constant.InitDataNum;
+		Temperature = Constant.InitDataNum;
 		FirstEyeToTreat = EyeEnum.OS;
-		Energy = 0;
-		OBL = 0;
-		Thickness = 0;
-		Position = 0;
-		RealNomogram = -1;
+		Energy = Constant.InitDataNum;
+		OBL = Constant.InitDataNum;
+		Thickness = Constant.InitDataNum;
+		Position = Constant.InitDataNum;
+		RealNomogram = Constant.InitDataNum;
 		RealNomogramLabel = "0";
-		SDAfterOneDay = 0;
-		SDAfterThreeMonths = 0;
-		SDAfterSixMonths = 0;
+		SDAfterOneDay = Constant.InitDataNum;
+		SDAfterThreeMonths = Constant.InitDataNum;
+		SDAfterSixMonths = Constant.InitDataNum;
 	}
 	
 	public Attribute(Instance instance) {
@@ -217,20 +217,20 @@ public class Attribute {
 		CCT = 0;
 		LeadEye = EyeEnum.OS;
 		PredictNomogram = 0;
-		RST = 0;
+		RST = Constant.InitDataNum;
 		Time = System.currentTimeMillis();
-		Humidity = 0;
-		Temperature = 0;
+		Humidity = Constant.InitDataNum;
+		Temperature = Constant.InitDataNum;
 		FirstEyeToTreat = EyeEnum.OS;
-		Energy = 0;
-		OBL = 0;
-		Thickness = 0;
-		Position = 0;
-		RealNomogram = -1;
+		Energy = Constant.InitDataNum;
+		OBL = Constant.InitDataNum;
+		Thickness = Constant.InitDataNum;
+		Position = Constant.InitDataNum;
+		RealNomogram = Constant.InitDataNum;
 		RealNomogramLabel = "0";
-		SDAfterOneDay = 0;
-		SDAfterThreeMonths = 0;
-		SDAfterSixMonths = 0;
+		SDAfterOneDay = Constant.InitDataNum;
+		SDAfterThreeMonths = Constant.InitDataNum;
+		SDAfterSixMonths = Constant.InitDataNum;
 	}
 	
 	public Instance GenInstance() throws Exception {

@@ -22,6 +22,7 @@ public class SaveButtonListener implements ActionListener {
 				double Nomogram = 0;
 				if (predictInterface.getAlogrithmNum() == 0) {
 					//综合算法
+					Nomogram = attribute.PredictbyMultiPreception(predictInterface.getModelNum());
 				}
 				else if (predictInterface.getAlogrithmNum() == 1) {
 					//神经网络算法
@@ -29,12 +30,13 @@ public class SaveButtonListener implements ActionListener {
 				}
 				else {
 					//分类算法
+					Nomogram = attribute.PredictbyClassifier(predictInterface.getModelNum());
 				}
 				attribute.setPredictNomogram(Nomogram);
 				attribute.GenTime();
 				attribute.GenRST();
 				Instance instance = attribute.GenInstance();
-				predictInterface.setLogText("病历号为 " + attribute.getID() + " 的病人 " + attribute.getName() + " 使用" + predictInterface.getAlogrithmName() + "的预测球镜调整值为 " + Nomogram);
+				predictInterface.setLogText("病历号为 " + (long)attribute.getID() + " 的病人 " + attribute.getName() + " 使用" + predictInterface.getAlogrithmName() + "的预测球镜调整值为 " + Nomogram);
 				predictInterface.addHistory(attribute);
 				predictInterface.RefreshHistoryTable();
 				predictInterface.setLogText("正在检查数据库中是否有相同的病人信息...");

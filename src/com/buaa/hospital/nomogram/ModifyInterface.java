@@ -45,6 +45,7 @@ public class ModifyInterface {
 	private JTextField KmText;
 	private JTextField CCTText;
 	private JComboBox LeadEyeBox;
+	private JComboBox RealNomogramBox;
 	private JTextField RSTText;
 	private JTextField HumidityText;
 	private JTextField TemperatureText;
@@ -63,7 +64,7 @@ public class ModifyInterface {
 	private String[] OpticalZoneLabels = {"6.0", "6.1", "6.2", "6.3", "6.4", "6.5", "6.6", "6.7", "6.8", "6.9", "7.0"};
 	private String[] RealNomogramLabels = {"未确定", "与预测值相同"};
 	private String[] EnergyLabels = {"25", "26", "27", "28", "29", "30", "31", "32", "33"};
-	private String[] OBLLabels = {"是", "否"};
+	private String[] OBLLabels = {"未确定", "是", "否"};
 	private String[] ThicknessLabels = {"110", "120", "130", "140", "150", "160"};
 	private String[] PositionLabels = {"90", "95", "100", "105", "110", "115", "120", "125", "130", "135", "140", "145", "150", "155", "160", "165", "170", "175", "180"};
 	
@@ -310,7 +311,7 @@ public class ModifyInterface {
 		RealNomogramLabel.setBounds(750, 100, 100, 30);
 		frame.getContentPane().add(RealNomogramLabel);
 		
-		JComboBox RealNomogramBox = new JComboBox(RealNomogramLabels);
+		RealNomogramBox = new JComboBox(RealNomogramLabels);
 		RealNomogramBox.setEditable(true);
 		RealNomogramBox.setSelectedIndex(0);
 		RealNomogramBox.setBounds(850, 100, 100, 30);
@@ -478,5 +479,86 @@ public class ModifyInterface {
 		K2Text.setText(OriginData.get(14));
 		KmText.setText(OriginData.get(15));
 		CCTText.setText(OriginData.get(16));
+		if (OriginData.get(17).equals("0")) {
+			LeadEyeBox.setSelectedIndex(0);
+		}
+		else {
+			LeadEyeBox.setSelectedIndex(1);
+		}
+		if (OriginData.get(19).equals(Double.toString(Constant.InitDataNum))) {
+			RSTText.setText(Constant.UnfilledHint);
+		}
+		else {
+			RSTText.setText(OriginData.get(19));
+		}
+		if (OriginData.get(21).equals(Double.toString(Constant.InitDataNum))) {
+			HumidityText.setText(Constant.UnfilledHint);
+		}
+		else {
+			HumidityText.setText(OriginData.get(21));
+		}
+		if (OriginData.get(22).equals(Double.toString(Constant.InitDataNum))) {
+			TemperatureText.setText(Constant.UnfilledHint);
+		}
+		else {
+			TemperatureText.setText(OriginData.get(22));
+		}
+		if (OriginData.get(23).equals("0")) {
+			FirstEyeBox.setSelectedIndex(0);
+		}
+		else {
+			FirstEyeBox.setSelectedIndex(1);
+		}
+		if (OriginData.get(24).equals(Double.toString(Constant.InitDataNum))) {
+			EnergyBox.setSelectedIndex(2);
+		}
+		else {
+			EnergyBox.setSelectedItem(OriginData.get(24));
+		}
+		if (OriginData.get(25).equals(Double.toString(Constant.InitDataNum))) {
+			OBLBox.setSelectedIndex(0);
+		}
+		else if (OriginData.get(25).equals("0")){
+			OBLBox.setSelectedIndex(1);
+		}
+		else {
+			OBLBox.setSelectedIndex(2);
+		}
+		if (OriginData.get(26).equals(Double.toString(Constant.InitDataNum))) {
+			ThicknessBox.setSelectedIndex(1);
+		}
+		else {
+			ThicknessBox.setSelectedItem(OriginData.get(26));
+		}
+		if (OriginData.get(27).equals(Double.toString(Constant.InitDataNum))) {
+			PositionBox.setSelectedIndex(0);
+		}
+		else {
+			PositionBox.setSelectedItem(OriginData.get(27));
+		}
+		if (OriginData.get(28).equals(Double.toString(Constant.InitDataNum))) {
+			RealNomogramBox.setSelectedIndex(0);
+		}
+		else {
+			RealNomogramBox.setSelectedItem(OriginData.get(28));
+		}
+		if (OriginData.get(29).equals(Double.toString(Constant.InitDataNum))) {
+			SDAfterOneDayText.setText(Constant.UnfilledHint);
+		}
+		else {
+			SDAfterOneDayText.setText(OriginData.get(29));
+		}
+		if (OriginData.get(30).equals(Double.toString(Constant.InitDataNum))) {
+			SDAfterThreeMonthsText.setText(Constant.UnfilledHint);
+		}
+		else {
+			SDAfterThreeMonthsText.setText(OriginData.get(30));
+		}
+		if (OriginData.get(31).equals(Double.toString(Constant.InitDataNum))) {
+			SDAfterSixMonthsText.setText(Constant.UnfilledHint);
+		}
+		else {
+			SDAfterSixMonthsText.setText(OriginData.get(31));
+		}
 	}
 }

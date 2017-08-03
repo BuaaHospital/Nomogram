@@ -30,7 +30,12 @@ public class QueryTabelModel extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		return QueryResult.get(rowIndex).getAttribute().toArrayList().get(columnIndex);
+		if (QueryResult.get(rowIndex).getAttribute().toArrayList().get(columnIndex).equals(Double.toString(Constant.InitDataNum))) {
+			return Constant.UnfilledHint;
+		}
+		else {
+			return QueryResult.get(rowIndex).getAttribute().toArrayList().get(columnIndex);
+		}
 	}
 	
 	public void addQueryItem(QueryResult queryResult) {

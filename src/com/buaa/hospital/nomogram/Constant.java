@@ -51,6 +51,8 @@ public class Constant {
 	public static String TrainedDataName = "Trained";
 	public static String BadDataName = "BadData";
 	public static int MaxInstanceItem = 10000;
+	public static double InitDataNum = Integer.MIN_VALUE;
+	public static String UnfilledHint = "未确定";
 	
 	public void writeConfigure(String FilePath) {
 		

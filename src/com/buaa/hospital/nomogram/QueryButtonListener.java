@@ -42,8 +42,11 @@ public class QueryButtonListener implements ActionListener{
 						QuerybyDate(QueryResults, queryInterface.getDate());
 					}
 				}
-				else {
+				else if (queryInterface.isDateSelected()){
 					QueryResults = dataBase.QuerybyDate(queryInterface.getDate());
+				}
+				else {
+					
 				}
 			}
 			queryInterface.setQueryResult(QueryResults);
