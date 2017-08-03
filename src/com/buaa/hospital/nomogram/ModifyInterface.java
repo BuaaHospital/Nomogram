@@ -2,6 +2,7 @@ package com.buaa.hospital.nomogram;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -298,6 +299,7 @@ public class ModifyInterface {
 		JButton SaveButton = new JButton("保存");
 		SaveButton.setBounds(500, 600, 100, 30);
 		frame.getContentPane().add(SaveButton);
+		SaveButton.addActionListener(new ModifySaveButtonListener(this, dataBase));
 		
 		JLabel PreLabel = new JLabel("术前参数");
 		PreLabel.setForeground(Color.GRAY);
@@ -593,20 +595,20 @@ public class ModifyInterface {
 		AttributeData.add(CCTText.getText());
 		AttributeData.add(EyeLabels[LeadEyeBox.getSelectedIndex()]);
 		AttributeData.add(OriginData.get(18));
-		if (RSTText.getText().equals(Double.toString(Constant.InitDataNum))) {
+		if (RSTText.getText().equals(Constant.UnfilledHint)) {
 			AttributeData.add(Double.toString(Constant.InitDataNum));
 		}
 		else {
 			AttributeData.add(RSTText.getText());
 		}
 		AttributeData.add(OriginData.get(20));
-		if (HumidityText.getText().equals(Double.toString(Constant.InitDataNum))) {
+		if (HumidityText.getText().equals(Constant.UnfilledHint)) {
 			AttributeData.add(Double.toString(Constant.InitDataNum));
 		}
 		else {
 			AttributeData.add(HumidityText.getText());
 		}
-		if (TemperatureText.getText().equals(Double.toString(Constant.InitDataNum))) {
+		if (TemperatureText.getText().equals(Constant.UnfilledHint)) {
 			AttributeData.add(Double.toString(Constant.InitDataNum));
 		}
 		else {
@@ -631,24 +633,34 @@ public class ModifyInterface {
 		else {
 			AttributeData.add((String)RealNomogramBox.getSelectedItem());
 		}
-		if (SDAfterOneDayText.getText().equals(Double.toString(Constant.InitDataNum))) {
+		if (SDAfterOneDayText.getText().equals(Constant.UnfilledHint)) {
 			AttributeData.add(Double.toString(Constant.InitDataNum));
 		}
 		else {
 			AttributeData.add(SDAfterOneDayText.getText());
 		}
-		if (SDAfterThreeMonthsText.getText().equals(Double.toString(Constant.InitDataNum))) {
+		if (SDAfterThreeMonthsText.getText().equals(Constant.UnfilledHint)) {
 			AttributeData.add(Double.toString(Constant.InitDataNum));
 		}
 		else {
 			AttributeData.add(SDAfterThreeMonthsText.getText());
 		}
-		if (SDAfterSixMonthsText.getText().equals(Double.toString(Constant.InitDataNum))) {
+		if (SDAfterSixMonthsText.getText().equals(Constant.UnfilledHint)) {
 			AttributeData.add(Double.toString(Constant.InitDataNum));
 		}
 		else {
 			AttributeData.add(SDAfterSixMonthsText.getText());
 		}
 		return AttributeData;
+	}
+	
+	public void SaveToQueryResult() throws ParseException {
+		queryResult.modifyInstance(toArrayList());
+	}
+	
+	public void SaveModify() throws Exception {
+		SaveToQueryResult();
+		dataBase.modifyInstance(queryResult);
+		frame.dispose();
 	}
 }

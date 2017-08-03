@@ -587,6 +587,7 @@ public class DataBase {
 			}
 		}
 		else {
+			System.out.println(queryResult.getInstance().toString());
 			saveArff(queryResult.getInstances(), queryResult.getFilePath());
 		}
 	}
