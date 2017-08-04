@@ -45,7 +45,7 @@ public class QueryTableMouseListener implements MouseListener{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						ModifyInterface modifyInterface = new ModifyInterface(QueryTableMouseListener.this.queryInterface.getDataBase(), queryInterface.getQueryTabelModel().getQueryResultAt(focusedRowIndex));
+						ModifyInterface modifyInterface = new ModifyInterface(QueryTableMouseListener.this.queryInterface.getDataBase(), queryInterface, queryInterface.getQueryTabelModel().getQueryResultAt(focusedRowIndex));
 						modifyInterface.startRun();
 					}
 				});

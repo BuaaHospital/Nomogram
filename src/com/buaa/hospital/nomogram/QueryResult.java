@@ -79,7 +79,7 @@ public class QueryResult {
 	
 	public boolean isTypeChanged() {
 		File file = new File(FilePath);
-		if (file.getName().split(" ")[0].equals(dataType.toString())) {
+		if (!file.getName().split("_")[0].equals(dataType.toString())) {
 			return true;
 		}
 		else {
@@ -143,12 +143,28 @@ public class QueryResult {
 			instance.setValue(29, "0");
 		}
 		else {
-			instance.setValue(29, Data.get(28));
+			instance.setValue(29, Classifier.GenLabel(Double.parseDouble(Data.get(28))));
 		}
 		instance.setValue(30, Double.parseDouble(Data.get(29)));
 		instance.setValue(31, Double.parseDouble(Data.get(30)));
 		instance.setValue(32, Double.parseDouble(Data.get(31)));
-		
+		if (instance.value(28) != Constant.InitDataNum && instance.value(31) == Constant.InitDataNum) {
+			dataType = DataType.Confirmed;
+		}
+		else if (instance.value(28) != Constant.InitDataNum && instance.value(31) != Constant.InitDataNum) {
+			if (instance.value(31) <= Constant.BadDataBound) {
+				dataType = DataType.Untrained;
+			}
+			else {
+				dataType = DataType.BadData;
+			}
+		}
 	}
+	
+	public void setDataType(DataType dataType) {
+		this.dataType = dataType;
+	}
+	
+	
 
 }

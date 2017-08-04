@@ -18,7 +18,9 @@ public class ModifySaveButtonListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		try {
-			modifyInterface.SaveModify();
+			if (modifyInterface.CheckData()) {
+				modifyInterface.SaveModify();
+			}
 			
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block

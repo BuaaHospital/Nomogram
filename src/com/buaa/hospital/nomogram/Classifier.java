@@ -24,4 +24,28 @@ public class Classifier {
 		File[] files = file.listFiles();
 		return predict(files[0].getAbsolutePath(), instance);
 	}
+	
+	public static String GenLabel(double nomogram) {
+		if (nomogram < 0.05) {
+			return "0";
+		}
+		else if (nomogram < 0.1) {
+			return "0.05";
+		}
+		else if (nomogram < 0.15) {
+			return "0.1";
+		}
+		else if (nomogram < 0.2) {
+			return "0.15";
+		}
+		else if (nomogram < 0.25) {
+			return "0.2";
+		}
+		else if (nomogram < 0.3) {
+			return "0.25";
+		}
+		else {
+			return "0.3";
+		}
+	}
 }

@@ -35,7 +35,7 @@ public class SaveButtonListener implements ActionListener {
 				attribute.setPredictNomogram(Nomogram);
 				attribute.GenTime();
 				Instance instance = attribute.GenInstance();
-				predictInterface.setLogText("病历号为 " + (long)attribute.getID() + " 的病人 " + attribute.getName() + " 使用" + predictInterface.getAlogrithmName() + "的预测球镜调整值为 " + Nomogram);
+				predictInterface.setLogText("病历号为 " + (long)attribute.getID() + " 的病人 " + attribute.getName() + " 使用 " + predictInterface.getAlogrithmName() + " 的预测球镜调整值为 " + Nomogram);
 				predictInterface.addHistory(attribute);
 				predictInterface.RefreshHistoryTable();
 				predictInterface.setLogText("正在检查数据库中是否有相同的病人信息...");

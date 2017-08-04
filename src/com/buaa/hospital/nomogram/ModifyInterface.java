@@ -2,6 +2,11 @@ package com.buaa.hospital.nomogram;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -9,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -24,6 +31,7 @@ public class ModifyInterface {
 
 	private JFrame frame;
 	private DataBase dataBase;
+	private QueryInterface queryInterface;
 	private QueryResult queryResult;
 	private ArrayList<String> OriginData;
 	private JComboBox AlogrithmBox;
@@ -82,8 +90,9 @@ public class ModifyInterface {
 	/**
 	 * Create the application.
 	 */
-	public ModifyInterface(DataBase dataBase, QueryResult queryResult) {
+	public ModifyInterface(DataBase dataBase, QueryInterface queryInterface, QueryResult queryResult) {
 		this.dataBase = dataBase;
+		this.queryInterface = queryInterface;
 		this.queryResult = queryResult;
 		OriginData = (ArrayList<String>)queryResult.getAttribute().toArrayList().clone();
 		initialize();
@@ -291,10 +300,33 @@ public class ModifyInterface {
 		JButton ResetButton = new JButton("还原");
 		ResetButton.setBounds(200, 600, 100, 30);
 		frame.getContentPane().add(ResetButton);
+		ResetButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				DataInit();
+			}
+		});
 		
 		JButton DeleteButton = new JButton("删除");
 		DeleteButton.setBounds(350, 600, 100, 30);
 		frame.getContentPane().add(DeleteButton);
+		DeleteButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					dataBase.deleteInstance(queryResult);
+					frame.dispose();
+					queryInterface.reset();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		JButton SaveButton = new JButton("保存");
 		SaveButton.setBounds(500, 600, 100, 30);
@@ -661,6 +693,69 @@ public class ModifyInterface {
 	public void SaveModify() throws Exception {
 		SaveToQueryResult();
 		dataBase.modifyInstance(queryResult);
-		frame.dispose();
+		setLogText("病历号为 " + queryResult.getAttribute().toArrayList().get(0) + " 的病人 " + queryResult.getAttribute().toArrayList().get(1) + " 的信息修改完毕，已存入数据库");
+		queryInterface.reset();
 	}
+	
+	public boolean CheckData() {
+		return true;
+	}
+	
+	public void setLogText(String text) {
+		LogArea.setText(LogArea.getText() + "\n>> " + text);
+	}
+	
+	public JTextArea getLogArea() {
+		return LogArea;
+	}
+	
+	public class LogAreamouseRightClickListener implements MouseListener {
+		private JPopupMenu jPopupMenu;
+		private JMenuItem clearMenuItem;
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			jPopupMenu = new JPopupMenu();
+			clearMenuItem = new JMenuItem("清除");
+			jPopupMenu.add(clearMenuItem);
+			clearMenuItem.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					LogArea.setText("");
+				}
+			});
+			if (e.getButton() == MouseEvent.BUTTON3) {
+				jPopupMenu.show(LogArea, e.getX(), e.getY());
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+
 }

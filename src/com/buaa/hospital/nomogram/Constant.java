@@ -53,6 +53,7 @@ public class Constant {
 	public static int MaxInstanceItem = 10000;
 	public static double InitDataNum = Integer.MIN_VALUE;
 	public static String UnfilledHint = "未确定";
+	public static double BadDataBound = 0.5;
 	
 	public void writeConfigure(String FilePath) {
 		
