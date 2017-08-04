@@ -1,14 +1,18 @@
 package com.buaa.hospital.nomogram;
 
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -62,6 +66,7 @@ public class Main {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -103,7 +108,19 @@ public class Main {
 		});
 		EditMenu.add(AfterInput);
 		
+		JMenu TrainMenu = new JMenu("训练");
+		menuBar.add(TrainMenu);
+		
+		JMenuItem Retrain = new JMenuItem("重新训练");
+		TrainMenu.add(Retrain);
+		
 		addSkin();
+		ImageIcon imageIcon = new ImageIcon(Constant.BackgroundPicturePath);
+		JLabel BackgroundImgLabel = new JLabel(imageIcon);
+		frame.getContentPane().add(BackgroundImgLabel, new Integer(Integer.MIN_VALUE));
+		BackgroundImgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+		Container contain = frame.getContentPane();  
+        ((JPanel) contain).setOpaque(false); 
 	}
 	
 	private void addSkin() {

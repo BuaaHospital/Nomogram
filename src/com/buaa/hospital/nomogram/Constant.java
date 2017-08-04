@@ -54,6 +54,8 @@ public class Constant {
 	public static double InitDataNum = Integer.MIN_VALUE;
 	public static String UnfilledHint = "未确定";
 	public static double BadDataBound = 0.5;
+	public static String ImagePath = RunPath + "\\Image";
+	public static String BackgroundPicturePath = ImagePath + "\\Background_4.jpg";
 	
 	public void writeConfigure(String FilePath) {
 		
