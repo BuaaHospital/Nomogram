@@ -33,5 +33,11 @@
 @attribute SDAfterOneDay numeric
 @attribute SDAfterThreeMonths numeric
 @attribute SDAfterSixMonths numeric
+@attribute CDAfterOneDay numeric
+@attribute CDAfterThreeMonths numeric
+@attribute CDAfterSixMonths numeric
+@attribute AxisAfterOneDay numeric
+@attribute AxisAfterThreeMonths numeric
+@attribute AxisAfterSixMonths numeric
 
 @data

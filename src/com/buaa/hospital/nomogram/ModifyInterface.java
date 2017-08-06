@@ -76,6 +76,12 @@ public class ModifyInterface {
 	private String[] OBLLabels = {"未确定", "是", "否"};
 	private String[] ThicknessLabels = {"110", "120", "130", "140", "150", "160"};
 	private String[] PositionLabels = {"90", "95", "100", "105", "110", "115", "120", "125", "130", "135", "140", "145", "150", "155", "160", "165", "170", "175", "180"};
+	private JTextField CDAfterOneDayText;
+	private JTextField CDAfterThreeMonthsText;
+	private JTextField CDAfterSixMonthsText;
+	private JTextField AxisAfterOneDayText;
+	private JTextField AxisAfterThreeMonthsText;
+	private JTextField AxisAfterSixMonthsText;
 	
 	
  	
@@ -321,6 +327,8 @@ public class ModifyInterface {
 					dataBase.deleteInstance(queryResult);
 					frame.dispose();
 					queryInterface.reset();
+					QueryButtonListener queryButtonListener = new QueryButtonListener(dataBase, queryInterface);
+					queryButtonListener.ReQuery();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -434,7 +442,7 @@ public class ModifyInterface {
 		PositionBox.setBounds(850, 300, 100, 30);
 		frame.getContentPane().add(PositionBox);
 		
-		JLabel SDAfterOneDayLabel = new JLabel("术后一天验光度");
+		JLabel SDAfterOneDayLabel = new JLabel("术后一天球镜度");
 		SDAfterOneDayLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		SDAfterOneDayLabel.setBounds(1050, 300, 100, 30);
 		frame.getContentPane().add(SDAfterOneDayLabel);
@@ -444,7 +452,7 @@ public class ModifyInterface {
 		SDAfterOneDayText.setBounds(1150, 300, 100, 30);
 		frame.getContentPane().add(SDAfterOneDayText);
 		
-		JLabel SDAfterThreeMonthsLabel = new JLabel("术后三月验光度");
+		JLabel SDAfterThreeMonthsLabel = new JLabel("术后三月球镜度");
 		SDAfterThreeMonthsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		SDAfterThreeMonthsLabel.setBounds(750, 350, 100, 30);
 		frame.getContentPane().add(SDAfterThreeMonthsLabel);
@@ -454,7 +462,7 @@ public class ModifyInterface {
 		SDAfterThreeMonthsText.setBounds(850, 350, 100, 30);
 		frame.getContentPane().add(SDAfterThreeMonthsText);
 		
-		JLabel SDAfterSixMonthsLabel = new JLabel("术后六月验光度");
+		JLabel SDAfterSixMonthsLabel = new JLabel("术后六月球镜度");
 		SDAfterSixMonthsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		SDAfterSixMonthsLabel.setBounds(1050, 350, 100, 30);
 		frame.getContentPane().add(SDAfterSixMonthsLabel);
@@ -463,6 +471,66 @@ public class ModifyInterface {
 		SDAfterSixMonthsText.setColumns(10);
 		SDAfterSixMonthsText.setBounds(1150, 350, 100, 30);
 		frame.getContentPane().add(SDAfterSixMonthsText);
+		
+		JLabel CDAfterOneDayLabel = new JLabel("术后一天柱镜度");
+		CDAfterOneDayLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		CDAfterOneDayLabel.setBounds(750, 400, 100, 30);
+		frame.getContentPane().add(CDAfterOneDayLabel);
+		
+		CDAfterOneDayText = new JTextField();
+		CDAfterOneDayText.setColumns(10);
+		CDAfterOneDayText.setBounds(850, 400, 100, 30);
+		frame.getContentPane().add(CDAfterOneDayText);
+		
+		JLabel CDAfterThreeMonthsLabel = new JLabel("术后三月柱镜度");
+		CDAfterThreeMonthsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		CDAfterThreeMonthsLabel.setBounds(1050, 400, 100, 30);
+		frame.getContentPane().add(CDAfterThreeMonthsLabel);
+		
+		CDAfterThreeMonthsText = new JTextField();
+		CDAfterThreeMonthsText.setColumns(10);
+		CDAfterThreeMonthsText.setBounds(1150, 400, 100, 30);
+		frame.getContentPane().add(CDAfterThreeMonthsText);
+		
+		JLabel CDAfterSixMonthsLabel = new JLabel("术后六月柱镜度");
+		CDAfterSixMonthsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		CDAfterSixMonthsLabel.setBounds(750, 450, 100, 30);
+		frame.getContentPane().add(CDAfterSixMonthsLabel);
+		
+		CDAfterSixMonthsText = new JTextField();
+		CDAfterSixMonthsText.setColumns(10);
+		CDAfterSixMonthsText.setBounds(850, 450, 100, 30);
+		frame.getContentPane().add(CDAfterSixMonthsText);
+		
+		JLabel AxisAfterOneDayLabel = new JLabel("术后一天轴");
+		AxisAfterOneDayLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		AxisAfterOneDayLabel.setBounds(1050, 450, 100, 30);
+		frame.getContentPane().add(AxisAfterOneDayLabel);
+		
+		AxisAfterOneDayText = new JTextField();
+		AxisAfterOneDayText.setColumns(10);
+		AxisAfterOneDayText.setBounds(1150, 450, 100, 30);
+		frame.getContentPane().add(AxisAfterOneDayText);
+		
+		JLabel AxisAfterThreeMonthsLabel = new JLabel("术后三月轴");
+		AxisAfterThreeMonthsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		AxisAfterThreeMonthsLabel.setBounds(750, 500, 100, 30);
+		frame.getContentPane().add(AxisAfterThreeMonthsLabel);
+		
+		AxisAfterThreeMonthsText = new JTextField();
+		AxisAfterThreeMonthsText.setColumns(10);
+		AxisAfterThreeMonthsText.setBounds(850, 500, 100, 30);
+		frame.getContentPane().add(AxisAfterThreeMonthsText);
+		
+		JLabel AxisAfterSixMonthsLabel = new JLabel("术后六月轴");
+		AxisAfterSixMonthsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		AxisAfterSixMonthsLabel.setBounds(1050, 500, 100, 30);
+		frame.getContentPane().add(AxisAfterSixMonthsLabel);
+		
+		AxisAfterSixMonthsText = new JTextField();
+		AxisAfterSixMonthsText.setColumns(10);
+		AxisAfterSixMonthsText.setBounds(1150, 500, 100, 30);
+		frame.getContentPane().add(AxisAfterSixMonthsText);
 		
 		JLabel AfterLabel = new JLabel("术后参数");
 		AfterLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -474,9 +542,11 @@ public class ModifyInterface {
 		LogArea = new JTextArea();
 		LogArea.setEditable(false);
 		JScrollPane LogScrollPane = new JScrollPane(LogArea);
-		LogScrollPane.setBounds(700, 400, 600, 200);
+		LogScrollPane.setBounds(700, 550, 600, 100);
 //		LogArea.addMouseListener(new LogAreamouseRightClickListener());
 		frame.getContentPane().add(LogScrollPane);
+		
+		
 		
 		
 		
@@ -594,6 +664,42 @@ public class ModifyInterface {
 		else {
 			SDAfterSixMonthsText.setText(OriginData.get(31));
 		}
+		if (OriginData.get(32).equals(Double.toString(Constant.InitDataNum))) {
+			CDAfterOneDayText.setText(Constant.UnfilledHint);
+		}
+		else {
+			CDAfterOneDayText.setText(OriginData.get(32));
+		}
+		if (OriginData.get(33).equals(Double.toString(Constant.InitDataNum))) {
+			CDAfterThreeMonthsText.setText(Constant.UnfilledHint);
+		}
+		else {
+			CDAfterThreeMonthsText.setText(OriginData.get(33));
+		}
+		if (OriginData.get(34).equals(Double.toString(Constant.InitDataNum))) {
+			CDAfterSixMonthsText.setText(Constant.UnfilledHint);
+		}
+		else {
+			CDAfterSixMonthsText.setText(OriginData.get(34));
+		}
+		if (OriginData.get(35).equals(Double.toString(Constant.InitDataNum))) {
+			AxisAfterOneDayText.setText(Constant.UnfilledHint);
+		}
+		else {
+			AxisAfterOneDayText.setText(OriginData.get(35));
+		}
+		if (OriginData.get(36).equals(Double.toString(Constant.InitDataNum))) {
+			AxisAfterThreeMonthsText.setText(Constant.UnfilledHint);
+		}
+		else {
+			AxisAfterThreeMonthsText.setText(OriginData.get(36));
+		}
+		if (OriginData.get(37).equals(Double.toString(Constant.InitDataNum))) {
+			AxisAfterSixMonthsText.setText(Constant.UnfilledHint);
+		}
+		else {
+			AxisAfterSixMonthsText.setText(OriginData.get(37));
+		}
 	}
 	
 	public ArrayList<String> toArrayList() {
@@ -683,6 +789,42 @@ public class ModifyInterface {
 		else {
 			AttributeData.add(SDAfterSixMonthsText.getText());
 		}
+		if (CDAfterOneDayText.getText().equals(Constant.UnfilledHint)) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(CDAfterOneDayText.getText());
+		}
+		if (CDAfterThreeMonthsText.getText().equals(Constant.UnfilledHint)) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(CDAfterThreeMonthsText.getText());
+		}
+		if (CDAfterSixMonthsText.getText().equals(Constant.UnfilledHint)) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(CDAfterSixMonthsText.getText());
+		}
+		if (AxisAfterOneDayText.getText().equals(Constant.UnfilledHint)) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(AxisAfterOneDayText.getText());
+		}
+		if (AxisAfterThreeMonthsText.getText().equals(Constant.UnfilledHint)) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(AxisAfterThreeMonthsText.getText());
+		}
+		if (AxisAfterSixMonthsText.getText().equals(Constant.UnfilledHint)) {
+			AttributeData.add(Double.toString(Constant.InitDataNum));
+		}
+		else {
+			AttributeData.add(AxisAfterSixMonthsText.getText());
+		}
 		return AttributeData;
 	}
 	
@@ -694,7 +836,7 @@ public class ModifyInterface {
 		SaveToQueryResult();
 		dataBase.modifyInstance(queryResult);
 		setLogText("病历号为 " + queryResult.getAttribute().toArrayList().get(0) + " 的病人 " + queryResult.getAttribute().toArrayList().get(1) + " 的信息修改完毕，已存入数据库");
-		queryInterface.reset();
+//		queryInterface.reset();
 	}
 	
 	public boolean CheckData() {
@@ -756,6 +898,14 @@ public class ModifyInterface {
 			
 		}
 		
+	}
+	
+	public void dispose() {
+		frame.dispose();
+	}
+	
+	public QueryInterface getQueryInterface() {
+		return queryInterface;
 	}
 
 }

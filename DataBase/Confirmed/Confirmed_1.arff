@@ -33,6 +33,12 @@
 @attribute SDAfterOneDay numeric
 @attribute SDAfterThreeMonths numeric
 @attribute SDAfterSixMonths numeric
+@attribute CDAfterOneDay numeric
+@attribute CDAfterThreeMonths numeric
+@attribute CDAfterSixMonths numeric
+@attribute AxisAfterOneDay numeric
+@attribute AxisAfterThreeMonths numeric
+@attribute AxisAfterSixMonths numeric
 
 @data
-67936,zhutc,23,1,1,-4.63,0.07,-4.5,-0.25,50,1,7.61,6.5,44.1,44.4,44.3,552,1,0.15,-2147483648,1501755700000,-2147483648,-2147483648,1,27,-2147483648,120,90,0.15,0.15,-2147483648,-2147483648,-2147483648
+67936,zhutc,23,1,1,-4.63,0.07,-4.5,-0.25,50,1,7.61,6.5,44.1,44.4,44.3,552,1,0.15,-2147483648,1501755700000,-2147483648,-2147483648,1,27,-2147483648,120,90,0.15,0.15,-2147483648,-2147483648,-2147483648,-2147483648,-2147483648,-2147483648,-2147483648,-2147483648,-2147483648

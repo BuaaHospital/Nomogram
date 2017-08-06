@@ -25,6 +25,7 @@ import org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel;
 import org.jvnet.substance.theme.SubstanceEbonyTheme;
 import org.jvnet.substance.title.FlatTitlePainter;
 import org.jvnet.substance.watermark.SubstanceBinaryWatermark;
+import javax.swing.JProgressBar;
 
 public class Main {
 
@@ -114,12 +115,17 @@ public class Main {
 		JMenuItem Retrain = new JMenuItem("重新训练");
 		TrainMenu.add(Retrain);
 		
+		JProgressBar ProgressBar = new JProgressBar();
+		ProgressBar.setBounds(0, 235, 200, 15);
+		ProgressBar.setStringPainted(true);
+		
+		
 		addSkin();
 		ImageIcon imageIcon = new ImageIcon(Constant.BackgroundPicturePath);
 		JLabel BackgroundImgLabel = new JLabel(imageIcon);
 		frame.getContentPane().add(BackgroundImgLabel, new Integer(Integer.MIN_VALUE));
 		BackgroundImgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-		Container contain = frame.getContentPane();  
+		Container contain = frame.getContentPane();
         ((JPanel) contain).setOpaque(false); 
 	}
 	

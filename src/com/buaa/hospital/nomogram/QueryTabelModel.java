@@ -8,7 +8,7 @@ import weka.core.Instance;
 
 public class QueryTabelModel extends AbstractTableModel{
 	private ArrayList<QueryResult> QueryResult = new ArrayList();
-	private String[] QueryTableColomnName = {"病历号", "姓名", "年龄", "性别", "眼别", "等效球镜度", "术前裸眼视力", "球镜度", "柱镜度", "轴", "最佳矫正视力", "角膜半径", "光学区", "K1", "K2", "Km", "角膜中央厚度", "主导眼", "预测球镜调整值", "残余基质厚度", "手术时间", "湿度", "温度", "First eye to treat", "能量", "OBL", "角膜帽厚度", "切口位置", "实际球镜调整值", "术后验光度（1天）", "术后验光度（1月）", "术后验光度（3月）"};
+	private String[] QueryTableColomnName = {"病历号", "姓名", "年龄", "性别", "眼别", "等效球镜度", "术前裸眼视力", "球镜度", "柱镜度", "轴", "最佳矫正视力", "角膜半径", "光学区", "K1", "K2", "Km", "角膜中央厚度", "主导眼", "预测球镜调整值", "残余基质厚度", "手术时间", "湿度", "温度", "First eye to treat", "能量", "OBL", "角膜帽厚度", "切口位置", "实际球镜调整值", "术后球镜度（1天）", "术后球镜度（3月）", "术后球镜度（6月）", "术后柱镜度（1天）", "术后柱镜度（3月）", "术后柱镜度（6月）", "术后轴（1天）", "术后轴（3月）", "术后轴（6月）"};
 	
 	@Override
 	public int getRowCount() {
@@ -47,7 +47,7 @@ public class QueryTabelModel extends AbstractTableModel{
 	}
 	
 	public void clearQueryResult() {
-		this.QueryResult = new ArrayList();
+		this.QueryResult.clear();
 	}
 	
 	public QueryResult getQueryResultAt(int i) {

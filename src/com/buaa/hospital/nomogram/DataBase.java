@@ -198,7 +198,7 @@ public class DataBase {
 		for (; ;) {
 			System.out.println(UnconfirmedData.toString());
 			if (UnconfirmedData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(33);
+				Instance newInstance = new Instance(39);
 				System.out.println(instance);
 				UnconfirmedData.add(newInstance);
 				for (int i = 0; i < UnconfirmedData.numAttributes(); i ++) {
@@ -236,7 +236,7 @@ public class DataBase {
 		for (; ;) {
 			System.out.println(ConfirmedData.toString());
 			if (ConfirmedData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(33);
+				Instance newInstance = new Instance(39);
 				System.out.println(instance);
 				ConfirmedData.add(newInstance);
 				for (int i = 0; i < ConfirmedData.numAttributes(); i ++) {
@@ -274,7 +274,7 @@ public class DataBase {
 		for (; ;) {
 			System.out.println(UntrainedData.toString());
 			if (UntrainedData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(33);
+				Instance newInstance = new Instance(39);
 				System.out.println(instance);
 				UntrainedData.add(newInstance);
 				for (int i = 0; i < UntrainedData.numAttributes(); i ++) {
@@ -312,7 +312,7 @@ public class DataBase {
 		for (; ;) {
 			System.out.println(TrainedData.toString());
 			if (TrainedData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(33);
+				Instance newInstance = new Instance(39);
 				System.out.println(instance);
 				TrainedData.add(newInstance);
 				for (int i = 0; i < TrainedData.numAttributes(); i ++) {
@@ -350,7 +350,7 @@ public class DataBase {
 		for (; ;) {
 			System.out.println(BadData.toString());
 			if (BadData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(33);
+				Instance newInstance = new Instance(39);
 				System.out.println(instance);
 				BadData.add(newInstance);
 				for (int i = 0; i < BadData.numAttributes(); i ++) {

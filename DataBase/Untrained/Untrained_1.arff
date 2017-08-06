@@ -33,6 +33,12 @@
 @attribute SDAfterOneDay numeric
 @attribute SDAfterThreeMonths numeric
 @attribute SDAfterSixMonths numeric
+@attribute CDAfterOneDay numeric
+@attribute CDAfterThreeMonths numeric
+@attribute CDAfterSixMonths numeric
+@attribute AxisAfterOneDay numeric
+@attribute AxisAfterThreeMonths numeric
+@attribute AxisAfterSixMonths numeric
 
 @data
-68006,douxiaowei,31,1,1,-4.63,0.06,-4.5,-0.25,20,1,7.52,6.5,44.6,45.2,44.9,529,1,0.15,-2147483648,1501816288000,-2147483648,-2147483648,1,27,-2147483648,120,90,0.15,0.15,-2147483648,0.1,-2147483648
+68006,douxiaowei,31,1,1,-4.63,0.06,-4.5,-0.25,20,1,7.52,6.5,44.6,45.2,44.9,529,1,0.15,-2147483648,1501816288000,-2147483648,-2147483648,1,27,-2147483648,120,90,0.15,0.15,-2147483648,0.1,-2147483648,-2147483648,-2147483648,-2147483648,-2147483648,-2147483648,-2147483648

@@ -20,6 +20,9 @@ public class ModifySaveButtonListener implements ActionListener{
 		try {
 			if (modifyInterface.CheckData()) {
 				modifyInterface.SaveModify();
+				modifyInterface.dispose();
+				QueryButtonListener queryButtonListener = new QueryButtonListener(dataBase, modifyInterface.getQueryInterface());
+				queryButtonListener.ReQuery();
 			}
 			
 		} catch (Exception e1) {

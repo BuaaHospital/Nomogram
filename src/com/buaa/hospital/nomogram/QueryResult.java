@@ -148,6 +148,12 @@ public class QueryResult {
 		instance.setValue(30, Double.parseDouble(Data.get(29)));
 		instance.setValue(31, Double.parseDouble(Data.get(30)));
 		instance.setValue(32, Double.parseDouble(Data.get(31)));
+		instance.setValue(33, Double.parseDouble(Data.get(32)));
+		instance.setValue(34, Double.parseDouble(Data.get(33)));
+		instance.setValue(35, Double.parseDouble(Data.get(34)));
+		instance.setValue(36, Double.parseDouble(Data.get(35)));
+		instance.setValue(37, Double.parseDouble(Data.get(36)));
+		instance.setValue(38, Double.parseDouble(Data.get(37)));
 		if (instance.value(28) != Constant.InitDataNum && instance.value(31) == Constant.InitDataNum) {
 			dataType = DataType.Confirmed;
 		}
@@ -158,6 +164,9 @@ public class QueryResult {
 			else {
 				dataType = DataType.BadData;
 			}
+		}
+		else {
+			dataType = DataType.Unconfirmed;
 		}
 	}
 	

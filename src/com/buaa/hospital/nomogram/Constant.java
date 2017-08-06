@@ -1,5 +1,10 @@
 package com.buaa.hospital.nomogram;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 enum DataType {
 	Unconfirmed,
 	Confirmed,
@@ -20,7 +25,7 @@ public class Constant {
 	public static String NewDataPath = RunPath + "\\NewData";
 	
 	public static boolean Debug = true;
-	public static String ArffFileHead = "@relation \'\'\n\n@attribute ID numeric\n@attribute Name string\n@attribute Age numeric\n@attribute Sex numeric\n@attribute Eye numeric\n@attribute SE numeric\n@attribute UCVA numeric\n@attribute SD numeric\n@attribute CD numeric\n@attribute Axis numeric\n@attribute BCVA numeric\n@attribute CornealRadius numeric\n@attribute OpticalZone numeric\n@attribute K1 numeric\n@attribute K2 numeric\n@attribute Km numeric\n@attribute CCT numeric\n@attribute LeadEye numeric\n@attribute PredictNomogram numeric\n@attribute RST numeric\n@attribute Time numeric\n@attribute Humidity numeric\n@attribute Temperature numeric\n@attribute FirstEyeToTreat numeric\n@attribute Energy numeric\n@attribute OBL numeric\n@attribute Thickness numeric\n@attribute Position numeric\n@attribute RealNomogram numeric\n@attribute RealNomogramLabel {0,0.05,0.1,0.15,0.2,0.25,0.3}\n@attribute SDAfterOneDay numeric\n@attribute SDAfterThreeMonths numeric\n@attribute SDAfterSixMonths numeric\n\n@data\n";
+	public static String ArffFileHead = "@relation \'\'\n\n@attribute ID numeric\n@attribute Name string\n@attribute Age numeric\n@attribute Sex numeric\n@attribute Eye numeric\n@attribute SE numeric\n@attribute UCVA numeric\n@attribute SD numeric\n@attribute CD numeric\n@attribute Axis numeric\n@attribute BCVA numeric\n@attribute CornealRadius numeric\n@attribute OpticalZone numeric\n@attribute K1 numeric\n@attribute K2 numeric\n@attribute Km numeric\n@attribute CCT numeric\n@attribute LeadEye numeric\n@attribute PredictNomogram numeric\n@attribute RST numeric\n@attribute Time numeric\n@attribute Humidity numeric\n@attribute Temperature numeric\n@attribute FirstEyeToTreat numeric\n@attribute Energy numeric\n@attribute OBL numeric\n@attribute Thickness numeric\n@attribute Position numeric\n@attribute RealNomogram numeric\n@attribute RealNomogramLabel {0,0.05,0.1,0.15,0.2,0.25,0.3}\n@attribute SDAfterOneDay numeric\n@attribute SDAfterThreeMonths numeric\n@attribute SDAfterSixMonths numeric\n@attribute CDAfterOneDay numeric\n@attribute CDAfterThreeMonths numeric\n@attribute CDAfterSixMonths numeric\n@attribute AxisAfterOneDay numeric\n@attribute AxisAfterThreeMonths numeric\n@attribute AxisAfterSixMonths numeric\n\n@data\n";
 	public static String TempInstanceFilePath = RunPath + "\\Temp\\Temp.arff";
 	public static String ModelsPath = RunPath + "\\Models";
 	public static String ClassifyModelsPath = ModelsPath + "\\Classify";
@@ -63,5 +68,25 @@ public class Constant {
 	
 	public void readConfigure(String FilePath) {
 		
+	}
+	
+	public static void FileCopy(String readfile,String writeFile) {
+		try {
+			File writefile = new File(writeFile);
+			if (!writefile.exists()) {
+				writefile.createNewFile();
+			}
+			FileInputStream input = new FileInputStream(readfile);
+			FileOutputStream output = new FileOutputStream(writeFile);
+			int read = input.read();		
+			while ( read != -1 ) {
+				output.write(read);	
+				read = input.read();
+			}			
+			input.close();
+			output.close();
+		} catch (IOException e) {
+			System.out.println(e);
+		}
 	}
 }

@@ -56,6 +56,39 @@ public class QueryButtonListener implements ActionListener{
 		}
 	}
 	
+	public void ReQuery() {
+		clearQueryResult();
+		try {
+			if (queryInterface.checkData()) {
+				if (queryInterface.isIdSelected()) {
+					QueryResults = dataBase.QuerybyID(queryInterface.getIDText());
+					if (queryInterface.isNameSelected()) {
+						QuerybyName(QueryResults, queryInterface.getNameText());
+					}
+					else if (queryInterface.isDateSelected()) {
+						QuerybyDate(QueryResults, queryInterface.getDate());
+					}
+				}
+				else if (queryInterface.isNameSelected()) {
+					QueryResults = dataBase.QuerybyName(queryInterface.getNameText());
+					if (queryInterface.isDateSelected()) {
+						QuerybyDate(QueryResults, queryInterface.getDate());
+					}
+				}
+				else if (queryInterface.isDateSelected()){
+					QueryResults = dataBase.QuerybyDate(queryInterface.getDate());
+				}
+				else {
+					
+				}
+			}
+			queryInterface.setQueryResult(QueryResults);
+			queryInterface.RefreshQueryTable();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	
 	public void clearQueryResult() {
 		QueryResults.clear();
 	}
