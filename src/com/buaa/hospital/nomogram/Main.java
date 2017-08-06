@@ -109,15 +109,18 @@ public class Main {
 		});
 		EditMenu.add(AfterInput);
 		
+		JProgressBar ProgressBar = new JProgressBar();
+		ProgressBar.setBounds(0, 235, 200, 15);
+		ProgressBar.setStringPainted(true);
+		
 		JMenu TrainMenu = new JMenu("训练");
 		menuBar.add(TrainMenu);
 		
 		JMenuItem Retrain = new JMenuItem("重新训练");
+		Retrain.addActionListener(new TrainMenuListener(dataBase, frame, ProgressBar));
 		TrainMenu.add(Retrain);
 		
-		JProgressBar ProgressBar = new JProgressBar();
-		ProgressBar.setBounds(0, 235, 200, 15);
-		ProgressBar.setStringPainted(true);
+		
 		
 		
 		addSkin();

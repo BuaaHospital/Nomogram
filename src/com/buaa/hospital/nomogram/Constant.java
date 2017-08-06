@@ -61,6 +61,19 @@ public class Constant {
 	public static double BadDataBound = 0.5;
 	public static String ImagePath = RunPath + "\\Image";
 	public static String BackgroundPicturePath = ImagePath + "\\Background_4.jpg";
+	public static String TrainFileName = "Train.arff";
+	public static String TrainOSPath = TrainPath + "\\OS";
+	public static String TrainODPath = TrainPath + "\\OD";
+	public static String TrainOSFilePath = TrainOSPath + "\\" + TrainFileName;
+	public static String TrainODFilePath = TrainODPath + "\\" + TrainFileName;
+	public static int AttributeNum = 39;
+	public static int MultiPreceptionOSModelIndex = 1;
+	public static int MultiPreceptionODModelIndex = 1;
+	public static int ClassifyModelIndex = 1;
+	public static String LatestMultiPreceptionOSModelName = "MultiPreceptionOSModel_" + (MultiPreceptionOSModelIndex + 1) + ".model";
+	public static String LatestMultiPreceptionODModelName = "MultiPreceptionODModel_" + (MultiPreceptionODModelIndex + 1) + ".model";
+	public static String ClassifyModelName = "ClassifyModel_" + (ClassifyModelIndex + 1) + ".model";
+	public static int MultipreceptionAttributeNum = 14;
 	
 	public void writeConfigure(String FilePath) {
 		
@@ -87,6 +100,20 @@ public class Constant {
 			output.close();
 		} catch (IOException e) {
 			System.out.println(e);
+		}
+	}
+	
+	
+	public static void FileDelete(File file) {
+		if (file.isFile()) {
+			file.delete();
+		}
+		else {
+			File[] files = file.listFiles();
+			for (int i = 0; i < files.length; i ++) {
+				FileDelete(files[i]);
+			}
+			file.delete();
 		}
 	}
 }

@@ -198,11 +198,11 @@ public class DataBase {
 		for (; ;) {
 			System.out.println(UnconfirmedData.toString());
 			if (UnconfirmedData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(39);
+				Instance newInstance = new Instance(Constant.AttributeNum);
 				System.out.println(instance);
 				UnconfirmedData.add(newInstance);
 				for (int i = 0; i < UnconfirmedData.numAttributes(); i ++) {
-					if (i != 1) {
+					if (i != 1 && i != 29) {
 						UnconfirmedData.lastInstance().setValue(i, instance.value(i));
 					}
 					else {
@@ -236,11 +236,11 @@ public class DataBase {
 		for (; ;) {
 			System.out.println(ConfirmedData.toString());
 			if (ConfirmedData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(39);
+				Instance newInstance = new Instance(Constant.AttributeNum);
 				System.out.println(instance);
 				ConfirmedData.add(newInstance);
 				for (int i = 0; i < ConfirmedData.numAttributes(); i ++) {
-					if (i != 1) {
+					if (i != 1 && i != 29) {
 						ConfirmedData.lastInstance().setValue(i, instance.value(i));
 					}
 					else {
@@ -274,11 +274,11 @@ public class DataBase {
 		for (; ;) {
 			System.out.println(UntrainedData.toString());
 			if (UntrainedData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(39);
+				Instance newInstance = new Instance(Constant.AttributeNum);
 				System.out.println(instance);
 				UntrainedData.add(newInstance);
 				for (int i = 0; i < UntrainedData.numAttributes(); i ++) {
-					if (i != 1) {
+					if (i != 1 && i != 29) {
 						UntrainedData.lastInstance().setValue(i, instance.value(i));
 					}
 					else {
@@ -312,11 +312,11 @@ public class DataBase {
 		for (; ;) {
 			System.out.println(TrainedData.toString());
 			if (TrainedData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(39);
+				Instance newInstance = new Instance(Constant.AttributeNum);
 				System.out.println(instance);
 				TrainedData.add(newInstance);
 				for (int i = 0; i < TrainedData.numAttributes(); i ++) {
-					if (i != 1) {
+					if (i != 1 && i != 29) {
 						TrainedData.lastInstance().setValue(i, instance.value(i));
 					}
 					else {
@@ -345,16 +345,59 @@ public class DataBase {
 		saveArff(TrainedData, getCurrentTrainedDataPath());
 	}
 	
+	public void addToTrainedData(Instances instances) throws Exception {
+		Init();
+		for (int k = 0; k < instances.numInstances(); k ++) {
+			System.out.println(TrainedData.toString());
+			if (TrainedData.numInstances() < Constant.MaxInstanceItem) {
+				Instance newInstance = new Instance(Constant.AttributeNum);
+				TrainedData.add(newInstance);
+				for (int i = 0; i < TrainedData.numAttributes(); i ++) {
+					if (i != 1 && i != 29) {
+						TrainedData.lastInstance().setValue(i, instances.instance(k).value(i));
+					}
+					else {
+						TrainedData.lastInstance().setValue(i, instances.instance(k).stringValue(i));
+					}
+				}
+			}
+			else {
+				saveArff(TrainedData, getCurrentTrainedDataPath());
+				if (getNextTrainedData() == null) {
+					Constant.TrainedDataMaxIndex ++;
+					TrainedDataIndex = Constant.TrainedDataMaxIndex;
+					BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getCurrentTrainedDataPath(), false)));
+					bWriter.write(Constant.ArffFileHead);
+					bWriter.flush();
+					bWriter.close();
+					DataSource dataSource = new DataSource(getCurrentTrainedDataPath());
+					TrainedData = dataSource.getDataSet();
+					Instance newInstance = new Instance(Constant.AttributeNum);
+					TrainedData.add(newInstance);
+					for (int i = 0; i < TrainedData.numAttributes(); i ++) {
+						if (i != 1 && i != 29) {
+							TrainedData.lastInstance().setValue(i, instances.instance(k).value(i));
+						}
+						else {
+							TrainedData.lastInstance().setValue(i, instances.instance(k).stringValue(i));
+						}
+					}
+				}
+			}
+		}
+		saveArff(TrainedData, getCurrentTrainedDataPath());
+	}
+	
 	public void addToBadData(Instance instance) throws Exception {
 		Init();
 		for (; ;) {
 			System.out.println(BadData.toString());
 			if (BadData.numInstances() < Constant.MaxInstanceItem) {
-				Instance newInstance = new Instance(39);
+				Instance newInstance = new Instance(Constant.AttributeNum);
 				System.out.println(instance);
 				BadData.add(newInstance);
 				for (int i = 0; i < BadData.numAttributes(); i ++) {
-					if (i != 1) {
+					if (i != 1 && i != 29) {
 						BadData.lastInstance().setValue(i, instance.value(i));
 					}
 					else {
@@ -590,6 +633,118 @@ public class DataBase {
 			System.out.println(queryResult.getInstance().toString());
 			saveArff(queryResult.getInstances(), queryResult.getFilePath());
 		}
+	}
+	
+	public Instances[] getAllNeedTrainedData() throws Exception {
+		Init();
+		Instances AllInstances = Attribute.GenEmptyInstances();
+		Instances OSInstances = Attribute.GenEmptyInstances();
+		Instances ODInstances = Attribute.GenEmptyInstances();
+		Instances[] instances = {AllInstances, OSInstances, ODInstances};
+		
+		for (; ;) {
+			for (int i = 0; i < UntrainedData.numInstances(); i ++) {
+				Instance instance = new Instance(Constant.AttributeNum);
+				AllInstances.add(instance);
+				for (int j = 0; j < AllInstances.numAttributes(); j ++) {
+					if (j != 1 && j != 29) {
+						AllInstances.lastInstance().setValue(j, UntrainedData.instance(i).value(j));
+					}
+					else {
+						AllInstances.lastInstance().setValue(j, UntrainedData.instance(i).stringValue(j));
+					}
+				}
+				if (UntrainedData.instance(i).value(4) == 0) {
+					OSInstances.add(instance);
+					for (int j = 0; j < OSInstances.numAttributes(); j ++) {
+						if (j != 1 && j != 29) {
+							OSInstances.lastInstance().setValue(j, UntrainedData.instance(i).value(j));
+						}
+						else {
+							OSInstances.lastInstance().setValue(j, UntrainedData.instance(i).stringValue(j));
+						}
+					}
+				}
+				else {
+					ODInstances.add(instance);
+					for (int j = 0; j < ODInstances.numAttributes(); j ++) {
+						if (j != 1 && j != 29) {
+							ODInstances.lastInstance().setValue(j, UntrainedData.instance(i).value(j));
+						}
+						else {
+							ODInstances.lastInstance().setValue(j, UntrainedData.instance(i).stringValue(j));
+						}
+					}
+				}
+			}
+			if (getNextUntrainedData() == null) {
+				break;
+			}
+		}
+		for (; ;) {
+			for (int i = 0; i < TrainedData.numInstances(); i ++) {
+				Instance instance = new Instance(Constant.AttributeNum);
+				AllInstances.add(instance);
+				for (int j = 0; j < AllInstances.numAttributes(); j ++) {
+					if (j != 1 && j != 29) {
+						AllInstances.lastInstance().setValue(j, TrainedData.instance(i).value(j));
+					}
+					else {
+						AllInstances.lastInstance().setValue(j, TrainedData.instance(i).stringValue(j));
+					}
+				}
+				if (TrainedData.instance(i).value(4) == 0) {
+					OSInstances.add(instance);
+					for (int j = 0; j < OSInstances.numAttributes(); j ++) {
+						if (j != 1 && j != 29) {
+							OSInstances.lastInstance().setValue(j, TrainedData.instance(i).value(j));
+						}
+						else {
+							OSInstances.lastInstance().setValue(j, TrainedData.instance(i).stringValue(j));
+						}
+					}
+				}
+				else {
+					ODInstances.add(instance);
+					for (int j = 0; j < ODInstances.numAttributes(); j ++) {
+						if (j != 1 && j != 29) {
+							ODInstances.lastInstance().setValue(j, TrainedData.instance(i).value(j));
+						}
+						else {
+							ODInstances.lastInstance().setValue(j, TrainedData.instance(i).stringValue(j));
+						}
+					}
+				}
+			}
+			if (getNextTrainedData() == null) {
+				break;
+			}
+		}
+		return instances;	
+	}
+	
+	public Instances getAllUnTrainedData() throws Exception {
+		Init();
+		Instances AllUntrainedInstances = Attribute.GenEmptyInstances();
+		
+		for (; ;) {
+			for (int i = 0; i < UntrainedData.numInstances(); i ++) {
+				Instance instance = new Instance(Constant.AttributeNum);
+				AllUntrainedInstances.add(instance);
+				for (int j = 0; j < AllUntrainedInstances.numAttributes(); j ++) {
+					if (j != 1 && j != 29) {
+						AllUntrainedInstances.lastInstance().setValue(j, UntrainedData.instance(i).value(j));
+					}
+					else {
+						AllUntrainedInstances.lastInstance().setValue(j, UntrainedData.instance(i).stringValue(j));
+					}
+				}
+			}
+			if (getNextUntrainedData() == null) {
+				break;
+			}
+		}
+		return AllUntrainedInstances;	
 	}
 
 }

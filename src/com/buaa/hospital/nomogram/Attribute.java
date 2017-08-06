@@ -476,6 +476,16 @@ public class Attribute {
 		return structure;
 	}
 	
+	public static Instances GenEmptyInstances() throws Exception {
+		BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.TempInstanceFilePath, false)));
+		bWriter.write(Constant.ArffFileHead);
+		bWriter.flush();
+		bWriter.close();
+		DataSource dataSource = new DataSource(Constant.TempInstanceFilePath);
+		Instances structure = dataSource.getDataSet();
+		return structure;
+	}
+	
 	public void GenTime() {
 		Time = System.currentTimeMillis();
 	}
@@ -490,5 +500,12 @@ public class Attribute {
 	
 	public String getName() {
 		return Name;
+	}
+	
+	public static void GenMultiPreceptionInstances(Instances instances) throws Exception {
+		int[] DeleteAttributeIndex = {38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 4, 3, 1, 0};
+		for (int i = 0; i < DeleteAttributeIndex.length; i ++) {
+			instances.deleteAttributeAt(DeleteAttributeIndex[i]);
+		}
 	}
 }
