@@ -49,61 +49,7 @@ public class multilayer {
 //		adaboostM1("F:\\医疗数据\\眼科数据\\ada_OD\\", "F:\\医疗数据\\眼科数据\\ada_OD\\eye_sign.arff", "F:\\医疗数据\\眼科数据\\ada_OD\\eye_sign.arff", 7, 10);
 	}
 	
-	public static void watchmean9model(String testfilepath) throws Exception {
-		int indexclass = 9;
-		DataSource test_data = new DataSource(testfilepath);
-		Instances test_struture = test_data.getDataSet();
-		double sumerr = 0;
-		int count1 = 0, count2 = 0;
-		for (int i = 0; i < test_struture.numInstances(); i ++) {
-			double real = getdatafrominstances(test_struture, i, indexclass);
-			double predict = getvaluefrommean9model(test_struture.instance(i));
-			sumerr += Math.pow(real-predict, 2);
-			System.out.println("NO = " + (i+1) + ", real = " + Double.toString(real) + ", predict = " + Double.toString(predict));
-			if (Math.abs(predict - real) <= 0.01) {
-				count1 ++;
-			}
-			if (Math.abs(predict - real) <= 0.05) {
-				count2 ++;
-			}
-		}
-		System.out.println("mean of square err = " + Math.sqrt(sumerr/test_struture.numInstances()));
-		System.out.println("number of err less than 0.01 = " + count1);
-		System.out.println("percent of err less than 0.01 = " + ((double)count1)/test_struture.numInstances());
-		System.out.println("number of err less than 0.05 = " + count2);
-		System.out.println("percent of err less than 0.05 = " + ((double)count2)/test_struture.numInstances());
-	}
-	
-	public static double getvaluefrommean9model(Instance instance) throws Exception {
-		String rootpath = "F:\\医疗数据\\眼科数据\\divide\\";
-		int indexclass = 9;
-		double result = 0;
-		String s = "";
-		String filename = "F:\\医疗数据\\眼科数据\\divide\\9to1.arff";
-		for (int i = 1; i <= 9; i ++) {
-			String modelname = "div_" + i + ".model";
-			MultilayerPerceptron readmodel = getmodel(rootpath + modelname);
-			result += getmultilayerresult(readmodel, instance);
-			if (i != 9) {
-				s += Double.toString(getmultilayerresult(readmodel, instance));
-				s += ",";
-			}
-			else {
-				s += Double.toString(getmultilayerresult(readmodel, instance));
-				s += ",";
-				s += Double.toString(instance.value(indexclass));
-				s += "\r\n";
-			}
-		}
-		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename, true)));
-		out.write(s);
-		out.flush();
-		out.close();
-		return result/9;
-	}
-	
 	public static double watchModel(String modelpath, String testfilepath, int indexclass) throws Exception {
-//		String modelpath = "F:\\医疗数据\\眼科数据\\5\\222_0.031341128999309256.model";
 		
 		DataSource test_data = new DataSource(testfilepath);
 		Instances test_struture = test_data.getDataSet();
@@ -186,8 +132,8 @@ public class multilayer {
 	
 	public static void boostRun(String rootpath, String dataname, String filepath, int indexclass) throws Exception {
 		String testfilepath = filepath;
-		String modelpath = "F:\\医疗数据\\眼科数据\\divide\\finaldata_avgnorm.model";
-		String savemodelpath = "F:\\医疗数据\\眼科数据\\6\\";
+		String modelpath = "";
+		String savemodelpath = "";
 		int max = 5;
 		int maxCount = 0;
 		double minErr = Integer.MAX_VALUE;
@@ -807,7 +753,7 @@ public class multilayer {
 			String ModelPath = files[i].getAbsolutePath();
 			MultilayerPerceptron mPerceptron = getmodel(ModelPath);
 			double nomogram = getmultilayerresult(mPerceptron, instance);
-			nomogram = Transfrom(nomogram);
+//			nomogram = Transfrom(nomogram);
 			System.out.println(nomogram);
 			if (!nomograms.containsKey(nomogram)) {
 				nomograms.put(nomogram, 1);

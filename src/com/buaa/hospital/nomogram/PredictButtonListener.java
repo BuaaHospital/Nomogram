@@ -2,6 +2,7 @@ package com.buaa.hospital.nomogram;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 public class PredictButtonListener implements ActionListener{
 	
@@ -17,11 +18,13 @@ public class PredictButtonListener implements ActionListener{
 		if (predictInterface.CheckData()) {
 			Attribute attribute = new Attribute(predictInterface);
 			double Nomogram = 0;
+			double MultiPreceptionAccuracy = 0.5;
+			double ClassifyAccuracy = 0.5;
 			attribute.GenTime();
 			if (predictInterface.getAlogrithmNum() == 0) {
 				//综合算法
 				try {
-					Nomogram = attribute.PredictbyMultiPreception(predictInterface.getModelNum());	
+					Nomogram = ((int)((attribute.PredictbyMultiPreception(predictInterface.getModelNum()) * MultiPreceptionAccuracy + attribute.PredictbyClassifier(predictInterface.getModelNum()) * ClassifyAccuracy)*10000))/10000.0;	
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -30,7 +33,7 @@ public class PredictButtonListener implements ActionListener{
 			else if (predictInterface.getAlogrithmNum() == 1) {
 				//神经网络算法
 				try {
-					Nomogram = attribute.PredictbyMultiPreception(predictInterface.getModelNum());	
+					Nomogram = multilayer.Transfrom(attribute.PredictbyMultiPreception(predictInterface.getModelNum()));	
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

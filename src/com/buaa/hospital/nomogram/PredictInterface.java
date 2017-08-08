@@ -410,7 +410,7 @@ public class PredictInterface {
 	    }
 
 	    //SE check
-	    int SEMaxlen=5;
+	    int SEMaxlen=6;
 	    temp=SEText.getText();
 	    if(temp.isEmpty()){
 	    	setLogText("等效球镜度不能为空！");
@@ -430,7 +430,7 @@ public class PredictInterface {
 	    }
 
 	    //UCVA check
-	    int UCVAMaxlen=5;
+	    int UCVAMaxlen=6;
 	    temp=UCVAText.getText();
 	    if(temp.isEmpty()){
 	    	setLogText("术前裸眼视力不能为空！");
@@ -454,7 +454,7 @@ public class PredictInterface {
 	    }
 
 	    //SD check
-	    int SDMaxlen=5;
+	    int SDMaxlen=6;
 	    temp=SDText.getText();
 	    if(temp.isEmpty()){
 	    	setLogText("球镜度字段不能为空！");
@@ -474,7 +474,7 @@ public class PredictInterface {
 	    }
 
 	    //CD check
-	    int CDMaxlen=5;
+	    int CDMaxlen=6;
 	    temp=CDText.getText();
 	    if(temp.isEmpty()){
 	    	setLogText("柱镜度字段不能为空！");
@@ -517,7 +517,7 @@ public class PredictInterface {
 	    }
 
 	    //CornealRadius check
-	    int CRMaxlen=5;
+	    int CRMaxlen=6;
 	    temp=CornealRadiusText.getText();
 	    if(temp.isEmpty()){
 	    	setLogText("角膜半径不能为空！");
@@ -564,7 +564,7 @@ public class PredictInterface {
 
 	    //K1 check
 	    int K1Minlen=2;
-	    int K1Maxlen=5;
+	    int K1Maxlen=6;
 	    temp=K1Text.getText();
 	    if(temp.isEmpty()){
 	    	setLogText("K1字段不能为空！");
@@ -589,7 +589,7 @@ public class PredictInterface {
 
 	    //K2 check
 	    int K2Minlen=2;
-	    int K2Maxlen=5;
+	    int K2Maxlen=6;
 	    temp=K2Text.getText();
 	    if(temp.isEmpty()){
 	    	setLogText("K2字段不能为空！");
@@ -614,7 +614,7 @@ public class PredictInterface {
 
 	    //Km check
 	    int KmMinlen=2;
-	    int KmMaxlen=5;
+	    int KmMaxlen=6;
 	    temp=KmText.getText();
 	    if(temp.isEmpty()){
 	    	setLogText("Km字段不能为空！");
