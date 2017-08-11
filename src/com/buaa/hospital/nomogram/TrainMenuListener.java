@@ -27,17 +27,31 @@ public class TrainMenuListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		try {
-			frame.getContentPane().add(jProgressBar);
-			jProgressBar.setMinimum(1);
-			jProgressBar.setMaximum(100);
-			jProgressBar.setToolTipText("正在初始化设置...");
-			MultiPreceptionTrain();
-			ClassifyTrain();
-			MoveInstancesToTrained();
-		} catch(Exception e1) {
-			e1.printStackTrace();
-		}
+		new Thread() {
+			public void run() {
+				try {
+					frame.getContentPane().add(jProgressBar);
+					jProgressBar.setVisible(true);
+					jProgressBar.setMinimum(0);
+					jProgressBar.setMaximum(100);
+					jProgressBar.setValue(0);
+//					jProgressBar.setValue(jProgressBar.getValue() + 1);
+					jProgressBar.setToolTipText("正在初始化设置...");
+//					jProgressBar.setValue(jProgressBar.getValue() + 1);
+					MultiPreceptionTrain();
+//					jProgressBar.setValue(jProgressBar.getValue() + 1);
+					ClassifyTrain();
+					MoveInstancesToTrained();
+					for (;jProgressBar.getValue() < jProgressBar.getMaximum();) {
+						jProgressBar.setValue(jProgressBar.getValue() + 1);
+						sleep(500);
+					}
+					frame.getContentPane().remove(jProgressBar);
+				} catch(Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		}.start();
 	}
 	
 	public void GenOSTrainFile() throws Exception {
@@ -56,13 +70,12 @@ public class TrainMenuListener implements ActionListener {
 		File LatestMultiPreceptionOSModels = new File(Constant.LatestMultiPreceptionOSModelsPath);
 		File LastMultiPreceptionOSModel = LatestMultiPreceptionOSModels.listFiles()[0];
 		Constant.FileCopy(LastMultiPreceptionOSModel.getAbsolutePath(), Constant.HistoryMultiPreceptionOSModelsPath + "\\" + LastMultiPreceptionOSModel.getName());
-		LastMultiPreceptionOSModel.delete();
 		File LatestMultiPreceptionODModels = new File(Constant.LatestMultiPreceptionODModelsPath);
 		File LastMultiPreceptionODModel = LatestMultiPreceptionODModels.listFiles()[0];
 		Constant.FileCopy(LastMultiPreceptionODModel.getAbsolutePath(), Constant.HistoryMultiPreceptionODModelsPath + "\\" + LastMultiPreceptionODModel.getName());
-		LastMultiPreceptionODModel.delete();
 		File TrainOSFile = new File(Constant.TrainOSPath);
 		//Train OS
+//		jProgressBar.setValue(jProgressBar.getValue() + 1);
 		jProgressBar.setToolTipText("正在生成可用的左眼训练数据...");
 		if (!TrainOSFile.exists()) {
 			TrainOSFile.mkdir();
@@ -72,10 +85,12 @@ public class TrainMenuListener implements ActionListener {
 			TrainOSFile.mkdir();
 		}
 		GenOSTrainFile();
+//		jProgressBar.setValue(jProgressBar.getValue() + 1);
 		jProgressBar.setToolTipText("开始训练神经网络左眼模型...");
-		multilayer.crosstrain(Constant.TrainOSPath + "\\", Constant.TrainFileName, Constant.MultipreceptionAttributeNum - 1, 10);
-		String BestModelPath = multilayer.chooseBest(Constant.TrainOSPath + "\\finalmodels\\1\\", Constant.TrainOSFilePath, Constant.MultipreceptionAttributeNum - 1);
+		Multilayer.crosstrain(Constant.TrainOSPath + "\\", Constant.TrainFileName, Constant.MultipreceptionAttributeNum - 1, 10, jProgressBar);
+		String BestModelPath = Multilayer.chooseBest(Constant.TrainOSPath + "\\finalmodels\\1\\", Constant.TrainOSFilePath, Constant.MultipreceptionAttributeNum - 1);
 		Constant.FileCopy(BestModelPath, Constant.LatestMultiPreceptionOSModelsPath + "\\" + Constant.LatestMultiPreceptionOSModelName);
+		LastMultiPreceptionOSModel.delete();
 		Constant.MultiPreceptionOSModelIndex ++;
 		
 		//Train OD
@@ -90,14 +105,15 @@ public class TrainMenuListener implements ActionListener {
 		}
 		GenODTrainFile();
 		jProgressBar.setToolTipText("开始训练神经网络右眼模型...");
-		multilayer.crosstrain(Constant.TrainODPath + "\\", Constant.TrainFileName, Constant.MultipreceptionAttributeNum - 1, 10);
-		BestModelPath = multilayer.chooseBest(Constant.TrainODPath + "\\finalmodels\\1\\", Constant.TrainODFilePath, Constant.MultipreceptionAttributeNum - 1);
+		Multilayer.crosstrain(Constant.TrainODPath + "\\", Constant.TrainFileName, Constant.MultipreceptionAttributeNum - 1, 10, jProgressBar);
+		BestModelPath = Multilayer.chooseBest(Constant.TrainODPath + "\\finalmodels\\1\\", Constant.TrainODFilePath, Constant.MultipreceptionAttributeNum - 1);
 		Constant.FileCopy(BestModelPath, Constant.LatestMultiPreceptionODModelsPath + "\\" + Constant.LatestMultiPreceptionODModelName);
+		LastMultiPreceptionODModel.delete();
 		Constant.MultiPreceptionODModelIndex ++;
 	}
 	
-	public void ClassifyTrain(Instances instances, String SaveModelPath, String SaveModelName) {
-		
+	public void ClassifyTrain(Instances instances, String SaveModelPath) throws Exception {
+		Classifier.buildClassfier(SaveModelPath, instances);
 	}
 	
 	public void ClassifyTrain() throws Exception {
@@ -105,7 +121,9 @@ public class TrainMenuListener implements ActionListener {
 		File LastClassifyModel = LatestClassifyModels.listFiles()[0];
 		Constant.FileCopy(LastClassifyModel.getAbsolutePath(), Constant.HistoryClassifyModelsPath + "\\" + LastClassifyModel.getName());
 		Instances instances = AllInstances[0];
-		ClassifyTrain(instances, Constant.LatestClassifyModelsPath, Constant.ClassifyModelName);
+		Attribute.GenClassifyInstances(instances);
+		ClassifyTrain(instances, Constant.LatestClassifyModelsPath + "\\" + Constant.ClassifyModelName);
+		LastClassifyModel.delete();
 		Constant.ClassifyModelIndex ++;
 	}
 	

@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.swing.JProgressBar;
+
 import com.ibm.icu.util.BytesTrie.Entry;
 
 import weka.classifiers.functions.MultilayerPerceptron;
@@ -27,7 +29,7 @@ import weka.core.Instances;
 import weka.core.SerializationHelper;
 import weka.core.converters.ConverterUtils.DataSource;
 
-public class multilayer {
+public class Multilayer {
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -130,7 +132,7 @@ public class multilayer {
 		System.out.println("percent of err less than 0.05 = " + ((double)count2)/test_struture.numInstances());
 	}
 	
-	public static void boostRun(String rootpath, String dataname, String filepath, int indexclass) throws Exception {
+	public static void boostRun(String rootpath, String dataname, String filepath, int indexclass, JProgressBar jProgressBar) throws Exception {
 		String testfilepath = filepath;
 		String modelpath = "";
 		String savemodelpath = "";
@@ -144,19 +146,6 @@ public class multilayer {
 		double sumerr = 0;
 		int count = 0;
 		
-		MultilayerPerceptron readmodel = getmodel(modelpath);
-//		for (int n = 0; n < test_struture.numInstances(); n ++) {
-//			double real = getdatafrominstances(test_struture, n, indexclass);
-//			double predict = getmultilayerresult(readmodel, test_struture.instance(n));
-//			sumerr += Math.pow(real-predict, 2);
-//			System.out.println("NO = " + (n+1) + ", real = " + Double.toString(real) + ", predict = " + Double.toString(predict));
-//			if (Math.abs(predict - real) <= 0.01) {
-//				count ++;
-//			}
-//		}
-//		System.out.println(readmodel.toString());
-//		System.out.println("avgErr = " + Math.sqrt(sumerr/test_struture.numInstances()) + ", Count = " + count);
-		
 		for (int m = 0; m < max; m ++) {
 			sumerr = 0;
 			count = 0;
@@ -166,7 +155,6 @@ public class multilayer {
 				double real = getdatafrominstances(test_struture, i, indexclass);
 				double predict = getmultilayerresult(mp, structure.instance(i));
 				sumerr += Math.pow(real-predict, 2);
-//				System.out.println(Double.toString(real) + " " + Double.toString(predict));
 				if (Math.abs(predict - real) <= 0.01) {
 					count ++;
 				}
@@ -181,24 +169,15 @@ public class multilayer {
 							s += "\r\n";
 						}
 					}
-//					System.out.println(s);
 					BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(rootpath + dataname, true)));
 					out.write(s);
 					out.flush();
 					out.close();
 				}
 			}
+			System.out.println(jProgressBar.getValue());
+			jProgressBar.setValue(jProgressBar.getValue() + 1);
 			System.out.println("Generate = " + (m + 1) + ", avgErr = " + Math.sqrt(sumerr/test_struture.numInstances()) + ", Count = " + count + ", Percent = " + ((double)count)/test_struture.numInstances());
-//			if (count >= maxCount) {
-//				savemodelpath = rootpath + count + "_" + (Math.sqrt(sumerr/test_struture.numInstances()) + ".model");
-//				savemodel(savemodelpath, mp);
-//				maxCount = count;
-//			}
-//			else if (sumerr <= minErr) {
-//				savemodelpath = rootpath + count + "_" + (Math.sqrt(sumerr/test_struture.numInstances()) + ".model");
-//				savemodel(savemodelpath, mp);
-//				minErr = sumerr;
-//			}
 			savemodelpath = rootpath + count + "_" + (Math.sqrt(sumerr/test_struture.numInstances()) + ".model");
 			savemodel(savemodelpath, mp);
 			if (count == test_struture.numInstances() || m == max-1) {
@@ -410,7 +389,7 @@ public class multilayer {
 		}
 	}
 	
-	public static void crosstrain(String rootpath, String filename, Integer indexnum, int crossnum) throws Exception {
+	public static void crosstrain(String rootpath, String filename, Integer indexnum, int crossnum, JProgressBar jProgressBar) throws Exception {
 		initcross(rootpath, filename, crossnum);
 		File file = new File(rootpath);
 		File[] files = file.listFiles();
@@ -431,7 +410,7 @@ public class multilayer {
 				File newfile = new File(files[i].getAbsolutePath() + "\\" + (num + 1) + "\\");
 				newfile.mkdir();
 				if (!files[i].getName().equals("finalmodels")) {
-					boostRun(files[i].getAbsolutePath() + "\\" + (num + 1) + "\\", files[i].getName() + "_train.arff", files[i].getAbsolutePath() + "\\" + files[i].getName() + "_train.arff", indexnum);
+					boostRun(files[i].getAbsolutePath() + "\\" + (num + 1) + "\\", files[i].getName() + "_train.arff", files[i].getAbsolutePath() + "\\" + files[i].getName() + "_train.arff", indexnum, jProgressBar);
 					models.add(chooseBest(files[i].getAbsolutePath() + "\\" + (num + 1) + "\\", files[i].getAbsolutePath() + "\\" + files[i].getName() + "_trainval.arff", indexnum));
 				}
 			}

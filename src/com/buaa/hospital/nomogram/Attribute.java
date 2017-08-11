@@ -344,7 +344,7 @@ public class Attribute {
 				curModelPath = Constant.HistoryMultiPreceptionODModelsPath;
 			}
 		}
-		return multilayer.Predict(curModelPath, instance);
+		return Multilayer.Predict(curModelPath, instance);
 	}
 	
 	public double PredictbyClassifier(int ModelIndex) throws Exception {
@@ -507,5 +507,13 @@ public class Attribute {
 		for (int i = 0; i < DeleteAttributeIndex.length; i ++) {
 			instances.deleteAttributeAt(DeleteAttributeIndex[i]);
 		}
+	}
+	
+	public static void GenClassifyInstances(Instances instances) {
+		int[] DeleteAttributeIndex = {38, 37, 36, 35, 34, 33, 32, 31, 30, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 10, 6, 5, 1, 0};
+		for (int i = 0; i < DeleteAttributeIndex.length; i ++) {
+			instances.deleteAttributeAt(DeleteAttributeIndex[i]);
+		}
+		instances.setClassIndex(instances.numAttributes()-1);
 	}
 }

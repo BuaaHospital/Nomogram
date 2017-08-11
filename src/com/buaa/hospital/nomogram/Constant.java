@@ -1,9 +1,14 @@
 package com.buaa.hospital.nomogram;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 enum DataType {
 	Unconfirmed,
@@ -74,13 +79,100 @@ public class Constant {
 	public static String LatestMultiPreceptionODModelName = "MultiPreceptionODModel_" + (MultiPreceptionODModelIndex + 1) + ".model";
 	public static String ClassifyModelName = "ClassifyModel_" + (ClassifyModelIndex + 1) + ".model";
 	public static int MultipreceptionAttributeNum = 14;
+	public static String ConfigureFilePath = RunPath + "\\Config.ini";
 	
-	public void writeConfigure(String FilePath) {
-		
+	public static void writeConfigure(String FilePath) throws IOException {
+		BufferedWriter ConfigureFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FilePath, false)));
+		String str = "";
+		str = str + "RunPath = " + RunPath + "\r\n";
+		str = str + "UnconfirmedDataMaxIndex = " + UnconfirmedDataMaxIndex + "\r\n";
+		str = str + "ConfirmedDataMaxIndex = " + ConfirmedDataMaxIndex + "\r\n";
+		str = str + "UntrainedDataMaxIndex = " + UntrainedDataMaxIndex + "\r\n";
+		str = str + "TrainedDataMaxIndex = " + TrainedDataMaxIndex + "\r\n";
+		str = str + "BadDataMaxIndex = " + BadDataMaxIndex + "\r\n";
+		str = str + "TrainModelMaxIndex = " + TrainModelMaxIndex + "\r\n";
+		str = str + "UnconfirmedDataName = " + UnconfirmedDataName + "\r\n";
+		str = str + "ConfirmedDataName = " + ConfirmedDataName + "\r\n";
+		str = str + "UntrainedDataName = " + UntrainedDataName + "\r\n";
+		str = str + "TrainedDataName = " + TrainedDataName + "\r\n";
+		str = str + "BadDataName = " + BadDataName + "\r\n";
+		str = str + "MaxInstanceItem = " + MaxInstanceItem + "\r\n";
+		str = str + "InitDataNum = " + InitDataNum + "\r\n";
+		str = str + "UnfilledHint = " + UnfilledHint + "\r\n";
+		str = str + "BadDataBound = " + BadDataBound + "\r\n";
+		str = str + "MultiPreceptionOSModelIndex = " + MultiPreceptionOSModelIndex + "\r\n";
+		str = str + "MultiPreceptionODModelIndex = " + MultiPreceptionODModelIndex + "\r\n";
+		str = str + "ClassifyModelIndex = " + ClassifyModelIndex + "\r\n";
+		ConfigureFile.write(str);
+		ConfigureFile.flush();
+		ConfigureFile.close();
 	}
 	
-	public void readConfigure(String FilePath) {
-		
+	public static void readConfigure(String FilePath) throws IOException {
+		BufferedReader ConfigureFile = new BufferedReader(new FileReader(new File(FilePath)));
+		String Line = "";
+		while ((Line = ConfigureFile.readLine()) == null) {
+			Line = Line.replace(" ", "");
+			String Key = Line.split("=")[0];
+			String Value = Line.split("=")[1];
+			if (Key.equals("RunPath")) {
+				RunPath = Value;
+			}
+			else if (Key.equals("UnconfirmedDataMaxIndex")) {
+				UnconfirmedDataMaxIndex = Integer.parseInt(Value);
+			}
+			else if (Key.equals("ConfirmedDataMaxIndex")) {
+				ConfirmedDataMaxIndex = Integer.parseInt(Value);
+			}
+			else if (Key.equals("UntrainedDataMaxIndex")) {
+				UntrainedDataMaxIndex = Integer.parseInt(Value);
+			}
+			else if (Key.equals("TrainedDataMaxIndex")) {
+				TrainedDataMaxIndex = Integer.parseInt(Value);
+			}
+			else if (Key.equals("BadDataMaxIndex")) {
+				BadDataMaxIndex = Integer.parseInt(Value);
+			}
+			else if (Key.equals("TrainModelMaxIndex")) {
+				TrainModelMaxIndex = Integer.parseInt(Value);
+			}
+			else if (Key.equals("UnconfirmedDataName")) {
+				UnconfirmedDataName = Value;
+			}
+			else if (Key.equals("ConfirmedDataName")) {
+				ConfirmedDataName = Value;
+			}
+			else if (Key.equals("UntrainedDataName")) {
+				UntrainedDataName = Value;
+			}
+			else if (Key.equals("TrainedDataName")) {
+				TrainedDataName = Value;
+			}
+			else if (Key.equals("BadDataName")) {
+				BadDataName = Value;
+			}
+			else if (Key.equals("MaxInstanceItem")) {
+				MaxInstanceItem = Integer.parseInt(Value);
+			}
+			else if (Key.equals("InitDataNum")) {
+				InitDataNum = Integer.parseInt(Value);
+			}
+			else if (Key.equals("UnfilledHint")) {
+				UnfilledHint = Value;
+			}
+			else if (Key.equals("BadDataBound")) {
+				BadDataBound = Double.parseDouble(Value);
+			}
+			else if (Key.equals("MultiPreceptionOSModelIndex")) {
+				MultiPreceptionOSModelIndex = Integer.parseInt(Value);
+			}
+			else if (Key.equals("MultiPreceptionODModelIndex")) {
+				MultiPreceptionODModelIndex = Integer.parseInt(Value);
+			}
+			else if (Key.equals("ClassifyModelIndex")) {
+				ClassifyModelIndex = Integer.parseInt(Value);
+			}
+		}
 	}
 	
 	public static void FileCopy(String readfile,String writeFile) {

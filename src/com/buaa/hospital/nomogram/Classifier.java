@@ -4,12 +4,20 @@ import java.io.File;
 
 import weka.classifiers.meta.Bagging;
 import weka.core.Instance;
+import weka.core.Instances;
 import weka.core.SerializationHelper;
 
 public class Classifier {
 	private static Bagging baggingClassifier;
-	public static void buildClassfier(){
-		
+	public static boolean buildClassfier(String modelPath,Instances instances) throws Exception{
+		if(modelPath==null||instances==null){
+			throw new Exception("Null model path or instances");
+		}
+		Bagging classifierToSave = new Bagging();
+		instances.setClassIndex(10);
+		classifierToSave.buildClassifier(instances);
+		SerializationHelper.write(modelPath, classifierToSave);
+		return true;
 	}
 	public static double predict(String modelPath,Instance instance) throws Exception{
 		if("".equals(modelPath)||(instance==null)){

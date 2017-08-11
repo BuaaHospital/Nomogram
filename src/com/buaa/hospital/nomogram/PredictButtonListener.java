@@ -33,7 +33,7 @@ public class PredictButtonListener implements ActionListener{
 			else if (predictInterface.getAlogrithmNum() == 1) {
 				//神经网络算法
 				try {
-					Nomogram = multilayer.Transfrom(attribute.PredictbyMultiPreception(predictInterface.getModelNum()));	
+					Nomogram = Multilayer.Transfrom(attribute.PredictbyMultiPreception(predictInterface.getModelNum()));	
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

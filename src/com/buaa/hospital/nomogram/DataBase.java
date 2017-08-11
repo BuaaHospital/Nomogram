@@ -37,22 +37,22 @@ public class DataBase {
 	
 	public void Init() throws Exception {
 		UnconfirmedDataIndex = 1;
-		UnconfirmedData = multilayer.loaddata(getCurrentUnconfirmedDataPath());
+		UnconfirmedData = Multilayer.loaddata(getCurrentUnconfirmedDataPath());
 		ConfirmedDataIndex = 1;
-		ConfirmedData = multilayer.loaddata(getCurrentConfirmedDataPath());
+		ConfirmedData = Multilayer.loaddata(getCurrentConfirmedDataPath());
 		UntrainedDataIndex = 1;
-		UntrainedData = multilayer.loaddata(getCurrentUntrainedDataPath());
+		UntrainedData = Multilayer.loaddata(getCurrentUntrainedDataPath());
 		UntrainedDataIndex = 1;
-		TrainedData = multilayer.loaddata(getCurrentTrainedDataPath());
+		TrainedData = Multilayer.loaddata(getCurrentTrainedDataPath());
 		BadDataIndex = 1;
-		BadData = multilayer.loaddata(getCurrentBadDataPath());
+		BadData = Multilayer.loaddata(getCurrentBadDataPath());
 	}
 	
 	
 	public Instances getNextUnconfirmedData() throws Exception {
 		if (UnconfirmedDataIndex < Constant.UnconfirmedDataMaxIndex) {
 			UnconfirmedDataIndex ++;
-			UnconfirmedData = multilayer.loaddata(getCurrentUnconfirmedDataPath());
+			UnconfirmedData = Multilayer.loaddata(getCurrentUnconfirmedDataPath());
 			return UnconfirmedData;
 		}
 		else {
@@ -64,7 +64,7 @@ public class DataBase {
 	public Instances getNextConfirmedData() throws Exception {
 		if (ConfirmedDataIndex < Constant.ConfirmedDataMaxIndex) {
 			ConfirmedDataIndex ++;
-			ConfirmedData = multilayer.loaddata(getCurrentConfirmedDataPath());
+			ConfirmedData = Multilayer.loaddata(getCurrentConfirmedDataPath());
 			return ConfirmedData;
 		}
 		else {
@@ -76,7 +76,7 @@ public class DataBase {
 	public Instances getNextUntrainedData() throws Exception {
 		if (UntrainedDataIndex < Constant.UntrainedDataMaxIndex) {
 			UntrainedDataIndex ++;
-			UntrainedData = multilayer.loaddata(getCurrentUntrainedDataPath());
+			UntrainedData = Multilayer.loaddata(getCurrentUntrainedDataPath());
 			return UntrainedData;
 		}
 		else {
@@ -88,7 +88,7 @@ public class DataBase {
 	public Instances getNextTrainedData() throws Exception {
 		if (TrainedDataIndex < Constant.TrainedDataMaxIndex) {
 			TrainedDataIndex ++;
-			TrainedData = multilayer.loaddata(getCurrentTrainedDataPath());
+			TrainedData = Multilayer.loaddata(getCurrentTrainedDataPath());
 			return TrainedData;
 		}
 		else {
@@ -100,7 +100,7 @@ public class DataBase {
 	public Instances getNextBadData() throws Exception {
 		if (BadDataIndex < Constant.BadDataMaxIndex) {
 			BadDataIndex ++;
-			BadData = multilayer.loaddata(getCurrentBadDataPath());
+			BadData = Multilayer.loaddata(getCurrentBadDataPath());
 			return BadData;
 		}
 		else {
