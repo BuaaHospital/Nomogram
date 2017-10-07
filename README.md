@@ -1,3 +1,3 @@
 # Nomogram
 
-&emsp abc
+　　abc
